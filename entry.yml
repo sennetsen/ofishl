@@ -1,0 +1,26 @@
+---
+# Members of your group.
+group:
+  - name: Tony Oh
+    netid: do256
+  - name: Parker Rho
+    netid: pkr47
+  - name: Sennet Senadheera
+    netid: sas639
+  - name: Aaron Song
+    netid: ams799
+# Your PM.
+pm:
+  name: Ryan Mistretta
+  netid: rhm255
+# Set to false if you don't want your gallery entry to be public.
+publish: false
+# Pithy title
+title: "Fishing Game"
+# OK if this is a Cornell Github link, but public gallery viewers won't be able to see it.
+git-repo: "https://github.coecis.cornell.edu/pkr47/Final-Project"
+# If you have no demo screencast, replace the url string with an empty string ""
+demo-video-url: ""
+# Write a short, attention-grabbing description of your project.
+desc: >
+  Welcome to fish game!
