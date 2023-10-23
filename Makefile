@@ -12,3 +12,8 @@ test:
 
 run:
 	OCAMLRUNPARAM=b dune exec bin/main.exe
+
+opam: 
+	opam update
+	opam upgrade
+	opam install graphics
