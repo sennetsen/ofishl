@@ -1,4 +1,4 @@
-(lang dune 3.11)
+(lang dune 3.10)
 (name Game)
 (sections (lib .) (libexec .) (doc ../../doc/Game))
 (files
@@ -14,13 +14,17 @@
    game.ml
    game__Player.cmi
    game__Player.cmt
+   game__Player.cmti
    game__Player.cmx
    game__Window.cmi
    game__Window.cmt
+   game__Window.cmti
    game__Window.cmx
    opam
    player.ml
-   window.ml))
+   player.mli
+   window.ml
+   window.mli))
  (libexec (game.cmxs))
  (doc (README.md)))
 (library
@@ -45,9 +49,9 @@
      (module
       (obj_name game__Player)
       (visibility public)
-      (source (path Player) (impl (path player.ml))))
+      (source (path Player) (intf (path player.mli)) (impl (path player.ml))))
      (module
       (obj_name game__Window)
       (visibility public)
-      (source (path Window) (impl (path window.ml))))))
+      (source (path Window) (intf (path window.mli)) (impl (path window.ml))))))
    (wrapped true))))

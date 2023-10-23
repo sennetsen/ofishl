@@ -1,0 +1,6 @@
+# temporary files
+*.swp
+.DS_Store
+
+# ocaml
+_build

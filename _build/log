@@ -1,9 +1,9 @@
 # dune build
 # OCAMLPARAM: unset
 # Shared cache: disabled
-# Workspace root: /home/asong0619/cs3110/Final-Project-main
-# Auto-detected concurrency: 12
-$ /home/asong0619/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /tmp/dune_af37cc_output
+# Workspace root: /Users/sennet/school/cs3110/Final-Project
+# Auto-detected concurrency: 8
+$ /Users/sennet/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /var/folders/9x/6z16m53n6q10kt1r49cbw8c80000gn/T/dune_610803_output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -12,68 +12,78 @@ $ /home/asong0619/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /tmp/dune_af37cc_
 #  ; for_host = None
 #  ; fdo_target_exe = None
 #  ; build_dir = In_build_dir "default"
-#  ; ocaml_bin = External "/home/asong0619/.opam/cs3110-2023fa/bin"
-#  ; ocaml = Ok External "/home/asong0619/.opam/cs3110-2023fa/bin/ocaml"
-#  ; ocamlc = External "/home/asong0619/.opam/cs3110-2023fa/bin/ocamlc.opt"
+#  ; ocaml_bin = External "/Users/sennet/.opam/cs3110-2023fa/bin"
+#  ; ocaml = Ok External "/Users/sennet/.opam/cs3110-2023fa/bin/ocaml"
+#  ; ocamlc = External "/Users/sennet/.opam/cs3110-2023fa/bin/ocamlc.opt"
 #  ; ocamlopt =
-#      Ok External "/home/asong0619/.opam/cs3110-2023fa/bin/ocamlopt.opt"
+#      Ok External "/Users/sennet/.opam/cs3110-2023fa/bin/ocamlopt.opt"
 #  ; ocamldep =
-#      Ok External "/home/asong0619/.opam/cs3110-2023fa/bin/ocamldep.opt"
+#      Ok External "/Users/sennet/.opam/cs3110-2023fa/bin/ocamldep.opt"
 #  ; ocamlmklib =
-#      Ok External "/home/asong0619/.opam/cs3110-2023fa/bin/ocamlmklib.opt"
-#  ; installed_env =
+#      Ok External "/Users/sennet/.opam/cs3110-2023fa/bin/ocamlmklib.opt"
+#  ; env =
 #      map
-#        { "INSIDE_DUNE" :
-#            "/home/asong0619/cs3110/Final-Project-main/_build/default"
+#        { "DUNE_OCAML_HARDCODED" :
+#            "/Users/sennet/.opam/cs3110-2023fa/lib/ocaml:/Users/sennet/.opam/cs3110-2023fa/lib"
+#        ; "DUNE_OCAML_STDLIB" : "/Users/sennet/.opam/cs3110-2023fa/lib/ocaml"
+#        ; "DUNE_SOURCEROOT" : "/Users/sennet/school/cs3110/Final-Project"
+#        ; "INSIDE_DUNE" :
+#            "/Users/sennet/school/cs3110/Final-Project/_build/default"
+#        ; "OCAMLFIND_IGNORE_DUPS_IN" :
+#            "/Users/sennet/school/cs3110/Final-Project/_build/install/default/lib"
+#        ; "OCAMLPATH" :
+#            "/Users/sennet/school/cs3110/Final-Project/_build/install/default/lib"
+#        ; "OCAMLTOP_INCLUDE_PATH" :
+#            "/Users/sennet/school/cs3110/Final-Project/_build/install/default/lib/toplevel"
 #        ; "OCAML_COLOR" : "always"
 #        ; "OPAMCOLOR" : "always"
 #        }
 #  ; findlib_paths =
-#      [ External "/home/asong0619/.opam/cs3110-2023fa/lib/ocaml"
-#      ; External "/home/asong0619/.opam/cs3110-2023fa/lib"
+#      [ External "/Users/sennet/.opam/cs3110-2023fa/lib/ocaml"
+#      ; External "/Users/sennet/.opam/cs3110-2023fa/lib"
 #      ]
+#  ; natdynlink_supported = true
+#  ; supports_shared_libraries = true
 #  ; ocaml_config =
 #      { version = "5.0.0"
 #      ; standard_library_default =
-#          "/home/asong0619/.opam/cs3110-2023fa/lib/ocaml"
-#      ; standard_library = "/home/asong0619/.opam/cs3110-2023fa/lib/ocaml"
+#          "/Users/sennet/.opam/cs3110-2023fa/lib/ocaml"
+#      ; standard_library = "/Users/sennet/.opam/cs3110-2023fa/lib/ocaml"
 #      ; standard_runtime = "the_standard_runtime_variable_was_deleted"
 #      ; ccomp_type = "cc"
-#      ; c_compiler = "gcc"
+#      ; c_compiler = "cc"
 #      ; ocamlc_cflags =
-#          [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-pthread"; "-fPIC" ]
+#          [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-pthread" ]
 #      ; ocamlc_cppflags = [ "-D_FILE_OFFSET_BITS=64" ]
 #      ; ocamlopt_cflags =
-#          [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-pthread"; "-fPIC" ]
+#          [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-pthread" ]
 #      ; ocamlopt_cppflags = [ "-D_FILE_OFFSET_BITS=64" ]
 #      ; bytecomp_c_compiler =
-#          [ "gcc"
+#          [ "cc"
 #          ; "-O2"
 #          ; "-fno-strict-aliasing"
 #          ; "-fwrapv"
 #          ; "-pthread"
-#          ; "-fPIC"
 #          ; "-D_FILE_OFFSET_BITS=64"
 #          ]
 #      ; bytecomp_c_libraries = [ "-lm"; "-lpthread" ]
 #      ; native_c_compiler =
-#          [ "gcc"
+#          [ "cc"
 #          ; "-O2"
 #          ; "-fno-strict-aliasing"
 #          ; "-fwrapv"
 #          ; "-pthread"
-#          ; "-fPIC"
 #          ; "-D_FILE_OFFSET_BITS=64"
 #          ]
 #      ; native_c_libraries = [ "-lm"; "-lpthread" ]
 #      ; native_pack_linker = [ "ld"; "-r"; "-o" ]
 #      ; cc_profile = []
-#      ; architecture = "amd64"
+#      ; architecture = "arm64"
 #      ; model = "default"
 #      ; int_size = 63
 #      ; word_size = 64
-#      ; system = "linux"
-#      ; asm = [ "as" ]
+#      ; system = "macosx"
+#      ; asm = [ "cc"; "-c"; "-Wno-trigraphs" ]
 #      ; asm_cfi_supported = true
 #      ; with_frame_pointers = false
 #      ; ext_exe = ""
@@ -84,8 +94,8 @@ $ /home/asong0619/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /tmp/dune_af37cc_
 #      ; os_type = "Unix"
 #      ; default_executable_name = "a.out"
 #      ; systhread_supported = true
-#      ; host = "x86_64-pc-linux-gnu"
-#      ; target = "x86_64-pc-linux-gnu"
+#      ; host = "aarch64-apple-darwin22.5.0"
+#      ; target = "aarch64-apple-darwin22.5.0"
 #      ; profiling = false
 #      ; flambda = false
 #      ; spacetime = false
@@ -104,19 +114,4 @@ $ /home/asong0619/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /tmp/dune_af37cc_
 #      ; supports_shared_libraries = true
 #      ; windows_unicode = false
 #      }
-#  ; instrument_with = []
 #  }
-$ (cd _build/default && /home/asong0619/.opam/cs3110-2023fa/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -w -49 -nopervasives -nostdlib -g -bin-annot -I lib/.game.objs/byte -no-alias-deps -opaque -o lib/.game.objs/byte/game.cmo -c -impl lib/game.ml-gen)
-$ (cd _build/default && /home/asong0619/.opam/cs3110-2023fa/bin/ocamldep.opt -modules -impl lib/window.ml) > _build/default/lib/.game.objs/game__Window.impl.d
-$ (cd _build/default && /home/asong0619/.opam/cs3110-2023fa/bin/ocamldep.opt -modules -impl lib/player.ml) > _build/default/lib/.game.objs/game__Player.impl.d
-$ (cd _build/default && /home/asong0619/.opam/cs3110-2023fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I lib/.game.objs/byte -I /home/asong0619/.opam/cs3110-2023fa/lib/graphics -no-alias-deps -opaque -open Game -o lib/.game.objs/byte/game__Window.cmo -c -impl lib/window.ml)
-$ (cd _build/default && /home/asong0619/.opam/cs3110-2023fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I lib/.game.objs/byte -I /home/asong0619/.opam/cs3110-2023fa/lib/graphics -no-alias-deps -opaque -open Game -o lib/.game.objs/byte/game__Player.cmo -c -impl lib/player.ml)
-$ (cd _build/default && /home/asong0619/.opam/cs3110-2023fa/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -w -49 -nopervasives -nostdlib -g -I lib/.game.objs/byte -I lib/.game.objs/native -intf-suffix .ml-gen -no-alias-deps -opaque -o lib/.game.objs/native/game.cmx -c -impl lib/game.ml-gen)
-$ (cd _build/default && /home/asong0619/.opam/cs3110-2023fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -a -o lib/game.cma lib/.game.objs/byte/game.cmo lib/.game.objs/byte/game__Window.cmo lib/.game.objs/byte/game__Player.cmo)
-$ (cd _build/default && /home/asong0619/.opam/cs3110-2023fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I test/.main.eobjs/byte -I /home/asong0619/.opam/cs3110-2023fa/lib/graphics -I /home/asong0619/.opam/cs3110-2023fa/lib/ocaml/unix -I /home/asong0619/.opam/cs3110-2023fa/lib/ounit2 -I /home/asong0619/.opam/cs3110-2023fa/lib/ounit2/advanced -I /home/asong0619/.opam/cs3110-2023fa/lib/seq -I /home/asong0619/.opam/cs3110-2023fa/lib/stdlib-shims -I lib/.game.objs/byte -no-alias-deps -opaque -o test/.main.eobjs/byte/dune__exe__Main.cmi -c -intf test/main.mli)
-$ (cd _build/default && /home/asong0619/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I lib/.game.objs/byte -I lib/.game.objs/native -I /home/asong0619/.opam/cs3110-2023fa/lib/graphics -intf-suffix .ml -no-alias-deps -opaque -open Game -o lib/.game.objs/native/game__Window.cmx -c -impl lib/window.ml)
-$ (cd _build/default && /home/asong0619/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I lib/.game.objs/byte -I lib/.game.objs/native -I /home/asong0619/.opam/cs3110-2023fa/lib/graphics -intf-suffix .ml -no-alias-deps -opaque -open Game -o lib/.game.objs/native/game__Player.cmx -c -impl lib/player.ml)
-$ (cd _build/default && /home/asong0619/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I test/.main.eobjs/byte -I test/.main.eobjs/native -I /home/asong0619/.opam/cs3110-2023fa/lib/graphics -I /home/asong0619/.opam/cs3110-2023fa/lib/ocaml/unix -I /home/asong0619/.opam/cs3110-2023fa/lib/ounit2 -I /home/asong0619/.opam/cs3110-2023fa/lib/ounit2/advanced -I /home/asong0619/.opam/cs3110-2023fa/lib/seq -I /home/asong0619/.opam/cs3110-2023fa/lib/stdlib-shims -I lib/.game.objs/byte -I lib/.game.objs/native -intf-suffix .ml -no-alias-deps -opaque -o test/.main.eobjs/native/dune__exe__Main.cmx -c -impl test/main.ml)
-$ (cd _build/default && /home/asong0619/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -a -o lib/game.cmxa lib/.game.objs/native/game.cmx lib/.game.objs/native/game__Window.cmx lib/.game.objs/native/game__Player.cmx)
-$ (cd _build/default && /home/asong0619/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -shared -linkall -I lib -o lib/game.cmxs lib/game.cmxa)
-$ (cd _build/default && /home/asong0619/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -o test/main.exe /home/asong0619/.opam/cs3110-2023fa/lib/ocaml/unix/unix.cmxa /home/asong0619/.opam/cs3110-2023fa/lib/stdlib-shims/stdlib_shims.cmxa /home/asong0619/.opam/cs3110-2023fa/lib/ounit2/advanced/oUnitAdvanced.cmxa /home/asong0619/.opam/cs3110-2023fa/lib/ounit2/oUnit.cmxa /home/asong0619/.opam/cs3110-2023fa/lib/graphics/graphics.cmxa -I /home/asong0619/.opam/cs3110-2023fa/lib/graphics lib/game.cmxa test/.main.eobjs/native/dune__exe__Main.cmx)
