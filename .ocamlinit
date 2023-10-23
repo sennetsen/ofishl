@@ -1,3 +1,0 @@
-#require "graphics";;
-open Graphics;;
-#use "lib/player.ml";;
