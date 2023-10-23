@@ -23,4 +23,15 @@ git-repo: "https://github.coecis.cornell.edu/pkr47/Final-Project"
 demo-video-url: ""
 # Write a short, attention-grabbing description of your project.
 desc: >
-  Welcome to fish game!
+  Welcome to our fishing game! You, the user, can control the fisher that will
+  move around a lake on a boat. You can swim around, catching fish, and drop off
+  the fish you catch at the store in the middle of the lake. 
+  
+  The interface will be fully functioned by the mouse and the keys WASD.
+
+  To fish, press and hold a button to cast your line, and the longer you hold, 
+  the farther you casted line will be. Once a fish bites, play a short mini-game
+  of clicking quick circles on the screen to eventually catch your fish! 
+
+  You want more money in this game, and you will be able to purchase better
+  fishing equipment as you progress further into our game! Good luck!
