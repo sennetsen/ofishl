@@ -3,6 +3,7 @@ FOR MAC
 1. Download XQuartz
 2. Run XQuartz
 3. Follow steps 1-4 in the FOR WINDOWS section
+
 FOR WINDOWS
 1. Unzip the file
 2. Run the following commands in the terminal to set up the system
