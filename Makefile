@@ -17,3 +17,8 @@ opam:
 	opam update
 	opam upgrade
 	opam install graphics
+
+zip:
+	dune clean
+	zip -r Final-Project.zip . 
+	dune build
