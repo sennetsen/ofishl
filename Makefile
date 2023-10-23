@@ -5,7 +5,7 @@ utop:
 	OCAMLRUNPARAM=b dune utop lib
 
 utop-file:
-	export DISPLAY=:0.0 && (echo '#require "graphics";;' && echo 'open Graphics;;' && echo '#use "lib/player.ml";;' && echo 'init();;') | utop
+	export DISPLAY=:0.0 && (echo '#require "graphics";;' && echo 'open Graphics;;' && echo '#use "lib/player.ml";;' && echo '#use "lib/window.ml";;' && echo 'Window.init();;') | utop
 
 test:
 	OCAMLRUNPARAM=b dune exec test/main.exe

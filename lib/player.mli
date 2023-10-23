@@ -1,4 +1,5 @@
 open Graphics
 
-val move : status -> unit
-val init : unit -> unit
+module type Player = sig
+  val move : status -> unit
+end
