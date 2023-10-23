@@ -1,9 +1,9 @@
 # dune build
 # OCAMLPARAM: unset
 # Shared cache: disabled
-# Workspace root: /home/bluelephant/3110/Final
+# Workspace root: /home/asong0619/cs3110/Final-Project-main
 # Auto-detected concurrency: 12
-$ /home/bluelephant/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /tmp/dune_d7ac99_output
+$ /home/asong0619/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /tmp/dune_af37cc_output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -12,30 +12,31 @@ $ /home/bluelephant/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /tmp/dune_d7ac9
 #  ; for_host = None
 #  ; fdo_target_exe = None
 #  ; build_dir = In_build_dir "default"
-#  ; ocaml_bin = External "/home/bluelephant/.opam/cs3110-2023fa/bin"
-#  ; ocaml = Ok External "/home/bluelephant/.opam/cs3110-2023fa/bin/ocaml"
-#  ; ocamlc = External "/home/bluelephant/.opam/cs3110-2023fa/bin/ocamlc.opt"
+#  ; ocaml_bin = External "/home/asong0619/.opam/cs3110-2023fa/bin"
+#  ; ocaml = Ok External "/home/asong0619/.opam/cs3110-2023fa/bin/ocaml"
+#  ; ocamlc = External "/home/asong0619/.opam/cs3110-2023fa/bin/ocamlc.opt"
 #  ; ocamlopt =
-#      Ok External "/home/bluelephant/.opam/cs3110-2023fa/bin/ocamlopt.opt"
+#      Ok External "/home/asong0619/.opam/cs3110-2023fa/bin/ocamlopt.opt"
 #  ; ocamldep =
-#      Ok External "/home/bluelephant/.opam/cs3110-2023fa/bin/ocamldep.opt"
+#      Ok External "/home/asong0619/.opam/cs3110-2023fa/bin/ocamldep.opt"
 #  ; ocamlmklib =
-#      Ok External "/home/bluelephant/.opam/cs3110-2023fa/bin/ocamlmklib.opt"
+#      Ok External "/home/asong0619/.opam/cs3110-2023fa/bin/ocamlmklib.opt"
 #  ; installed_env =
 #      map
-#        { "INSIDE_DUNE" : "/home/bluelephant/3110/Final/_build/default"
+#        { "INSIDE_DUNE" :
+#            "/home/asong0619/cs3110/Final-Project-main/_build/default"
 #        ; "OCAML_COLOR" : "always"
 #        ; "OPAMCOLOR" : "always"
 #        }
 #  ; findlib_paths =
-#      [ External "/home/bluelephant/.opam/cs3110-2023fa/lib/ocaml"
-#      ; External "/home/bluelephant/.opam/cs3110-2023fa/lib"
+#      [ External "/home/asong0619/.opam/cs3110-2023fa/lib/ocaml"
+#      ; External "/home/asong0619/.opam/cs3110-2023fa/lib"
 #      ]
 #  ; ocaml_config =
 #      { version = "5.0.0"
 #      ; standard_library_default =
-#          "/home/bluelephant/.opam/cs3110-2023fa/lib/ocaml"
-#      ; standard_library = "/home/bluelephant/.opam/cs3110-2023fa/lib/ocaml"
+#          "/home/asong0619/.opam/cs3110-2023fa/lib/ocaml"
+#      ; standard_library = "/home/asong0619/.opam/cs3110-2023fa/lib/ocaml"
 #      ; standard_runtime = "the_standard_runtime_variable_was_deleted"
 #      ; ccomp_type = "cc"
 #      ; c_compiler = "gcc"
@@ -105,12 +106,17 @@ $ /home/bluelephant/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /tmp/dune_d7ac9
 #      }
 #  ; instrument_with = []
 #  }
-$ (cd _build/default && /home/bluelephant/.opam/cs3110-2023fa/bin/ocamldep.opt -modules -impl lib/player.ml) > _build/default/lib/.game.objs/game__Player.impl.d
-$ (cd _build/default && /home/bluelephant/.opam/cs3110-2023fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I lib/.game.objs/byte -I /home/bluelephant/.opam/cs3110-2023fa/lib/graphics -no-alias-deps -opaque -open Game -o lib/.game.objs/byte/game__Player.cmo -c -impl lib/player.ml)
-$ (cd _build/default && /home/bluelephant/.opam/cs3110-2023fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -a -o lib/game.cma lib/.game.objs/byte/game.cmo lib/.game.objs/byte/game__Window.cmo lib/.game.objs/byte/game__Player.cmo)
-$ (cd _build/default && /home/bluelephant/.opam/cs3110-2023fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I test/.main.eobjs/byte -I /home/bluelephant/.opam/cs3110-2023fa/lib/graphics -I /home/bluelephant/.opam/cs3110-2023fa/lib/ocaml/unix -I /home/bluelephant/.opam/cs3110-2023fa/lib/ounit2 -I /home/bluelephant/.opam/cs3110-2023fa/lib/ounit2/advanced -I /home/bluelephant/.opam/cs3110-2023fa/lib/seq -I /home/bluelephant/.opam/cs3110-2023fa/lib/stdlib-shims -I lib/.game.objs/byte -no-alias-deps -opaque -o test/.main.eobjs/byte/dune__exe__Main.cmi -c -intf test/main.mli)
-$ (cd _build/default && /home/bluelephant/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I test/.main.eobjs/byte -I test/.main.eobjs/native -I /home/bluelephant/.opam/cs3110-2023fa/lib/graphics -I /home/bluelephant/.opam/cs3110-2023fa/lib/ocaml/unix -I /home/bluelephant/.opam/cs3110-2023fa/lib/ounit2 -I /home/bluelephant/.opam/cs3110-2023fa/lib/ounit2/advanced -I /home/bluelephant/.opam/cs3110-2023fa/lib/seq -I /home/bluelephant/.opam/cs3110-2023fa/lib/stdlib-shims -I lib/.game.objs/byte -I lib/.game.objs/native -intf-suffix .ml -no-alias-deps -opaque -o test/.main.eobjs/native/dune__exe__Main.cmx -c -impl test/main.ml)
-$ (cd _build/default && /home/bluelephant/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I lib/.game.objs/byte -I lib/.game.objs/native -I /home/bluelephant/.opam/cs3110-2023fa/lib/graphics -intf-suffix .ml -no-alias-deps -opaque -open Game -o lib/.game.objs/native/game__Player.cmx -c -impl lib/player.ml)
-$ (cd _build/default && /home/bluelephant/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -a -o lib/game.cmxa lib/.game.objs/native/game.cmx lib/.game.objs/native/game__Window.cmx lib/.game.objs/native/game__Player.cmx)
-$ (cd _build/default && /home/bluelephant/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -shared -linkall -I lib -o lib/game.cmxs lib/game.cmxa)
-$ (cd _build/default && /home/bluelephant/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -o test/main.exe /home/bluelephant/.opam/cs3110-2023fa/lib/ocaml/unix/unix.cmxa /home/bluelephant/.opam/cs3110-2023fa/lib/stdlib-shims/stdlib_shims.cmxa /home/bluelephant/.opam/cs3110-2023fa/lib/ounit2/advanced/oUnitAdvanced.cmxa /home/bluelephant/.opam/cs3110-2023fa/lib/ounit2/oUnit.cmxa /home/bluelephant/.opam/cs3110-2023fa/lib/graphics/graphics.cmxa -I /home/bluelephant/.opam/cs3110-2023fa/lib/graphics lib/game.cmxa test/.main.eobjs/native/dune__exe__Main.cmx)
+$ (cd _build/default && /home/asong0619/.opam/cs3110-2023fa/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -w -49 -nopervasives -nostdlib -g -bin-annot -I lib/.game.objs/byte -no-alias-deps -opaque -o lib/.game.objs/byte/game.cmo -c -impl lib/game.ml-gen)
+$ (cd _build/default && /home/asong0619/.opam/cs3110-2023fa/bin/ocamldep.opt -modules -impl lib/window.ml) > _build/default/lib/.game.objs/game__Window.impl.d
+$ (cd _build/default && /home/asong0619/.opam/cs3110-2023fa/bin/ocamldep.opt -modules -impl lib/player.ml) > _build/default/lib/.game.objs/game__Player.impl.d
+$ (cd _build/default && /home/asong0619/.opam/cs3110-2023fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I lib/.game.objs/byte -I /home/asong0619/.opam/cs3110-2023fa/lib/graphics -no-alias-deps -opaque -open Game -o lib/.game.objs/byte/game__Window.cmo -c -impl lib/window.ml)
+$ (cd _build/default && /home/asong0619/.opam/cs3110-2023fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I lib/.game.objs/byte -I /home/asong0619/.opam/cs3110-2023fa/lib/graphics -no-alias-deps -opaque -open Game -o lib/.game.objs/byte/game__Player.cmo -c -impl lib/player.ml)
+$ (cd _build/default && /home/asong0619/.opam/cs3110-2023fa/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -w -49 -nopervasives -nostdlib -g -I lib/.game.objs/byte -I lib/.game.objs/native -intf-suffix .ml-gen -no-alias-deps -opaque -o lib/.game.objs/native/game.cmx -c -impl lib/game.ml-gen)
+$ (cd _build/default && /home/asong0619/.opam/cs3110-2023fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -a -o lib/game.cma lib/.game.objs/byte/game.cmo lib/.game.objs/byte/game__Window.cmo lib/.game.objs/byte/game__Player.cmo)
+$ (cd _build/default && /home/asong0619/.opam/cs3110-2023fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I test/.main.eobjs/byte -I /home/asong0619/.opam/cs3110-2023fa/lib/graphics -I /home/asong0619/.opam/cs3110-2023fa/lib/ocaml/unix -I /home/asong0619/.opam/cs3110-2023fa/lib/ounit2 -I /home/asong0619/.opam/cs3110-2023fa/lib/ounit2/advanced -I /home/asong0619/.opam/cs3110-2023fa/lib/seq -I /home/asong0619/.opam/cs3110-2023fa/lib/stdlib-shims -I lib/.game.objs/byte -no-alias-deps -opaque -o test/.main.eobjs/byte/dune__exe__Main.cmi -c -intf test/main.mli)
+$ (cd _build/default && /home/asong0619/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I lib/.game.objs/byte -I lib/.game.objs/native -I /home/asong0619/.opam/cs3110-2023fa/lib/graphics -intf-suffix .ml -no-alias-deps -opaque -open Game -o lib/.game.objs/native/game__Window.cmx -c -impl lib/window.ml)
+$ (cd _build/default && /home/asong0619/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I lib/.game.objs/byte -I lib/.game.objs/native -I /home/asong0619/.opam/cs3110-2023fa/lib/graphics -intf-suffix .ml -no-alias-deps -opaque -open Game -o lib/.game.objs/native/game__Player.cmx -c -impl lib/player.ml)
+$ (cd _build/default && /home/asong0619/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I test/.main.eobjs/byte -I test/.main.eobjs/native -I /home/asong0619/.opam/cs3110-2023fa/lib/graphics -I /home/asong0619/.opam/cs3110-2023fa/lib/ocaml/unix -I /home/asong0619/.opam/cs3110-2023fa/lib/ounit2 -I /home/asong0619/.opam/cs3110-2023fa/lib/ounit2/advanced -I /home/asong0619/.opam/cs3110-2023fa/lib/seq -I /home/asong0619/.opam/cs3110-2023fa/lib/stdlib-shims -I lib/.game.objs/byte -I lib/.game.objs/native -intf-suffix .ml -no-alias-deps -opaque -o test/.main.eobjs/native/dune__exe__Main.cmx -c -impl test/main.ml)
+$ (cd _build/default && /home/asong0619/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -a -o lib/game.cmxa lib/.game.objs/native/game.cmx lib/.game.objs/native/game__Window.cmx lib/.game.objs/native/game__Player.cmx)
+$ (cd _build/default && /home/asong0619/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -shared -linkall -I lib -o lib/game.cmxs lib/game.cmxa)
+$ (cd _build/default && /home/asong0619/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -o test/main.exe /home/asong0619/.opam/cs3110-2023fa/lib/ocaml/unix/unix.cmxa /home/asong0619/.opam/cs3110-2023fa/lib/stdlib-shims/stdlib_shims.cmxa /home/asong0619/.opam/cs3110-2023fa/lib/ounit2/advanced/oUnitAdvanced.cmxa /home/asong0619/.opam/cs3110-2023fa/lib/ounit2/oUnit.cmxa /home/asong0619/.opam/cs3110-2023fa/lib/graphics/graphics.cmxa -I /home/asong0619/.opam/cs3110-2023fa/lib/graphics lib/game.cmxa test/.main.eobjs/native/dune__exe__Main.cmx)
