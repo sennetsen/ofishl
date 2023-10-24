@@ -17,6 +17,7 @@ opam:
 	opam update
 	opam upgrade
 	opam install graphics
+	opam install spectrum
 
 zip:
 	dune clean
