@@ -1,7 +1,7 @@
-# INSTALLATION
+# Installation and Setup
 ## FOR MAC
-1. Download XQuartz (with HomeBrew: use ```brew install xquartz```)
-2. Run XQuartz (from Terminal: enter ```open -a xquartz.app``` or open from Launchpad)
+1. Download XQuartz (with Homebrew: use ```brew install xquartz```)
+2. Run XQuartz (from the terminal: enter ```open -a xquartz.app``` or open from Launchpad)
 3. Follow steps 1-4 in the **FOR WINDOWS** section below
 
 ## FOR WINDOWS
