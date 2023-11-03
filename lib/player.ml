@@ -4,6 +4,7 @@ open Graphics
 
 module type Player = sig
   val move : status -> unit
+  val init : unit -> unit
 end
 
 module Player = struct
@@ -19,4 +20,14 @@ module Player = struct
     let y = current_y () in
     Graphics.clear_graph ();
     fill_circle x y 3
+
+  let init (input : unit) =
+    Graphics.open_graph " 750x750+500+500";
+    Graphics.set_window_title "hai :3";
+    Graphics.plot 10 10;
+    Graphics.moveto 375 375;
+    Graphics.fill_circle 375 375 3;
+    Graphics.auto_synchronize true;
+    Graphics.display_mode true;
+    Graphics.loop_at_exit [ Key_pressed ] move
 end
