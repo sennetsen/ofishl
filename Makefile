@@ -13,8 +13,12 @@ test:
 run:
 	OCAMLRUNPARAM=b dune exec bin/main.exe
 
-rayrun:
+ray:
 	OCAMLRUNPARAM=b dune exec ray/main.exe
+
+opamray: 
+	opam depext raylib
+	opam install raylib
 
 opam: 
 	opam update
