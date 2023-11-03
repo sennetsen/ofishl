@@ -13,6 +13,9 @@ test:
 run:
 	OCAMLRUNPARAM=b dune exec bin/main.exe
 
+rayrun:
+	OCAMLRUNPARAM=b dune exec ray/main.exe
+
 opam: 
 	opam update
 	opam upgrade
