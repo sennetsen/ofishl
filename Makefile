@@ -1,3 +1,6 @@
+.PHONY: test check
+.PHONY: ray check
+
 build:
 	dune build
 
