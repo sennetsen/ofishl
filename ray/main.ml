@@ -1,16 +1,46 @@
 open Raylib
+
+(* Documentation of the library can be found here:
+   https://tjammer.github.io/raylib-ocaml/raylib/Raylib/index.html *)
+
 let setup () =
   Raylib.init_window 800 450 "raylib [core] example - basic window";
   Raylib.set_target_fps 60
+
+let boat_pos = ref (Raylib.Vector2.create 400. 225.)
+let boat_h = Raylib.Vector2.create 15. 10.
+let boat_v = Raylib.Vector2.create 10. 15.
+let boat_face = ref boat_h
 
 let rec loop () =
   if Raylib.window_should_close () then Raylib.close_window ()
   else
     let open Raylib in
+    if is_key_down Key.A then (
+      boat_face := boat_h;
+      boat_pos := Vector2.add !boat_pos (Vector2.create ~-.2. 0.))
+    else ();
+    if is_key_down Key.D then (
+      boat_face := boat_h;
+      boat_pos := Vector2.add !boat_pos (Vector2.create 2. 0.))
+    else ();
+    if is_key_down Key.W then (
+      boat_face := boat_v;
+      boat_pos := Vector2.add !boat_pos (Vector2.create 0. ~-.2.))
+    else ();
+    if is_key_down Key.S then (
+      boat_face := boat_v;
+      boat_pos := Vector2.add !boat_pos (Vector2.create 0. 2.))
+    else ();
+    let boatx = int_of_float (Vector2.x !boat_pos) in
+    let boaty = int_of_float (Vector2.y !boat_pos) in
+    let boatfx = Vector2.x !boat_face in
+    let boatfy = Vector2.y !boat_face in
     begin_drawing ();
     clear_background Color.raywhite;
     draw_text "Congrats! You created your first window!" 190 200 20
       Color.lightgray;
+    draw_ellipse boatx boaty boatfx boatfy Color.brown;
     end_drawing ();
     loop ()
 
