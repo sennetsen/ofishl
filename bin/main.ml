@@ -1,4 +1,4 @@
 open Ray
-open Main
+open Window
 
-let () = Main.run ()
+let () = Window.run ()
