@@ -9,7 +9,7 @@ module type SpriteSig = sig
   val generate : unit -> t
   val draw : t -> unit
   val colliding : Vector2.t -> t -> bool
-  val is_border_crossed : t -> bool
+
 end
 
 (** The module used for controlling sprites. *)
@@ -24,7 +24,5 @@ module Sprite : SpriteSig = struct
   let colliding (boat : Vector2.t) (sprite : t) : bool =
     check_collision_circles boat 15. sprite 8.
 
-  let is_border_crossed (sprite : t) : bool =
-    failwith ""
 
 end

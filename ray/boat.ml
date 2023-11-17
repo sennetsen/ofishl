@@ -8,7 +8,7 @@ module type BoatSig = sig
   val boat_face : Vector2.t ref
   val move : Vector2.t -> unit
   val draw : unit -> unit
-  val is_border_crossed : Vector2.t -> bool
+  val border_crossed : unit -> unit
 
 end
 
@@ -33,6 +33,9 @@ module Boat : BoatSig = struct
     let radv = Vector2.y !boat_face in
     draw_ellipse boatx boaty radh radv Color.brown
   
-  let is_border_crossed (v : Vector2.t) : bool =
-    failwith ""
+  let border_crossed () : unit =
+    if (Vector2.x !boat_pos <= 0.) then (Vector2.set_x !boat_pos 512.)
+    else if (Vector2.x !boat_pos >= 512.) then (Vector2.set_x !boat_pos 0.)
+    else if (Vector2.y !boat_pos <= 0.) then (Vector2.set_y !boat_pos 512.)
+    else if (Vector2.y !boat_pos >= 512.) then (Vector2.set_y !boat_pos 0.)
 end

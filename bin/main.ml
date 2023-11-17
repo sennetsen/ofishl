@@ -25,7 +25,7 @@ let () =
   Printf.printf "Hello, %s!\n" user;
   let chosen_map = enter_map () in
   Printf.printf "You've chosen map %s\n" (chosen_map);
-  Window.run (chosen_map)
+  Window.run chosen_map user
   
   
 

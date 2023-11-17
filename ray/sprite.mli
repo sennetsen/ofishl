@@ -17,10 +17,7 @@ module type SpriteSig = sig
   val colliding : Vector2.t -> t -> bool
   (** Given a boat and a sprite, return true if they are colliding and false if 
       not. *)
-
-  val is_border_crossed : t -> bool
-  (** Given a sprite, return true if it touches the edges of the canvas
-      window. *)
+  
 end
 
 (** The module used for manipulating sprites. *)

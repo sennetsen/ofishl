@@ -10,9 +10,10 @@ open AudioSprite
 let current_fish = ref (Fish.spawn ())
 let current_coin = ref (Sprite.generate ())
 
-let setup () =
-  Raylib.init_window 512 512 "window";
-  AudioSprite.play "data/audio-sprites/track1.mp3";
+let setup (map : string) (user : string) =
+  Raylib.init_window 512 512 (user ^ "'s Game | Map " ^ map);
+  AudioSprite.start ();
+  AudioSprite.play "data/audio-sprites/track1.wav";
   Raylib.set_target_fps 60
 
 let draw_background (background : string) =
@@ -29,12 +30,13 @@ let rec loop (map : string) =
     if (is_key_down Key.W || is_key_down Key.Up) then Boat.move (Vector2.create 0. ~-.2.) else ();
     if (is_key_down Key.S || is_key_down Key.Down) then Boat.move (Vector2.create 0. 2.) else ();
     if is_key_pressed Key.F && Fish.colliding !Boat.boat_pos !current_fish then
-      current_fish := Fish.spawn ()
-    else
+      current_fish := Fish.spawn ();
+
     if Sprite.colliding !Boat.boat_pos !current_coin then
-        current_coin := Sprite.generate ()
-      
-    else
+        current_coin := Sprite.generate ();
+    
+    Boat.border_crossed ();
+    
     begin_drawing ();
     clear_background Color.raywhite;
     Boat.draw ();
@@ -43,6 +45,6 @@ let rec loop (map : string) =
     end_drawing ();
     loop (map)
 
-let run (map : string) =
-  setup ();
+let run (map : string) (user : string) =
+  setup map user;
   loop map

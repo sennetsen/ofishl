@@ -6,6 +6,9 @@ module type AudioSpriteSig = sig
   type t
   (** The type of a sound object. *)
 
+  val start : unit -> unit
+  (** Initializes the audio player in-game to process sound. *)
+  
   val play : string -> unit
   (** Plays a sound file from a parsed string.  *)
 end
