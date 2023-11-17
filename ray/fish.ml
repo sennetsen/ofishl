@@ -15,7 +15,7 @@ module Fish : FishSig = struct
   type t = Vector2.t
 
   let spawn (() : unit) : t =
-    Vector2.create (Random.float 800.) (Random.float 450.)
+    Vector2.create (Random.float 512.) (Random.float 512.)
 
   let draw (fish : t) : unit = draw_circle_v fish 8. Color.blue
 
