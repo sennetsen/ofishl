@@ -1,5 +1,0 @@
-(library
- (name ray)
- (public_name Ray)
- (libraries raylib Game))
-

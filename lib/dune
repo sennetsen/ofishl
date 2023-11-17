@@ -1,4 +1,5 @@
 (library
  (name game)
  (public_name Game)
- (libraries graphics))
+ (libraries raylib))
+
