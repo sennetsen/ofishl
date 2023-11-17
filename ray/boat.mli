@@ -2,6 +2,7 @@ open Raylib
 
 (** The signature of the boat character. *)
 module type BoatSig = sig
+    (* TODO: change these 4 variables to a type t. *)
     val boat_pos : Vector2.t ref
     (** The vector value for the current position of the center of the boat in the
         window. *)

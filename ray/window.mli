@@ -1,5 +1,6 @@
 open Raylib
 open Boat
+open Fish
 
 val setup : unit -> unit
 (** Sets up the window where the game is being run. *)
