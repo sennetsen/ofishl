@@ -47,5 +47,6 @@ let rec loop (map : string) =
     loop (map)
 
 let run (map : string) (user : string) =
+  Raylib.set_trace_log_level Error; (* Silence verbose log output. *)
   setup map user;
   loop map
