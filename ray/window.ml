@@ -3,6 +3,7 @@ open Boat
 open Fish
 open Sprite
 open AudioSprite
+open Constants
 
 (* Documentation of the library can be found here:
    https://tjammer.github.io/raylib-ocaml/raylib/Raylib/index.html *)

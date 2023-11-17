@@ -1,4 +1,5 @@
 open Raylib
+open Constants
 
 (** The signature of the boat character. *)
 module type BoatSig = sig
@@ -34,8 +35,12 @@ module Boat : BoatSig = struct
     draw_ellipse boatx boaty radh radv Color.brown
   
   let border_crossed () : unit =
-    if (Vector2.x !boat_pos <= 0.) then (Vector2.set_x !boat_pos 512.)
-    else if (Vector2.x !boat_pos >= 512.) then (Vector2.set_x !boat_pos 0.)
-    else if (Vector2.y !boat_pos <= 0.) then (Vector2.set_y !boat_pos 512.)
-    else if (Vector2.y !boat_pos >= 512.) then (Vector2.set_y !boat_pos 0.)
+    if (Vector2.x !boat_pos <= 0.) 
+      then (Vector2.set_x !boat_pos Const.canvas_width_fl)
+    else if (Vector2.x !boat_pos >= Const.canvas_width_fl) 
+      then (Vector2.set_x !boat_pos 0.)
+    else if (Vector2.y !boat_pos <= 0.) 
+      then (Vector2.set_y !boat_pos Const.canvas_height_fl)
+    else if (Vector2.y !boat_pos >= Const.canvas_height_fl) 
+      then (Vector2.set_y !boat_pos 0.)
 end

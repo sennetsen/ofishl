@@ -1,4 +1,5 @@
 open Raylib
+open Constants
 
 (** The signature of the boat character. *)
 module type BoatSig = sig
