@@ -11,16 +11,16 @@ let rec enter_map () =
     | 2 -> "2"
     | 3 -> "3"
     | _ ->
-        print_endline "Invalid choice. Please enter a number (1, 2, or 3): ";
+        print_endline "Invalid choice. Enter a number (1, 2, or 3): ";
         enter_map ()
   with
   | Failure _ ->
-      print_endline "Invalid choice. Please enter a number.";
+      print_endline "Invalid choice. Enter a number.";
       enter_map ()
 
 let () =
   print_string "Enter character name: ";
-  flush stdout; (* Ensures the prompt is displayed immediately *)
+  flush stdout; (* Ensures prompt is displayed immediately. *)
   let user = read_line () in
   Printf.printf "Hello, %s!\n" user;
   let chosen_map = enter_map () in
