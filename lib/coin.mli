@@ -21,4 +21,4 @@ module type SpriteSig = sig
 end
 
 (** The module used for manipulating sprites. *)
-module Sprite : SpriteSig
+module Coin : SpriteSig

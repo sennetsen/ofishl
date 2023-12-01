@@ -32,6 +32,7 @@ module type BoatSig = sig
     val border_crossed : unit -> unit
     (** Given a boat, return true if the boat touches the edges of the canvas
         window. *)
+    (* TODO: Change this documentation. *)
 end
 
 (** The module used for controlling the boat. *)
