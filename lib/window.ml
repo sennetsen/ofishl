@@ -22,6 +22,10 @@ let draw_background (background : string) =
   let texture_background = load_texture background in
   draw_texture texture_background 0 0 Color.raywhite
 
+(* TODO: make this loop the recursively repeating loop. Make other loops
+   non-recursive and we just call them from here. Set up mutable state types so
+   pattern match between states. Pattern matching will allow us to call
+   different state loops. *)
 let rec loop (map : string) =
   draw_background ("data/sprites/bkg" ^ map ^ ".png");
   if Raylib.window_should_close () then Raylib.close_window ()
