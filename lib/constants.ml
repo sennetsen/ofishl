@@ -3,6 +3,13 @@ open Vector2
 
 (** Constant values for use in code implementations of Raylib GUI application. *)
 module Const = struct
+  
+  type level =
+  | Easy
+  | Medium
+  | Hard
+  (* Type for game difficulty level. *)
+
   let canvas_height_fl : float = 512.
 
   (* Fixed height value for the interactive window. *)
@@ -15,8 +22,5 @@ module Const = struct
   let volume : int = 75
 
   (* Master volume for audio soundtrack for game when GUI window is open. *)
-  let level_easy = 1
-  let level_med = 2
-  let level_hard = 3
-  (* Constants for game difficulty level. *)
+ 
 end
