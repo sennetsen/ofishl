@@ -10,6 +10,12 @@ open Scorecompute
 (* Documentation of the library can be found here:
    https://tjammer.github.io/raylib-ocaml/raylib/Raylib/index.html *)
 
+type state =
+  | Main
+  | Minigame
+  | Store
+  | Settings
+
 let current_fish = ref (Fish.spawn ())
 let current_coin = ref (Coin.generate ())
 let score = Scorecompute.new_score ()
@@ -28,7 +34,8 @@ let draw_background (background : string) =
    non-recursive and we just call them from here. Set up mutable state types so
    pattern match between states. Pattern matching will allow us to call
    different state loops. *)
-let rec loop (map : string) =
+
+let loop (map : string) =
   begin_drawing ();
   draw_background ("data/sprites/bkg" ^ map ^ ".png");
   Scorecompute.print score;
@@ -44,7 +51,6 @@ let rec loop (map : string) =
     Boat.move (Vector2.create 0. ~-.2.);
   if is_key_down Key.S || is_key_down Key.Down then
     Boat.move (Vector2.create 0. 2.);
-
   if is_key_pressed Key.F && Fish.colliding !Boat.boat_pos !current_fish then (
     Minigame.run ();
     current_fish := Fish.spawn ());
@@ -56,11 +62,19 @@ let rec loop (map : string) =
   if Coin.colliding !Boat.boat_pos !current_coin then (
     current_coin := Coin.generate ();
     Scorecompute.update_score score 1)
-  else end_drawing ();
-  loop map
+  else end_drawing ()
+
+let rec looper (map : string) (st : state) =
+  match st with
+  | Main ->
+      loop map;
+      looper map st
+  | Minigame -> ()
+  | Store -> ()
+  | Settings -> ()
 
 let run (map : string) (user : string) =
   Raylib.set_trace_log_level Error;
   (* Silence verbose log output. *)
   setup map user;
-  loop map
+  looper map Main
