@@ -5,12 +5,14 @@ open Coin
 open AudioSprite
 open Constants
 open Minigame
+open Scorecompute
 
 (* Documentation of the library can be found here:
    https://tjammer.github.io/raylib-ocaml/raylib/Raylib/index.html *)
 
 let current_fish = ref (Fish.spawn ())
 let current_coin = ref (Coin.generate ())
+let score = Scorecompute.new_score ()
 
 let setup (map : string) (user : string) =
   Raylib.init_window 512 512 (user ^ "'s Game | Map " ^ map);
@@ -27,7 +29,10 @@ let draw_background (background : string) =
    pattern match between states. Pattern matching will allow us to call
    different state loops. *)
 let rec loop (map : string) =
+  begin_drawing ();
   draw_background ("data/sprites/bkg" ^ map ^ ".png");
+  Scorecompute.print score;
+
   if Raylib.window_should_close () then Raylib.close_window ()
   else if
     (* Responding to key presses. *)
@@ -39,23 +44,23 @@ let rec loop (map : string) =
     Boat.move (Vector2.create 0. ~-.2.);
   if is_key_down Key.S || is_key_down Key.Down then
     Boat.move (Vector2.create 0. 2.);
+
   if is_key_pressed Key.F && Fish.colliding !Boat.boat_pos !current_fish then (
     Minigame.run ();
     current_fish := Fish.spawn ());
-  if Coin.colliding !Boat.boat_pos !current_coin then
-    current_coin := Coin.generate ();
 
-  Boat.border_crossed ();
-
-  begin_drawing ();
-  clear_background Color.raywhite;
   Boat.draw ();
   Fish.draw !current_fish;
   Coin.draw !current_coin;
-  end_drawing ();
+
+  if Coin.colliding !Boat.boat_pos !current_coin then (
+    current_coin := Coin.generate ();
+    Scorecompute.update_score score 1)
+  else end_drawing ();
   loop map
 
 let run (map : string) (user : string) =
   Raylib.set_trace_log_level Error;
-  (* Silence verbose log output. *) setup map user;
+  (* Silence verbose log output. *)
+  setup map user;
   loop map
