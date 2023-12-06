@@ -2,7 +2,6 @@ open Raylib
 open Boat
 open Vector2
 
-(** The signature of the sprite. *)
 module type SpriteSig = sig
   type t
 
@@ -11,7 +10,6 @@ module type SpriteSig = sig
   val colliding : Vector2.t -> t -> bool
 end
 
-(** The module used for controlling sprites. *)
 module Coin : SpriteSig = struct
   type t = Vector2.t
 

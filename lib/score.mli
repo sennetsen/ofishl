@@ -4,8 +4,6 @@ open Constants
   type t
   (** The type of a score element. *)
 
-  (** The type of a score element. *)
-
   val new_score : unit -> t
   (** Creates a new score value for use in the game. *)
 

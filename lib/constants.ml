@@ -3,24 +3,20 @@ open Vector2
 
 (** Constant values for use in code implementations of Raylib GUI application. *)
 module Const = struct
-  
   type level =
-  | Easy
-  | Medium
-  | Hard
-  (* Type for game difficulty level. *)
+    | Easy
+    | Medium
+    | Hard  (** Type for game difficulty level. *)
 
+  (** Fixed height value for the interactive window. *)
   let canvas_height_fl : float = 512.
 
-  (* Fixed height value for the interactive window. *)
+  (* Fixed width value for the interactive window. *)
   let canvas_width_fl : float = 512.
 
-  (* Fixed height value for the interactive window. *)
+  (** Gravity constant for implementation of game physics. *)
   let gravity : float = 9.81
 
-  (* Gravity constant for implementation of game physics. *)
+  (** Master volume for audio soundtrack for game when GUI window is open. *)
   let volume : int = 75
-
-  (* Master volume for audio soundtrack for game when GUI window is open. *)
- 
 end

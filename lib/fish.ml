@@ -1,7 +1,6 @@
 open Raylib
 open Boat
 
-(** The signature of the fish object. *)
 module type FishSig = sig
   type t
 
@@ -10,7 +9,6 @@ module type FishSig = sig
   val colliding : Vector2.t -> t -> bool
 end
 
-(** The module used for controlling fish elements. *)
 module Fish : FishSig = struct
   type t = Vector2.t
 
