@@ -40,6 +40,9 @@ module MainWin : WindowSig
 module MiniWin : WindowSig
 (** Represents the pop-up window for the fish-catching minigame. *)
 
+module StoreWin : WindowSig
+(** Represents the pop-up window for the store. *)
+
 val setup : string -> string -> unit
 (** Sets up all the necessary characteristics of the main window. *)
 

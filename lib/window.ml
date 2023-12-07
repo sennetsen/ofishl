@@ -8,6 +8,7 @@ open Constants
 open Target
 open Score
 open Mapcustom
+open Box
 
 type state =
   | StartMenu
@@ -31,6 +32,9 @@ module type WindowSig = sig
 end
 
 module MainWin : WindowSig = struct
+  let store_box = ref (Box.generate 231. 231. 50. 50.)
+  let score_box = ref (Box.generate 380. 15. 125. 35.)
+
   (** Helper function for drawing the current background by file name. *)
   let draw_background (background : string) =
     let texture_background = load_texture background in
@@ -47,7 +51,6 @@ module MainWin : WindowSig = struct
     end
     else begin_drawing ();
     draw_background ("data/sprites/bkg" ^ map ^ ".png");
-    Score.print score;
 
     if Raylib.window_should_close () then Raylib.close_window ()
     else if
@@ -70,10 +73,16 @@ module MainWin : WindowSig = struct
     if Seamine.colliding !Boat.boat_pos !current_seamine then (
       Score.update_score score (Seamine.get_damage !current_seamine);
       current_seamine := Seamine.generate ());
+    if is_key_pressed Key.F && Box.colliding !Boat.boat_pos !store_box then
+      current_state := Store;
+
     Boat.draw ();
     Fish.draw !current_fish;
     Seamine.draw !current_seamine;
     Coin.draw !current_coin;
+    Box.draw !store_box Color.lightgray;
+    Box.draw !score_box Color.white;
+    Score.print score;
     end_drawing ()
 end
 
@@ -103,6 +112,44 @@ module MiniWin : WindowSig = struct
     end_drawing ()
 end
 
+module StoreWin : WindowSig = struct
+  (** The current score in the minigame. *)
+
+  (** Represents the current target to be displayed in the window. *)
+  let buy_rod_button = ref (Box.generate 100. 400. 100. 50.)
+
+  let buy_bait_button = ref (Box.generate 300. 400. 100. 50.)
+  let exit_button = ref (Box.generate 15. 15. 15. 15.)
+
+  let setup (map : string) (user : string) =
+    Raylib.set_window_title "Welcome home!";
+    Box.draw !buy_rod_button Color.lightgray;
+    draw_text "$3 Rod" 107 413 25 Color.black;
+    Box.draw !buy_bait_button Color.beige;
+    draw_text "$1 Bait" 310 413 25 Color.black;
+    Box.draw !exit_button Color.red
+
+  let loop (map : string) is_custom =
+    Score.print score;
+    if
+      is_mouse_button_pressed MouseButton.Left
+      && Score.get_score score >= 3
+      && Box.colliding (get_mouse_position ()) !buy_rod_button
+    then Score.update_score score (-3);
+    if
+      is_mouse_button_pressed MouseButton.Left
+      && Score.get_score score >= 1
+      && Box.colliding (get_mouse_position ()) !buy_bait_button
+    then Score.update_score score (-1);
+    if
+      is_mouse_button_pressed MouseButton.Left
+      && Box.colliding (get_mouse_position ()) !exit_button
+    then current_state := Main;
+    begin_drawing ();
+    clear_background Color.raywhite;
+    end_drawing ()
+end
+
 let setup (map : string) (user : string) =
   Raylib.init_window 512 512 (user ^ "'s Game | Map " ^ map);
   AudioSprite.start ();
@@ -121,7 +168,10 @@ let rec looper (map : string) (user : string) (st : state) =
       MiniWin.setup map user;
       MiniWin.loop map is_custom;
       looper map user !current_state
-  | Store -> ()
+  | Store ->
+      StoreWin.setup map user;
+      StoreWin.loop map is_custom;
+      looper map user !current_state
   | Settings -> ()
 
 let run (map : string) (user : string) =

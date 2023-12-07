@@ -13,7 +13,7 @@ let is_score (sc : t) : bool = failwith ""
 
 let print (sc : t) : unit =
   let text = "Score: " ^ string_of_int (get_score sc) in
-  draw_text text 50 10 75 Color.red
+  draw_text text 390 20 25 Color.gold
 
 let update_score (sc : t) (n : int) : unit =
   let current_score, level = !score in
