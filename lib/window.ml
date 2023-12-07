@@ -42,13 +42,10 @@ module MainWin : WindowSig = struct
   let loop (map : string) (is_custom : bool) =
     (* Custom map implemention incomplete (TODO)*)
     if is_custom then begin
-      let arr = [|[|1;0;1|]; [| 1;0;1|]|] in
+      let arr = [| [| 1; 0; 1 |]; [| 1; 0; 1 |] |] in
       Custom.generate_map arr
     end
-
-    (* Default maps implementation. *)
-    else
-    begin_drawing ();
+    else begin_drawing ();
     draw_background ("data/sprites/bkg" ^ map ^ ".png");
     Score.print score;
 
@@ -70,9 +67,9 @@ module MainWin : WindowSig = struct
     if Coin.colliding !Boat.boat_pos !current_coin then (
       current_coin := Coin.generate ();
       Score.update_score score 1);
-    if Seamine.colliding !Boat.boat_pos !current_seamine then 
+    if Seamine.colliding !Boat.boat_pos !current_seamine then (
       Score.update_score score (Seamine.get_damage !current_seamine);
-      current_seamine := Seamine.generate ();
+      current_seamine := Seamine.generate ());
     Boat.draw ();
     Fish.draw !current_fish;
     Seamine.draw !current_seamine;
@@ -90,7 +87,7 @@ module MiniWin : WindowSig = struct
   let setup (map : string) (user : string) =
     Raylib.set_window_title "Catch the fish!"
 
-  let loop (map : string) (is_custom) =
+  let loop (map : string) is_custom =
     if !score = 5 then (
       score := 0;
       current_state := Main)

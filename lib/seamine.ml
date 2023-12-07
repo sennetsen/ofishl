@@ -22,7 +22,7 @@ module Seamine : MineSig = struct
   type t = Vector2.t * diff
 
   let random_diff (() : unit) : diff =
-    match Random.int 2 with
+    match Random.int 3 with
     | 0 -> Trap
     | 1 -> Mine
     | 2 -> Bomba
