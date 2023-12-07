@@ -6,8 +6,10 @@ open AudioSprite
 open Constants
 open Target
 open Score
+open Mapcustom
 
 type state =
+  | StartMenu
   | Main
   | Minigame
   | Store
@@ -23,7 +25,7 @@ let score = Score.new_score ()
 
 module type WindowSig = sig
   val setup : string -> string -> unit
-  val loop : string -> unit
+  val loop : string -> bool -> unit
 end
 
 module MainWin : WindowSig = struct
@@ -35,7 +37,15 @@ module MainWin : WindowSig = struct
   let setup (map : string) (user : string) =
     Raylib.set_window_title (user ^ "'s Game | Map " ^ map)
 
-  let loop (map : string) =
+  let loop (map : string) (is_custom : bool) =
+    (* Custom map implemention incomplete (TODO)*)
+    if is_custom then begin
+      let arr = [|[|1;0;1|]; [| 1;0;1|]|] in
+      Custom.generate_map arr
+    end
+
+    (* Default maps implementation. *)
+    else
     begin_drawing ();
     draw_background ("data/sprites/bkg" ^ map ^ ".png");
     Score.print score;
@@ -73,7 +83,7 @@ module MiniWin : WindowSig = struct
   let setup (map : string) (user : string) =
     Raylib.set_window_title "Catch the fish!"
 
-  let loop (map : string) =
+  let loop (map : string) (is_custom) =
     if !score = 5 then (
       score := 0;
       current_state := Main)
@@ -96,14 +106,16 @@ let setup (map : string) (user : string) =
   Raylib.set_target_fps 60
 
 let rec looper (map : string) (user : string) (st : state) =
+  let is_custom = if map <> "c" then false else true in
   match st with
+  | StartMenu -> ()
   | Main ->
       MainWin.setup map user;
-      MainWin.loop map;
+      MainWin.loop map is_custom;
       looper map user !current_state
   | Minigame ->
       MiniWin.setup map user;
-      MiniWin.loop map;
+      MiniWin.loop map is_custom;
       looper map user !current_state
   | Store -> ()
   | Settings -> ()

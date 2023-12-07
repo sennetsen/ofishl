@@ -26,7 +26,7 @@ module type WindowSig = sig
     val setup : string -> string -> unit
     (** Sets up the window. *)
   
-    val loop : string -> unit
+    val loop : string -> bool -> unit
     (** Runs all the operating functions for the window. *)
   end
 
