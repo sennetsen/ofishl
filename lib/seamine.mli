@@ -1,10 +1,22 @@
 open Raylib
 open Boat
+open Score
 
-(** The signature of the coin sprite. *)
-module type SpriteSig = sig
+type diff
+(** The type of trap. *)
+
+(** The signature of the seamine sprite. *)
+module type MineSig = sig
   type t
   (** The type of a sprite. *)
+
+  val random_diff : unit -> diff
+  (** Gives a random difficulty bomb given the three categories: Trap, Mine, and
+      Bomb *)
+
+  val get_damage : t -> int
+  (** Given some mine returns the damage done by bombs Trap = -1, Mine = -3, and
+      Bomb = -5. *)
 
   val generate : unit -> t
   (** Determines the location of the sprite at a random place anywhere in the
@@ -19,5 +31,5 @@ module type SpriteSig = sig
       and false if not. *)
 end
 
-module Coin : SpriteSig
-(** The module to represent the coin sprite. *)
+module Seamine : MineSig
+(** The module to represent the seamine sprite. *)

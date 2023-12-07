@@ -2,6 +2,7 @@ open Raylib
 open Boat
 open Fish
 open Coin
+open Seamine
 open AudioSprite
 open Constants
 open Target
@@ -18,6 +19,7 @@ type state =
 let current_state = ref Main
 let current_fish = ref (Fish.spawn ())
 let current_coin = ref (Coin.generate ())
+let current_seamine = ref (Seamine.generate ())
 let score = Score.new_score ()
 
 (* Documentation of the library can be found here:
@@ -63,12 +65,17 @@ module MainWin : WindowSig = struct
       Boat.move (Vector2.create 0. 2.);
     if is_key_pressed Key.F && Fish.colliding !Boat.boat_pos !current_fish then (
       current_state := Minigame;
+      Score.update_score score 3;
       current_fish := Fish.spawn ());
     if Coin.colliding !Boat.boat_pos !current_coin then (
       current_coin := Coin.generate ();
       Score.update_score score 1);
+    if Seamine.colliding !Boat.boat_pos !current_seamine then 
+      Score.update_score score (Seamine.get_damage !current_seamine);
+      current_seamine := Seamine.generate ();
     Boat.draw ();
     Fish.draw !current_fish;
+    Seamine.draw !current_seamine;
     Coin.draw !current_coin;
     end_drawing ()
 end
