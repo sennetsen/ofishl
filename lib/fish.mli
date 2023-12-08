@@ -10,11 +10,8 @@ module type FishSig = sig
       window such that it doesn't collide with any other current elements in the
       game. *)
 
-  val draw_fish : string -> t -> unit
-  (** Given an image location in string and a fish object, draws the fish*)
-
-  val draw : t -> unit
-  (** Given a fish, draw it at its current position. *)
+  val draw_fish : Texture2D.t -> t -> unit
+  (** Given an image texture and a fish object, draws the fish. *)
 
   val colliding : Vector2.t -> t -> bool
   (** Given a boat and a fish, return true if they are colliding and false if

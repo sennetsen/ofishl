@@ -4,6 +4,11 @@
 build:
 	dune build
 
+cloc:
+	dune clean
+	cloc --by-file --include-lang=OCaml .
+	dune build
+
 utop:
 	OCAMLRUNPARAM=b dune utop lib
 
