@@ -15,7 +15,7 @@ type state =
   | Main
   | Minigame
   | Store
-  | Settings
+  | GameOver
   | Quit
 
 let current_state = ref StartMenu
@@ -243,7 +243,7 @@ let rec looper (map : string) (user : string) (st : state) =
       StoreWin.setup map user;
       StoreWin.loop map is_custom;
       looper map user !current_state
-  | Settings -> ()
+  | GameOver -> ()
   | Quit -> Raylib.close_window ()
 
 let run (map : string) (user : string) =
