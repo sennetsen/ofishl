@@ -5,10 +5,7 @@ type t = int * Const.level
 
 let score : t ref = ref (0, Const.Easy)
 let new_score () = (0, Const.Easy)
-
-(** [get_score score] returns the score given [score]. *)
 let get_score t : int = fst !score
-
 let is_score (sc : t) : bool = failwith ""
 
 let print (sc : t) : unit =

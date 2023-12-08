@@ -82,7 +82,7 @@ module StartMenuWin : WindowSig = struct
 end
 
 module MainWin : WindowSig = struct
-  let store_box = ref (Box.generate 475. 450. 75. 75.)
+  let store_box = ref (Box.generate 240. 240. 50. 50.)
   let score_box = ref (Box.generate 380. 15. 125. 35.)
 
   let setup (map : string) (user : string) =
@@ -137,8 +137,8 @@ module MainWin : WindowSig = struct
       Coin.draw !current_coin;
       Boat.draw ();
 
-      (* Box.draw !store_box Color.lightgray; Box.draw !score_box (Color.create
-         232 253 255 150); *)
+      Box.draw !store_box Color.lightgray;
+      Box.draw !score_box (Color.create 232 253 255 150);
       Score.print score;
       end_drawing ();
 
