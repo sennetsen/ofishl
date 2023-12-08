@@ -16,8 +16,9 @@ type state =
   | Minigame
   | Store
   | Settings
+  | Quit
 
-let current_state = ref Main
+let current_state = ref StartMenu
 let current_fish = ref (Fish.spawn ())
 let current_coin = ref (Coin.generate ())
 let current_seamine = ref (Seamine.generate ())
@@ -29,6 +30,45 @@ let score = Score.new_score ()
 module type WindowSig = sig
   val setup : string -> string -> unit
   val loop : string -> bool -> unit
+end
+
+module StartMenuWin : WindowSig = struct
+  let play_button = Box.generate 100. 256. 100. 50.
+  let quit_button = Box.generate 300. 256. 100. 50.
+  let exit_button = Box.generate 15. 15. 15. 15.
+
+  let setup (map : string) (user : string) =
+    Raylib.set_window_title "OFishl: The OCaml Fishing Tournament";
+    Box.draw play_button Color.lightgray;
+    Box.draw_text play_button "Play" 25. 118. (Color.create 66 20 0 150);
+    Box.draw quit_button Color.beige;
+    Box.draw_text quit_button "Quit" 25. 318. (Color.create 66 20 0 150);
+    (* Exit button *)
+    Box.draw exit_button Color.red
+
+  let loop (map : string) (is_custom : bool) =
+    if Raylib.window_should_close () then current_state := Quit
+    else if Box.colliding (get_mouse_position ()) play_button then (
+      if is_mouse_button_down MouseButton.Left then
+        Box.draw play_button Color.darkgreen;
+      if is_mouse_button_released MouseButton.Left then current_state := Main;
+      Box.draw_text play_button "Play" 25. 118. (Color.create 46 14 0 150))
+    else (
+      Box.draw play_button (Color.create 41 205 63 100);
+      Box.draw_text play_button "Play" 25. 118. (Color.create 46 14 0 150));
+
+    if Box.colliding (get_mouse_position ()) quit_button then (
+      if is_mouse_button_down MouseButton.Left then
+        Box.draw quit_button (Color.create 216 52 6 100);
+      if is_mouse_button_released MouseButton.Left then current_state := Quit;
+      Box.draw_text quit_button "Quit" 25. 318. (Color.create 46 14 0 150))
+    else (
+      Box.draw quit_button (Color.create 245 110 110 100);
+      Box.draw_text quit_button "Quit" 25. 318. (Color.create 46 14 0 150));
+
+    begin_drawing ();
+    clear_background Color.blue;
+    end_drawing ()
 end
 
 module MainWin : WindowSig = struct
@@ -52,7 +92,7 @@ module MainWin : WindowSig = struct
     else begin_drawing ();
     draw_background ("data/sprites/bkg" ^ map ^ ".png");
 
-    if Raylib.window_should_close () then Raylib.close_window ()
+    if Raylib.window_should_close () then current_state := Quit
     else if
       (* Responding to key presses. *)
       is_key_down Key.A || is_key_down Key.Left
@@ -137,7 +177,7 @@ module StoreWin : WindowSig = struct
     Box.draw score_box (Color.create 232 253 255 150)
 
   let loop (map : string) is_custom =
-    if Raylib.window_should_close () then Raylib.close_window ()
+    if Raylib.window_should_close () then current_state := Quit
     else (
       Score.print score;
 
@@ -179,7 +219,7 @@ module StoreWin : WindowSig = struct
 end
 
 let setup (map : string) (user : string) =
-  Raylib.init_window 1024 1024 (user ^ "'s Game | Map " ^ map);
+  Raylib.init_window 512 512 (user ^ "'s Game | Map " ^ map);
   AudioSprite.start ();
   AudioSprite.play "data/audio-sprites/track1.wav";
   Raylib.set_target_fps 60
@@ -187,7 +227,10 @@ let setup (map : string) (user : string) =
 let rec looper (map : string) (user : string) (st : state) =
   let is_custom = if map <> "c" then false else true in
   match st with
-  | StartMenu -> ()
+  | StartMenu ->
+      StartMenuWin.setup map user;
+      StartMenuWin.loop map is_custom;
+      looper map user !current_state
   | Main ->
       MainWin.setup map user;
       MainWin.loop map is_custom;
@@ -201,9 +244,10 @@ let rec looper (map : string) (user : string) (st : state) =
       StoreWin.loop map is_custom;
       looper map user !current_state
   | Settings -> ()
+  | Quit -> Raylib.close_window ()
 
 let run (map : string) (user : string) =
-  Raylib.set_trace_log_level Error;
+  (*Raylib.set_trace_log_level Error; *)
   setup map user;
   (* Silence verbose log output. *)
   looper map user !current_state
