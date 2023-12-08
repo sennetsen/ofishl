@@ -35,7 +35,7 @@ module Seamine : MineSig = struct
     | Bomba -> -5
 
   let generate (() : unit) : t =
-    (Vector2.create (Random.float 1024.) (Random.float 1024.), random_diff ())
+    (Vector2.create (Random.float 512.) (Random.float 512.), random_diff ())
 
   let draw (sprite : t) : unit =
     match snd sprite with
