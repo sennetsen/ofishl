@@ -27,7 +27,6 @@ module Fish : FishSig = struct
 
   let draw (fish : t) : unit =
     let fish_type = Random.int 1 in
-    Random.init 1;
     let fish_name = if fish_type = 0 then "smallerhsu" else "smallerkozen" in
     begin_drawing ();
     draw_fish ("data/fish-sprites/" ^ fish_name ^ ".png") fish

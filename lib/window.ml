@@ -76,10 +76,11 @@ module MainWin : WindowSig = struct
     if is_key_pressed Key.F && Box.colliding !Boat.boat_pos !store_box then
       current_state := Store;
 
-    Boat.draw ();
     Fish.draw !current_fish;
     Seamine.draw !current_seamine;
     Coin.draw !current_coin;
+    Boat.draw ();
+
     (* Box.draw !store_box Color.lightgray; Box.draw !score_box (Color.create
        232 253 255 150); *)
     Score.print score;
