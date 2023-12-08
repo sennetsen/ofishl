@@ -14,6 +14,8 @@ module type BoxSig = sig
   (** Given a box, draw it at its current position with a specific color. *)
 
   val draw_text : t -> string -> float -> float -> Color.t -> Font.t -> unit
+  (** Given a box and text, draws text in the box centered for the height of the
+      box with a specific color, spacing, and font. *)
 
   val colliding : Vector2.t -> t -> bool
   (** Given the mouse position and a box, return true if the mouse is hovering

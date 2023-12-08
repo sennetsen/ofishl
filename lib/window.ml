@@ -35,7 +35,6 @@ end
 module StartMenuWin : WindowSig = struct
   let play_button = Box.generate 100. 256. 100. 50.
   let quit_button = Box.generate 300. 256. 100. 50.
-  let exit_button = Box.generate 15. 15. 15. 15.
 
   let setup (map : string) (user : string) =
     let unisans_heavy = load_font "data/fonts/uni-sans/Uni Sans Heavy.otf" in
@@ -44,10 +43,9 @@ module StartMenuWin : WindowSig = struct
     Box.draw_text play_button "Play" 25. 118. (Color.create 66 20 0 150)
       unisans_heavy;
     Box.draw quit_button Color.beige;
-    Box.draw_text quit_button "Quit" 25. 318. (Color.create 66 20 0 150)
+    Box.draw_text quit_button "Quit" 25. 322. (Color.create 66 20 0 150)
       unisans_heavy;
     (* Exit button *)
-    Box.draw exit_button Color.red;
     unload_font unisans_heavy
 
   let loop (map : string) (is_custom : bool) =
@@ -68,11 +66,11 @@ module StartMenuWin : WindowSig = struct
       if is_mouse_button_down MouseButton.Left then
         Box.draw quit_button (Color.create 216 52 6 100);
       if is_mouse_button_released MouseButton.Left then current_state := Quit;
-      Box.draw_text quit_button "Quit" 25. 318. (Color.create 46 14 0 150)
+      Box.draw_text quit_button "Quit" 25. 322. (Color.create 46 14 0 150)
         unisans_heavy)
     else (
       Box.draw quit_button (Color.create 245 110 110 100);
-      Box.draw_text quit_button "Quit" 25. 318. (Color.create 46 14 0 150)
+      Box.draw_text quit_button "Quit" 25. 322. (Color.create 46 14 0 150)
         unisans_heavy);
 
     begin_drawing ();

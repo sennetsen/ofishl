@@ -34,6 +34,9 @@ module type WindowSig = sig
   (** Runs all the operating functions for the window. *)
 end
 
+module StartMenuWin : WindowSig
+(** Represents the window for the starting menu of the fishing game. *)
+
 module MainWin : WindowSig
 (** Represents the window for the main part of the fishing game. *)
 
