@@ -81,7 +81,7 @@ module MainWin : WindowSig = struct
     Seamine.draw !current_seamine;
     Coin.draw !current_coin;
     Box.draw !store_box Color.lightgray;
-    Box.draw !score_box Color.white;
+    Box.draw !score_box (Color.create 232 253 255 150);
     Score.print score;
     end_drawing ()
 end
@@ -116,34 +116,40 @@ module StoreWin : WindowSig = struct
   (** The current score in the minigame. *)
 
   (** Represents the current target to be displayed in the window. *)
-  let buy_rod_button = ref (Box.generate 100. 400. 100. 50.)
+  let buy_rod_button = Box.generate 100. 400. 100. 50.
 
-  let buy_bait_button = ref (Box.generate 300. 400. 100. 50.)
-  let exit_button = ref (Box.generate 15. 15. 15. 15.)
+  let buy_bait_button = Box.generate 300. 400. 100. 50.
+  let exit_button = Box.generate 15. 15. 15. 15.
+  let score_box = Box.generate 380. 15. 125. 35.
 
   let setup (map : string) (user : string) =
     Raylib.set_window_title "Welcome home!";
-    Box.draw !buy_rod_button Color.lightgray;
-    draw_text "$3 Rod" 107 413 25 Color.black;
-    Box.draw !buy_bait_button Color.beige;
-    draw_text "$1 Bait" 310 413 25 Color.black;
-    Box.draw !exit_button Color.red
+    (* Buy Rod for $3 button *)
+    Box.draw buy_rod_button Color.lightgray;
+    Box.draw_text buy_rod_button "$3 Rod" 25. 107. (Color.create 66 20 0 150);
+    (* Buy Bait for $1 button *)
+    Box.draw buy_bait_button Color.beige;
+    Box.draw_text buy_bait_button "$1 Bait" 25. 307. (Color.create 66 20 0 150);
+    (* Exit button *)
+    Box.draw exit_button Color.red;
+    (* Box around score *)
+    Box.draw score_box (Color.create 232 253 255 150)
 
   let loop (map : string) is_custom =
     Score.print score;
     if
       is_mouse_button_pressed MouseButton.Left
       && Score.get_score score >= 3
-      && Box.colliding (get_mouse_position ()) !buy_rod_button
+      && Box.colliding (get_mouse_position ()) buy_rod_button
     then Score.update_score score (-3);
     if
       is_mouse_button_pressed MouseButton.Left
       && Score.get_score score >= 1
-      && Box.colliding (get_mouse_position ()) !buy_bait_button
+      && Box.colliding (get_mouse_position ()) buy_bait_button
     then Score.update_score score (-1);
     if
       is_mouse_button_pressed MouseButton.Left
-      && Box.colliding (get_mouse_position ()) !exit_button
+      && Box.colliding (get_mouse_position ()) exit_button
     then current_state := Main;
     begin_drawing ();
     clear_background Color.raywhite;

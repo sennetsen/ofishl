@@ -13,7 +13,9 @@ let is_score (sc : t) : bool = failwith ""
 
 let print (sc : t) : unit =
   let text = "Score: " ^ string_of_int (get_score sc) in
-  draw_text text 390 20 25 Color.gold
+  let font = load_font "data/fonts/uni-sans/Uni Sans Heavy.otf" in
+  draw_text_ex font text (Vector2.create 390. 24.) 22. 2.
+    (Color.create 255 161 0 1000)
 
 let update_score (sc : t) (n : int) : unit =
   let current_score, level = !score in
