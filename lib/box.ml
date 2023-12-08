@@ -22,7 +22,7 @@ module Box : BoxSig = struct
       (tint : Color.t) : unit =
     let unisans_heavy = load_font "data/fonts/uni-sans/Uni Sans Heavy.otf" in
     let y1 = Rectangle.y sc +. (Rectangle.height sc /. 2.) -. (size /. 2.3) in
-    draw_text_ex unisans_heavy text (Vector2.create x y1) size 1. tint
+    draw_text_ex unisans_heavy text (Vector2.create x y1) size 0.5 tint
 
   let colliding (mouse : Vector2.t) (rectangle : t) : bool =
     check_collision_circle_rec mouse 1. rectangle

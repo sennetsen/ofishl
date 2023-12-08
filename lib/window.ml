@@ -136,24 +136,45 @@ module StoreWin : WindowSig = struct
     Box.draw score_box (Color.create 232 253 255 150)
 
   let loop (map : string) is_custom =
-    Score.print score;
-    if
-      is_mouse_button_pressed MouseButton.Left
-      && Score.get_score score >= 3
-      && Box.colliding (get_mouse_position ()) buy_rod_button
-    then Score.update_score score (-3);
-    if
-      is_mouse_button_pressed MouseButton.Left
-      && Score.get_score score >= 1
-      && Box.colliding (get_mouse_position ()) buy_bait_button
-    then Score.update_score score (-1);
-    if
-      is_mouse_button_pressed MouseButton.Left
-      && Box.colliding (get_mouse_position ()) exit_button
-    then current_state := Main;
-    begin_drawing ();
-    clear_background Color.raywhite;
-    end_drawing ()
+    if Raylib.window_should_close () then Raylib.close_window ()
+    else (
+      Score.print score;
+
+      if Box.colliding (get_mouse_position ()) buy_rod_button then (
+        if
+          is_mouse_button_pressed MouseButton.Left && Score.get_score score >= 3
+        then Score.update_score score (-3);
+        if is_mouse_button_down MouseButton.Left then
+          if Score.get_score score >= 3 then (
+            Box.draw buy_rod_button Color.darkgray;
+            Box.draw_text buy_rod_button "$3 Rod" 25. 107.
+              (Color.create 46 14 0 150))
+          else (
+            Box.draw buy_rod_button (Color.create 245 110 110 100);
+            Box.draw_text buy_rod_button "$3 Rod" 25. 107.
+              (Color.create 46 14 0 150)));
+
+      if Box.colliding (get_mouse_position ()) buy_bait_button then (
+        if
+          is_mouse_button_pressed MouseButton.Left && Score.get_score score >= 1
+        then Score.update_score score (-1);
+        if is_mouse_button_down MouseButton.Left then
+          if Score.get_score score >= 3 then (
+            Box.draw buy_bait_button (Color.create 161 138 101 150);
+            Box.draw_text buy_bait_button "$1 Bait" 25. 307.
+              (Color.create 46 14 0 150))
+          else (
+            Box.draw buy_bait_button (Color.create 245 110 110 100);
+            Box.draw_text buy_bait_button "$1 Bait" 25. 307.
+              (Color.create 46 14 0 150)));
+
+      if
+        is_mouse_button_pressed MouseButton.Left
+        && Box.colliding (get_mouse_position ()) exit_button
+      then current_state := Main;
+      begin_drawing ();
+      clear_background Color.raywhite;
+      end_drawing ())
 end
 
 let setup (map : string) (user : string) =
