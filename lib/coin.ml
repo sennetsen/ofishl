@@ -14,7 +14,7 @@ module Coin : SpriteSig = struct
   type t = Vector2.t
 
   let generate (() : unit) : t =
-    Vector2.create (Random.float 512.) (Random.float 512.)
+    Vector2.create (Random.float 1024.) (Random.float 1024.)
 
   let draw (sprite : t) : unit = draw_circle_v sprite 18. Color.gold
 

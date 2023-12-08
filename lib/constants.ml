@@ -9,10 +9,10 @@ module Const = struct
     | Hard  (** Type for game difficulty level. *)
 
   (** Fixed height value for the interactive window. *)
-  let canvas_height_fl : float = 512.
+  let canvas_height_fl : float = 1024.
 
   (* Fixed width value for the interactive window. *)
-  let canvas_width_fl : float = 512.
+  let canvas_width_fl : float = 1024.
 
   (** Gravity constant for implementation of game physics. *)
   let gravity : float = 9.81

@@ -21,13 +21,14 @@ module Fish : FishSig = struct
   let draw_fish (image : string) (fish : t) =
     let texture = load_texture image in
     draw_texture texture
-      (int_of_float (Vector2.x fish))
-      (int_of_float (Vector2.y fish))
+      (int_of_float (Vector2.x fish) - 50)
+      (int_of_float (Vector2.y fish) - 50)
       Color.raywhite
 
   let draw (fish : t) : unit =
     let fish_type = Random.int 1 in
-    let fish_name = if fish_type = 0 then "smallhsu" else "smallkozen" in
+    Random.init 1;
+    let fish_name = if fish_type = 0 then "smallerhsu" else "smallerkozen" in
     begin_drawing ();
     draw_fish ("data/fish-sprites/" ^ fish_name ^ ".png") fish
 

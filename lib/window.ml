@@ -32,7 +32,7 @@ module type WindowSig = sig
 end
 
 module MainWin : WindowSig = struct
-  let store_box = ref (Box.generate 231. 231. 50. 50.)
+  let store_box = ref (Box.generate 475. 450. 75. 75.)
   let score_box = ref (Box.generate 380. 15. 125. 35.)
 
   (** Helper function for drawing the current background by file name. *)
@@ -80,8 +80,8 @@ module MainWin : WindowSig = struct
     Fish.draw !current_fish;
     Seamine.draw !current_seamine;
     Coin.draw !current_coin;
-    Box.draw !store_box Color.lightgray;
-    Box.draw !score_box (Color.create 232 253 255 150);
+    (* Box.draw !store_box Color.lightgray; Box.draw !score_box (Color.create
+       232 253 255 150); *)
     Score.print score;
     end_drawing ()
 end
@@ -178,7 +178,7 @@ module StoreWin : WindowSig = struct
 end
 
 let setup (map : string) (user : string) =
-  Raylib.init_window 512 512 (user ^ "'s Game | Map " ^ map);
+  Raylib.init_window 1024 1024 (user ^ "'s Game | Map " ^ map);
   AudioSprite.start ();
   AudioSprite.play "data/audio-sprites/track1.wav";
   Raylib.set_target_fps 60
