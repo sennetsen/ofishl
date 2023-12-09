@@ -6,7 +6,7 @@ module type SpriteSig = sig
   type t
   (** The type of a sprite. *)
 
-  val generate : unit -> t
+  val generate : Boat.t -> t
   (** Determines the location of the sprite at a random place anywhere in the
       window such that it doesn't collide with any other current elements in the
       game. *)

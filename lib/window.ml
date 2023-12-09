@@ -19,11 +19,11 @@ type state =
   | Quit
 
 let current_state = ref StartMenu
-let current_fish = ref (Fish.spawn ())
-let current_coin = ref (Coin.generate ())
-let current_seamine = ref (Seamine.generate ())
 let boat = Boat.new_boat 310. 260. 30. 20.
 let () = Const.set_speed 3.
+let current_fish = ref (Fish.spawn boat)
+let current_coin = ref (Coin.generate boat)
+let current_seamine = ref (Seamine.generate boat)
 let score = Score.new_score ()
 
 (* Documentation of the library can be found here:
@@ -141,13 +141,13 @@ module MainWin : WindowSig = struct
       then (
         current_state := Minigame;
         Score.update_score score 3;
-        current_fish := Fish.spawn ());
+        current_fish := Fish.spawn boat);
       if Coin.colliding (Boat.get_vect boat) !current_coin then (
-        current_coin := Coin.generate ();
+        current_coin := Coin.generate boat;
         Score.update_score score 1);
       if Seamine.colliding (Boat.get_vect boat) !current_seamine then (
         Score.update_score score (Seamine.get_damage !current_seamine);
-        current_seamine := Seamine.generate ());
+        current_seamine := Seamine.generate boat);
       if is_key_pressed Key.F && Box.colliding (Boat.get_vect boat) !store_box
       then current_state := Store;
 

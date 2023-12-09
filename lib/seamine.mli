@@ -18,8 +18,8 @@ module type MineSig = sig
   (** Given some mine returns the damage done by bombs Trap = -1, Mine = -3, and
       Bomb = -5. *)
 
-  val generate : unit -> t
-  (** Determines the location of the sprite at a random place anywhere in the
+  val generate : Boat.t -> t
+  (** Determines the location of the mine at a random place anywhere in the
       window such that it doesn't collide with any other current elements in the
       game. *)
 

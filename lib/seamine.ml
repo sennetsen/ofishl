@@ -13,7 +13,7 @@ module type MineSig = sig
 
   val random_diff : unit -> diff
   val get_damage : t -> int
-  val generate : unit -> t
+  val generate : Boat.t -> t
   val draw : t -> unit
   val colliding : Vector2.t -> t -> bool
 end
@@ -34,8 +34,18 @@ module Seamine : MineSig = struct
     | Mine -> -3
     | Bomba -> -5
 
-  let generate (() : unit) : t =
-    (Vector2.create (Random.float 512.) (Random.float 512.), random_diff ())
+  let rec generate (boat : Boat.t) : t =
+    let x, y = (Random.float 512., Random.float 512.) in
+    if x <= 310. && x >= 220. && y <= 310. && y >= 220. then generate boat
+    else
+      let boat_x, boat_y = (Boat.get_x boat, Boat.get_y boat) in
+      if
+        x <= boat_x +. 20.
+        && x >= boat_x -. 20.
+        && y <= boat_y +. 20.
+        && y >= boat_x -. 20.
+      then generate boat
+      else (Vector2.create x y, random_diff ())
 
   let draw (sprite : t) : unit =
     match snd sprite with
