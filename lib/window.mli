@@ -7,6 +7,7 @@ open AudioSprite
 open Constants
 open Target
 open Score
+open Loadables
 
 type state
 (** Type to represent the current state of the game window. *)
@@ -38,10 +39,10 @@ val game_data : game_data
 (** Initial game data with default values. *)
 
 module type WindowSig = sig
-  val setup : string -> string -> unit
+  val setup : string -> string -> Loadables.t -> unit
   (** Sets up the window. *)
 
-  val loop : string -> bool -> unit
+  val loop : string -> bool -> Loadables.t -> unit
   (** Runs all the operating functions for the window. *)
 end
 
@@ -57,10 +58,10 @@ module MiniWin : WindowSig
 module StoreWin : WindowSig
 (** Represents the pop-up window for the store. *)
 
-val setup : string -> string -> unit
+val setup : string -> string -> Loadables.t
 (** Sets up all the necessary characteristics of the main window. *)
 
-val looper : string -> string -> state -> unit
+val looper : string -> string -> state -> Loadables.t -> unit
 (** [looper map user st] runs all the operating functions for the current state
     of the game while the window is open. *)
 
