@@ -23,6 +23,7 @@ let current_fish = ref (Fish.spawn ())
 let current_coin = ref (Coin.generate ())
 let current_seamine = ref (Seamine.generate ())
 let boat = Boat.new_boat 310. 260. 30. 20.
+let () = Const.set_speed 3.
 let score = Score.new_score ()
 
 (* Documentation of the library can be found here:
@@ -97,7 +98,6 @@ module MainWin : WindowSig = struct
       let background = "data/sprites/bkg" ^ map ^ ".png" in
       let texture_background = load_texture background in
       draw_texture texture_background 0 0 Color.raywhite;
-
       let fish_type = Random.int 1 in
       let fish_name = if fish_type = 0 then "smallerhsu" else "smallerkozen" in
       let texture_fish =
@@ -112,25 +112,28 @@ module MainWin : WindowSig = struct
       if
         (is_key_down Key.W || is_key_down Key.Up)
         && (is_key_down Key.A || is_key_down Key.Left)
-      then Boat.move boat (-0.70710678118) (-0.70710678118)
+      then Boat.move boat (-.Const.diag_speed ()) (-.Const.diag_speed ())
       else if
         (is_key_down Key.A || is_key_down Key.Left)
         && (is_key_down Key.S || is_key_down Key.Down)
-      then Boat.move boat (-0.70710678118) 0.70710678118
+      then Boat.move boat (-.Const.diag_speed ()) (Const.diag_speed ())
       else if
         (is_key_down Key.S || is_key_down Key.Down)
         && (is_key_down Key.D || is_key_down Key.Right)
-      then Boat.move boat 0.70710678118 0.70710678118
+      then Boat.move boat (Const.diag_speed ()) (Const.diag_speed ())
       else if
         (is_key_down Key.D || is_key_down Key.Right)
         && (is_key_down Key.W || is_key_down Key.Up)
-      then Boat.move boat 0.70710678118 (-0.70710678118)
+      then Boat.move boat (Const.diag_speed ()) (-.Const.diag_speed ())
       else (
         if is_key_down Key.A || is_key_down Key.Left then
-          Boat.move boat (-1.) 0.;
-        if is_key_down Key.D || is_key_down Key.Right then Boat.move boat 1. 0.;
-        if is_key_down Key.W || is_key_down Key.Up then Boat.move boat 0. (-1.);
-        if is_key_down Key.S || is_key_down Key.Down then Boat.move boat 0. 1.);
+          Boat.move boat (-.Const.get_speed ()) 0.;
+        if is_key_down Key.D || is_key_down Key.Right then
+          Boat.move boat (Const.get_speed ()) 0.;
+        if is_key_down Key.W || is_key_down Key.Up then
+          Boat.move boat 0. (-.Const.get_speed ());
+        if is_key_down Key.S || is_key_down Key.Down then
+          Boat.move boat 0. (Const.get_speed ()));
 
       if
         is_key_pressed Key.F

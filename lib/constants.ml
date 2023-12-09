@@ -19,4 +19,9 @@ module Const = struct
 
   (** Master volume for audio soundtrack for game when GUI window is open. *)
   let volume : int = 75
+
+  let speed : float ref = ref 1.
+  let set_speed (sp : float) : unit = speed := sp
+  let get_speed () : float = !speed
+  let diag_speed () : float = !speed /. sqrt 2.
 end
