@@ -22,21 +22,18 @@ let rec enter_map () =
     print_endline "Invalid choice. Enter a number.";
     enter_map ()
 
-let save_to_file filename content =
-  let out_channel = open_out filename in
-  output_string out_channel content;
-  close_out out_channel
-
 let () =
   Terminalentry.print_welcome_screen ();
   print_string "Enter character name: ";
   flush stdout;
+
   (* Ensures prompt is displayed immediately. *)
   let user = read_line () in
   Printf.printf "Hello, %s!\n" user;
   let chosen_map = enter_map () in
   Printf.printf "You've chosen map %s\n" chosen_map;
   Window.run chosen_map user;
+
   let current_time = Unix.gettimeofday () in
   let elapsed_time = current_time -. !start_time in
   Printf.printf "\nElapsed time for this run: %.2f seconds\n" elapsed_time;
@@ -44,6 +41,14 @@ let () =
   let is_saved = Gamestats.ask_to_save user chosen_map stats in
   match is_saved with
   | true ->
-      Gamestats.save_to_file user chosen_map stats;
-      Gamestats.print_save_notif true user; print_endline ""
-  | false -> Gamestats.print_save_notif false user; print_endline ""
+      let time_string =
+        "Elapsed time for this run: "
+        ^ Printf.sprintf "%.2f" elapsed_time
+        ^ " seconds\n"
+      in
+      Gamestats.save_to_file user chosen_map (time_string ^ stats);
+      Gamestats.print_save_notif true user;
+      print_endline ""
+  | false ->
+      Gamestats.print_save_notif false user;
+      print_endline ""

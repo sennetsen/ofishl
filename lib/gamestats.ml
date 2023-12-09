@@ -22,7 +22,7 @@ let print_save_notif is_confirmed user =
   | false -> print_string "\nYour game data has not been saved."
 
 let rec ask_to_save (user : string) (map : string) (content : string) =
-  print_string "\n\nDo you want to save your data? (Y/N) ";
+  print_string "\n\nWould you like to save your data? (Y/N) ";
   flush Stdlib.stdout;
   try
     let decision = read_line () in
@@ -45,7 +45,7 @@ let print_content (data : Window.game_data) (user : string) (map : string) =
     ^ if map <> "custom" then "Map " ^ map else "Custom-generated map"
   in
   let purchases =
-    "\nNumber of rods purchased: " ^ string_of_int data.rods ^ " rods ("
+    "\nNumber of fishing rods purchased: " ^ string_of_int data.rods ^ " rods ("
     ^ string_of_int (3 * data.rods)
     ^ " score points spent in total)" ^ "\nAmount of bait purchased: "
     ^ string_of_int data.bait ^ " units of bait ("

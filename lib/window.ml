@@ -219,6 +219,7 @@ module StoreWin : WindowSig = struct
 
   (** Represents the current target to be displayed in the window. *)
   let buy_rod_button = Box.generate 100. 400. 100. 50.
+
   let buy_bait_button = Box.generate 300. 400. 100. 50.
   let exit_button = Box.generate 15. 15. 15. 15.
   let score_box = Box.generate 380. 15. 125. 35.
@@ -250,9 +251,9 @@ module StoreWin : WindowSig = struct
         if
           is_mouse_button_pressed MouseButton.Left && Score.get_score score >= 3
         then Score.update_score score (-3);
-        if is_mouse_button_down MouseButton.Left then
-          game_data.rods <- game_data.rods + 1;
+        game_data.rods <- game_data.rods + 1;
 
+        if is_mouse_button_down MouseButton.Left then
           if Score.get_score score >= 3 then (
             Box.draw buy_rod_button Color.darkgray;
             Box.draw_text buy_rod_button "$3 Rod" 25. 107.
@@ -266,9 +267,9 @@ module StoreWin : WindowSig = struct
         if
           is_mouse_button_pressed MouseButton.Left && Score.get_score score >= 1
         then Score.update_score score (-1);
-        if is_mouse_button_down MouseButton.Left then
-          game_data.bait <- game_data.bait + 1;
+        game_data.bait <- game_data.bait + 1;
 
+        if is_mouse_button_down MouseButton.Left then
           if Score.get_score score >= 3 then (
             Box.draw buy_bait_button (Color.create 161 138 101 150);
             Box.draw_text buy_bait_button "$1 Bait" 25. 307.
