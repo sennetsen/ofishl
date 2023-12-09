@@ -49,9 +49,9 @@ module Seamine : MineSig = struct
 
   let draw (sprite : t) : unit =
     match snd sprite with
-    | Trap -> draw_circle_v (fst sprite) 18. Color.yellow
-    | Mine -> draw_circle_v (fst sprite) 18. Color.red
-    | Bomba -> draw_circle_v (fst sprite) 18. Color.black
+    | Trap -> draw_circle_v (fst sprite) 15. (Color.create 255 248 110 500)
+    | Mine -> draw_circle_v (fst sprite) 15. (Color.create 255 159 140 500)
+    | Bomba -> draw_circle_v (fst sprite) 15. (Color.create 166 166 166 500)
 
   let colliding (boat : Vector2.t) (sprite : t) : bool =
     check_collision_circles boat 15. (fst sprite) 8.

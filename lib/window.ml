@@ -95,8 +95,9 @@ module StartMenuWin : WindowSig = struct
 end
 
 module MainWin : WindowSig = struct
-  let store_box = ref (Box.generate 240. 240. 50. 50.)
+  let store_box = ref (Box.generate 230. 218. 50. 50.)
   let score_box = ref (Box.generate 380. 15. 125. 35.)
+  let fish_type = ref (Random.int 2)
 
   let setup (map : string) (user : string) (loads : Loadables.t) =
     Raylib.set_window_title (user ^ "'s Game | Map " ^ map)
@@ -108,9 +109,9 @@ module MainWin : WindowSig = struct
       Custom.generate_map arr
     end
     else draw_texture (Loadables.map loads) 0 0 Color.raywhite;
-    let fish_type = Random.int 1 in
+
     let texture_fish =
-      if fish_type = 0 then Loadables.hsufish loads
+      if !fish_type = 0 then Loadables.hsufish loads
       else Loadables.kozenfish loads
     in
 
@@ -149,6 +150,7 @@ module MainWin : WindowSig = struct
     then (
       current_state := Minigame;
       Score.update_score score 3;
+      fish_type := Random.int 2;
       current_fish := Fish.spawn boat);
     if Coin.colliding (Boat.get_vect boat) !current_coin then (
       current_coin := Coin.generate boat;
@@ -168,7 +170,7 @@ module MainWin : WindowSig = struct
         is_key_down Key.A || is_key_down Key.Left,
         is_key_down Key.S || is_key_down Key.Down,
         is_key_down Key.D || is_key_down Key.Right );
-    Box.draw !store_box Color.lightgray;
+
     Box.draw !score_box (Color.create 232 253 255 150);
 
     Boat.border_crossed boat;
