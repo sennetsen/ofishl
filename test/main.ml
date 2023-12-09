@@ -56,16 +56,45 @@ let score_test out in1 _ =
 
 let score_tests =
   [
-    "score is zero" >:: score_test 0 [];
-    "score is one" >:: score_test 1 [ 1 ];
-    "score is three, multiple updates" >:: score_test 3 [ 1; 2 ];
-    "score is negative three, multiple updates" >:: score_test (-3) [ -1; -2 ];
-    "score is negative 126, multitude of updates"
+    "Score.update_score: zero" >:: score_test 0 [];
+    "Score.update_score: one" >:: score_test 1 [ 1 ];
+    "Score.update_score: three, multiple updates" >:: score_test 3 [ 1; 2 ];
+    "Score.update_score: negative three, multiple updates"
+    >:: score_test (-3) [ -1; -2 ];
+    "Score.update_score: negative 126, multitude of updates"
     >:: score_test (-126) [ -1; -2; -3; -6; 6; -120 ];
+  ]
+
+let rec move_boat_from_lst boat lst =
+  match lst with
+  | [] -> ()
+  | (dx, dy) :: t ->
+      Boat.move boat dx dy;
+      move_boat_from_lst boat t
+
+let boat_test out in1 _ =
+  assert_equal
+    ~msg:(Printf.sprintf "function: Boat.move\ninput: ")
+    out
+    (let boat = Boat.new_boat in
+     move_boat_from_lst Boat.new_boat in1;
+     Boat.border_crossed boat;
+
+     print_endline (string_of_float (Boat.get_y boat));
+     (Boat.get_x boat, Boat.get_y boat))
+
+let boat_tests =
+  [
+    "Boat: new_boat" >:: boat_test (310., 260.) [];
+    "Boat: new_boat minus 10 on each x and y"
+    >:: boat_test (300., 250.) [ (-10., -10.) ];
+    "Boat: new_boat minus and plus 10 on each x and y"
+    >:: boat_test (310., 260.) [ (-10., -10.); (10., 10.) ];
+    "Boat: border collision check" >:: boat_test (512., 260.) [ (-700., -10.) ];
   ]
 
 let suite =
   "final project test suite"
-  >::: List.flatten [ terminal_tests; box_tests; score_tests ]
+  >::: List.flatten [ terminal_tests; box_tests; score_tests; boat_tests ]
 
 let () = run_test_tt_main suite

@@ -21,11 +21,11 @@ module type BoatSig = sig
   val boat_face : Vector2.t ref
   (** The reference to the boat's current orientation. Set to boat_h by default. *)
 
-  val get_x_int : t -> int
+  val get_x : t -> float
   (** Given a boat, returns the x position of the boat, converted from a float
       to an int. *)
 
-  val get_y_int : t -> int
+  val get_y : t -> float
   (** Given a boat, returns the y position of the boat, converted from a float
       to an int. *)
 

@@ -106,14 +106,28 @@ module MainWin : WindowSig = struct
 
       begin_drawing ();
 
-      if Raylib.window_should_close () then current_state := Quit
-      else if
-        (* Responding to key presses. *)
-        is_key_down Key.A || is_key_down Key.Left
-      then Boat.move boat (-2.) 0.;
-      if is_key_down Key.D || is_key_down Key.Right then Boat.move boat 2. 0.;
-      if is_key_down Key.W || is_key_down Key.Up then Boat.move boat 0. (-2.);
-      if is_key_down Key.S || is_key_down Key.Down then Boat.move boat 0. 2.;
+      if Raylib.window_should_close () then current_state := Quit;
+
+      (* Responding to key presses. *)
+      (match
+         ( is_key_down Key.W,
+           is_key_down Key.A,
+           is_key_down Key.S,
+           is_key_down Key.D )
+       with
+      | true, true, false, false -> Boat.move boat (-1.4142) (-1.4142)
+      | false, true, true, false -> Boat.move boat (-1.4142) 1.4142
+      | false, false, true, true -> Boat.move boat 1.4142 1.4142
+      | true, false, false, true -> Boat.move boat 1.4142 (-1.4142)
+      | _ ->
+          if is_key_down Key.A || is_key_down Key.Left then
+            Boat.move boat (-2.) 0.;
+          if is_key_down Key.D || is_key_down Key.Right then
+            Boat.move boat 2. 0.;
+          if is_key_down Key.W || is_key_down Key.Up then
+            Boat.move boat 0. (-2.);
+          if is_key_down Key.S || is_key_down Key.Down then Boat.move boat 0. 2.);
+
       if
         is_key_pressed Key.F
         && Fish.colliding (Boat.get_vect boat) !current_fish
