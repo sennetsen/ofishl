@@ -16,7 +16,7 @@ module Coin : SpriteSig = struct
   let generate (() : unit) : t =
     Vector2.create (Random.float 512.) (Random.float 512.)
 
-  let draw (sprite : t) : unit = draw_circle_v sprite 18. Color.gold
+  let draw (sprite : t) : unit = draw_circle_v sprite 10. Color.gold
 
   let colliding (boat : Vector2.t) (sprite : t) : bool =
     check_collision_circles boat 15. sprite 8.
