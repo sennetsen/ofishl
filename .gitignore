@@ -8,3 +8,4 @@ _build
 
 # player instance data
 player_data/*
+!player_data/player_data.md
