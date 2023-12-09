@@ -9,6 +9,13 @@ cloc:
 	cloc --by-file --include-lang=OCaml .
 	dune build
 
+clean:
+	dune clean
+
+doc: 
+	dune build @doc
+	open _build/default/_doc/_html/index.html  
+
 utop:
 	OCAMLRUNPARAM=b dune utop lib
 
