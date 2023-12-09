@@ -250,8 +250,9 @@ module StoreWin : WindowSig = struct
       if Box.colliding (get_mouse_position ()) buy_rod_button then (
         if
           is_mouse_button_pressed MouseButton.Left && Score.get_score score >= 3
-        then Score.update_score score (-3);
-        game_data.rods <- game_data.rods + 1;
+        then (
+          Score.update_score score (-3);
+          game_data.rods <- game_data.rods + 1);
 
         if is_mouse_button_down MouseButton.Left then
           if Score.get_score score >= 3 then (
@@ -266,8 +267,9 @@ module StoreWin : WindowSig = struct
       if Box.colliding (get_mouse_position ()) buy_bait_button then (
         if
           is_mouse_button_pressed MouseButton.Left && Score.get_score score >= 1
-        then Score.update_score score (-1);
-        game_data.bait <- game_data.bait + 1;
+        then (
+          Score.update_score score (-1);
+          game_data.bait <- game_data.bait + 1);
 
         if is_mouse_button_down MouseButton.Left then
           if Score.get_score score >= 3 then (

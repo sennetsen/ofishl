@@ -142,16 +142,10 @@ let boat_tests =
     >:: boat_test (512., 260.) [ (-700., 0.) ];
     "Boat: new_boat, border collision check for y"
     >:: boat_test (310., 512.) [ (0., -500.) ];
-
-    (*
-    ( "Boat: draw boat positioned at 45 degrees test 1" >:: fun _ ->
-      let boat_45 = Boat.new_boat 35. 35. 10. 50. in
-      assert_equal 135.
-        (boat_test_draw_angle
-           (Boat.draw boat_45 (true, true, false, false))
-           (true, true, false, false)) );
-           TODO: TEST BROKEN
-*)
+    (* ( "Boat: draw boat positioned at 45 degrees test 1" >:: fun _ -> let
+       boat_45 = Boat.new_boat 35. 35. 10. 50. in assert_equal 135.
+       (boat_test_draw_angle (Boat.draw boat_45 (true, true, false, false))
+       (true, true, false, false)) ); TODO: TEST BROKEN *)
   ]
 
 let suite =

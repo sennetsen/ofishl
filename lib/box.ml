@@ -18,10 +18,10 @@ module Box : BoxSig = struct
 
   let get_coord (coord : string) (box : t) : float =
     match coord with
-    | "x" -> (Rectangle.x box)
-    | "y" -> (Rectangle.y box)
-    | "width" -> (Rectangle.width box)
-    | "height" -> (Rectangle.height box)
+    | "x" -> Rectangle.x box
+    | "y" -> Rectangle.y box
+    | "width" -> Rectangle.width box
+    | "height" -> Rectangle.height box
     | _ -> failwith "not a box dimension"
 
   let draw (rectangle : t) (color : Color.t) : unit =
