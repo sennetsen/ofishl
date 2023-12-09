@@ -4,6 +4,7 @@ module type BoxSig = sig
   type t
 
   val generate : float -> float -> float -> float -> t
+  val get_coord : string -> t -> float
   val draw : t -> Color.t -> unit
   val draw_text : t -> string -> float -> float -> Color.t -> Font.t -> unit
   val colliding : Vector2.t -> t -> bool
@@ -14,6 +15,14 @@ module Box : BoxSig = struct
 
   let generate (x : float) (y : float) (width : float) (height : float) : t =
     Rectangle.create x y width height
+
+  let get_coord (coord : string) (box : t) : float =
+    match coord with
+    | "x" -> (Rectangle.x box)
+    | "y" -> (Rectangle.y box)
+    | "width" -> (Rectangle.width box)
+    | "height" -> (Rectangle.height box)
+    | _ -> failwith "not a box dimension"
 
   let draw (rectangle : t) (color : Color.t) : unit =
     draw_rectangle_rounded rectangle 0.15 1 color

@@ -25,6 +25,7 @@ let box_collision_test out in1 in2 _ =
     ~msg:(Printf.sprintf "function: Box.colliding\ninput: ")
     out (Box.colliding in1 in2)
 
+(* Test boxes for certain unit test cases. *)
 let box1 = Box.generate 120. 120. 10. 10.
 let box2 = Box.generate 120. 120. 0.5 0.5
 
@@ -39,6 +40,43 @@ let box_tests =
      >:: box_collision_test false mouse box2);
     (let mouse = Vector2.create 120. 120. in
      "Box.colliding: true, more accuracy" >:: box_collision_test true mouse box2);
+    ( "Box.generate small box, x-y coordinates, width, and height quadruple"
+    >:: fun _ ->
+      let box_small = Box.generate 22. 21. 5. 4. in
+      assert_equal
+        ( Rectangle.x (Rectangle.create 22. 21. 5. 4.),
+          Rectangle.y (Rectangle.create 22. 21. 5. 4.),
+          Rectangle.width (Rectangle.create 22. 21. 5. 4.),
+          Rectangle.height (Rectangle.create 22. 21. 5. 4.) )
+        ( Box.get_coord "x" box_small,
+          Box.get_coord "y" box_small,
+          Box.get_coord "width" box_small,
+          Box.get_coord "height" box_small ) );
+    ( "Box.generate large box, x-y coordinates, width, and height quadruple"
+    >:: fun _ ->
+      let box_small = Box.generate 450. 857. 225.55 856.1 in
+      assert_equal
+        ( Rectangle.x (Rectangle.create 450. 857. 225.55 856.1),
+          Rectangle.y (Rectangle.create 450. 857. 225.55 856.1),
+          Rectangle.width (Rectangle.create 450. 857. 225.55 856.1),
+          Rectangle.height (Rectangle.create 450. 857. 225.55 856.1) )
+        ( Box.get_coord "x" box_small,
+          Box.get_coord "y" box_small,
+          Box.get_coord "width" box_small,
+          Box.get_coord "height" box_small ) );
+    ( "Box.generate 0-dimension box, x-y coordinates, width, and height \
+       quadruple"
+    >:: fun _ ->
+      let box_small = Box.generate 0. 0. 0. 0. in
+      assert_equal
+        ( Rectangle.x (Rectangle.create 0. 0. 0. 0.),
+          Rectangle.y (Rectangle.create 0. 0. 0. 0.),
+          Rectangle.width (Rectangle.create 0. 0. 0. 0.),
+          Rectangle.height (Rectangle.create 0. 0. 0. 0.) )
+        ( Box.get_coord "x" box_small,
+          Box.get_coord "y" box_small,
+          Box.get_coord "width" box_small,
+          Box.get_coord "height" box_small ) );
   ]
 
 let rec update_score_from_lst score lst =
@@ -81,6 +119,13 @@ let boat_test out in1 _ =
      Boat.border_crossed boat;
      (Boat.get_x boat, Boat.get_y boat))
 
+let boat_test_draw_angle boat keys =
+  match keys with
+  | true, true, false, false | false, false, true, true -> 45.
+  | false, true, true, false | true, false, false, true -> 135.
+  | true, false, false, false | false, false, true, false -> 90.
+  | _ -> 0.
+
 let boat_tests =
   [
     "Boat: new_boat" >:: boat_test (310., 260.) [];
@@ -97,6 +142,16 @@ let boat_tests =
     >:: boat_test (512., 260.) [ (-700., 0.) ];
     "Boat: new_boat, border collision check for y"
     >:: boat_test (310., 512.) [ (0., -500.) ];
+
+    (*
+    ( "Boat: draw boat positioned at 45 degrees test 1" >:: fun _ ->
+      let boat_45 = Boat.new_boat 35. 35. 10. 50. in
+      assert_equal 135.
+        (boat_test_draw_angle
+           (Boat.draw boat_45 (true, true, false, false))
+           (true, true, false, false)) );
+           TODO: TEST BROKEN
+*)
   ]
 
 let suite =

@@ -10,6 +10,8 @@ module type BoxSig = sig
   (** [generate x y w h] is a new rectangle positioned at (x, y) with width w
       and height h. *)
 
+  val get_coord : string -> t -> float
+
   val draw : t -> Color.t -> unit
   (** Given a box, draw it at its current position with a specific color. *)
 
