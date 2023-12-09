@@ -25,9 +25,21 @@ let current_fish = ref (Fish.spawn boat)
 let current_coin = ref (Coin.generate boat)
 let current_seamine = ref (Seamine.generate boat)
 let score = Score.new_score ()
+let rod_purchases = 0
+let bait_purchases = 0
 
-(* Documentation of the library can be found here:
-   https://tjammer.github.io/raylib-ocaml/raylib/Raylib/index.html *)
+type game_data = {
+  mutable final_score : int;
+  mutable rods : int;
+  mutable bait : int;
+}
+
+let game_data =
+  {
+    final_score = Score.get_score score;
+    rods = rod_purchases;
+    bait = bait_purchases;
+  }
 
 module type WindowSig = sig
   val setup : string -> string -> unit
@@ -207,7 +219,6 @@ module StoreWin : WindowSig = struct
 
   (** Represents the current target to be displayed in the window. *)
   let buy_rod_button = Box.generate 100. 400. 100. 50.
-
   let buy_bait_button = Box.generate 300. 400. 100. 50.
   let exit_button = Box.generate 15. 15. 15. 15.
   let score_box = Box.generate 380. 15. 125. 35.
@@ -240,6 +251,8 @@ module StoreWin : WindowSig = struct
           is_mouse_button_pressed MouseButton.Left && Score.get_score score >= 3
         then Score.update_score score (-3);
         if is_mouse_button_down MouseButton.Left then
+          game_data.rods <- game_data.rods + 1;
+
           if Score.get_score score >= 3 then (
             Box.draw buy_rod_button Color.darkgray;
             Box.draw_text buy_rod_button "$3 Rod" 25. 107.
@@ -254,6 +267,8 @@ module StoreWin : WindowSig = struct
           is_mouse_button_pressed MouseButton.Left && Score.get_score score >= 1
         then Score.update_score score (-1);
         if is_mouse_button_down MouseButton.Left then
+          game_data.bait <- game_data.bait + 1;
+
           if Score.get_score score >= 3 then (
             Box.draw buy_bait_button (Color.create 161 138 101 150);
             Box.draw_text buy_bait_button "$1 Bait" 25. 307.
@@ -280,7 +295,7 @@ let setup (map : string) (user : string) =
   Raylib.set_target_fps 60
 
 let rec looper (map : string) (user : string) (st : state) =
-  let is_custom = if map <> "c" then false else true in
+  let is_custom = if map <> "custom" then false else true in
   match st with
   | StartMenu ->
       StartMenuWin.setup map user;
@@ -299,7 +314,9 @@ let rec looper (map : string) (user : string) (st : state) =
       StoreWin.loop map is_custom;
       looper map user !current_state
   | GameOver -> ()
-  | Quit -> Raylib.close_window ()
+  | Quit ->
+      game_data.final_score <- Score.get_score score;
+      Raylib.close_window ()
 
 let run (map : string) (user : string) =
   (*Raylib.set_trace_log_level Error; *)

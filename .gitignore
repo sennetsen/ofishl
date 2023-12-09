@@ -5,3 +5,6 @@
 # ocaml
 _build
 .vscode
+
+# player instance data
+player_data/*

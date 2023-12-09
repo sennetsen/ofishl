@@ -1,7 +1,11 @@
 open Game
 open Window
+open Gamestats
+
+let start_time = ref 0.0
 
 let rec enter_map () =
+  start_time := Unix.gettimeofday ();
   print_string "Choose a map (1, 2, or 3): ";
   flush stdout;
   try
@@ -10,13 +14,18 @@ let rec enter_map () =
     | "1" -> "1"
     | "2" -> "2"
     | "3" -> "3"
-    | "c" -> "c"
+    | "c" -> "custom"
     | _ ->
         print_endline "Invalid choice. Enter a number (1, 2, or 3): ";
         enter_map ()
   with Failure _ ->
     print_endline "Invalid choice. Enter a number.";
     enter_map ()
+
+let save_to_file filename content =
+  let out_channel = open_out filename in
+  output_string out_channel content;
+  close_out out_channel
 
 let () =
   Terminalentry.print_welcome_screen ();
@@ -27,4 +36,14 @@ let () =
   Printf.printf "Hello, %s!\n" user;
   let chosen_map = enter_map () in
   Printf.printf "You've chosen map %s\n" chosen_map;
-  Window.run chosen_map user
+  Window.run chosen_map user;
+  let current_time = Unix.gettimeofday () in
+  let elapsed_time = current_time -. !start_time in
+  Printf.printf "\nElapsed time for this run: %.2f seconds\n" elapsed_time;
+  let stats = Gamestats.print_content Window.game_data user chosen_map in
+  let is_saved = Gamestats.ask_to_save user chosen_map stats in
+  match is_saved with
+  | true ->
+      Gamestats.save_to_file user chosen_map stats;
+      Gamestats.print_save_notif true user; print_endline ""
+  | false -> Gamestats.print_save_notif false user; print_endline ""

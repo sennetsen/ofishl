@@ -19,7 +19,9 @@ let rec make_fish_string emoji count acc =
   if count <= 0 then acc else make_fish_string emoji (count - 1) (acc ^ emoji)
 
 let print_welcome_screen () =
-  let title = "\027[33m Welcome to the OFishl Fishing Tournament! \027[0m" in
+  let title =
+    "\027[33m Welcome to OFishl, the official OCaml Fishing Tournament! \027[0m"
+  in
   let instructions =
     [
       "\027[36m Instructions: \027[0m";

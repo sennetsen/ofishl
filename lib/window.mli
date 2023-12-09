@@ -26,6 +26,17 @@ val current_seamine : Seamine.t ref
 val score : Score.t
 (** The current score of the game. *)
 
+type game_data = {
+  mutable final_score : int;  (** Final score achieved in the game. *)
+  mutable rods : int;  (** Number of rods purchased in the game. *)
+  mutable bait : int;  (** Amount of bait purchased in the game. *)
+}
+(** Represents the game data containing mutable fields for final score, rods,
+    and bait. *)
+
+val game_data : game_data
+(** Initial game data with default values. *)
+
 module type WindowSig = sig
   val setup : string -> string -> unit
   (** Sets up the window. *)
