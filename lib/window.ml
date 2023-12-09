@@ -40,6 +40,7 @@ module StartMenuWin : WindowSig = struct
 
   let setup (map : string) (user : string) =
     let unisans_heavy = load_font "data/fonts/uni-sans/Uni Sans Heavy.otf" in
+    let boldenvan = load_font "data/fonts/boldenvan/boldenvan.ttf" in
     Raylib.set_window_title "OFishl: The OCaml Fishing Tournament";
     Box.draw play_button Color.lightgray;
     Box.draw_text play_button "Play" 25. 118. (Color.create 66 20 0 150)
@@ -47,6 +48,9 @@ module StartMenuWin : WindowSig = struct
     Box.draw quit_button Color.beige;
     Box.draw_text quit_button "Quit" 25. 322. (Color.create 66 20 0 150)
       unisans_heavy;
+    Raylib.draw_text_ex boldenvan "Click to play the game!"
+      (Vector2.create 80. 120.) 40. 1.
+      (Color.create 255 102 204 400);
     (* Exit button *)
     unload_font unisans_heavy
 
@@ -76,7 +80,7 @@ module StartMenuWin : WindowSig = struct
         unisans_heavy);
 
     begin_drawing ();
-    clear_background Color.blue;
+    clear_background (Color.create 194 243 255 120);
     end_drawing ();
     unload_font unisans_heavy
 end

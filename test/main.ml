@@ -84,12 +84,15 @@ let boat_test out in1 _ =
 let boat_tests =
   [
     "Boat: new_boat" >:: boat_test (310., 260.) [];
-    "Boat: new_boat minus and plus 10 on each x and y"
+    "Boat: new_boat minus and plus 10 on each x and y, canceling movements"
     >:: boat_test (310., 260.) [ (-10., -10.); (10., 10.) ];
     "Boat: new_boat, x + 50 and y - 100"
     >:: boat_test (360., 160.) [ (50., -100.) ];
-    "Boat: new_boat, x + 50 and y - 100"
+    "Boat: new_boat, x + 30 and y + 100, multiple movements"
     >:: boat_test (340., 360.) [ (50., -100.); (-20., 200.) ];
+    "Boat: new_boat, multiple movements, ends (305, 397)"
+    >:: boat_test (305., 397.)
+          [ (50., -100.); (-49., 2.); (-20., 200.); (14., 35.) ];
     "Boat: new_boat, border collision check for x"
     >:: boat_test (512., 260.) [ (-700., 0.) ];
     "Boat: new_boat, border collision check for y"
