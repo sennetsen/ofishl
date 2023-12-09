@@ -5,20 +5,22 @@ open Window
 let save_to_file (user : string) (map : string) (content : string) =
   let output_file = "player_data/" ^ user ^ "_stats.txt" in
   let out_channel = open_out output_file in
-  let file_contents = "
-  🐪---------------------🐠
-  |  OFishl Game Results |
-  🐠---------------------🐪\n\n" ^ content in
+  let file_contents =
+    "\n\
+    \  🐪---------------------🐠\n\
+    \  |  OFishl Game Results |\n\
+    \  🐠---------------------🐪\n\n" ^ content
+  in
   output_string out_channel file_contents;
   close_out out_channel
 
 let print_save_notif is_confirmed user =
   match is_confirmed with
   | true ->
-      (print_string
+      print_string
         ("\nYour game data has been saved, " ^ user
        ^ ". \nView your stats at: \027[1;32m" ^ "player_data/" ^ user
-       ^ "_stats.txt\027[0m"))
+       ^ "_stats.txt\027[0m")
   | false -> print_string "\nYour game data has not been saved."
 
 let rec ask_to_save (user : string) (map : string) (content : string) =
@@ -49,7 +51,7 @@ let print_content (data : Window.game_data) (user : string) (map : string) =
     ^ string_of_int (3 * data.rods)
     ^ " score points spent in total)" ^ "\nAmount of bait purchased: "
     ^ string_of_int data.bait ^ " units of bait ("
-    ^ string_of_int (5 * data.bait)
+    ^ string_of_int (1 * data.bait)
     ^ " score points spent in total)"
   in
   let closing = "\n\nThanks for playing OFishl, " ^ user ^ "! " in
