@@ -109,24 +109,20 @@ module MainWin : WindowSig = struct
       if Raylib.window_should_close () then current_state := Quit;
 
       (* Responding to key presses. *)
-      (match
-         ( is_key_down Key.W,
-           is_key_down Key.A,
-           is_key_down Key.S,
-           is_key_down Key.D )
-       with
-      | true, true, false, false -> Boat.move boat (-1.4142) (-1.4142)
-      | false, true, true, false -> Boat.move boat (-1.4142) 1.4142
-      | false, false, true, true -> Boat.move boat 1.4142 1.4142
-      | true, false, false, true -> Boat.move boat 1.4142 (-1.4142)
-      | _ ->
-          if is_key_down Key.A || is_key_down Key.Left then
-            Boat.move boat (-2.) 0.;
-          if is_key_down Key.D || is_key_down Key.Right then
-            Boat.move boat 2. 0.;
-          if is_key_down Key.W || is_key_down Key.Up then
-            Boat.move boat 0. (-2.);
-          if is_key_down Key.S || is_key_down Key.Down then Boat.move boat 0. 2.);
+      if is_key_down Key.W && is_key_down Key.A then
+        Boat.move boat (-0.70710678118) (-0.70710678118)
+      else if is_key_down Key.A && is_key_down Key.S then
+        Boat.move boat (-0.70710678118) 0.70710678118
+      else if is_key_down Key.S && is_key_down Key.D then
+        Boat.move boat 0.70710678118 0.70710678118
+      else if is_key_down Key.D && is_key_down Key.W then
+        Boat.move boat 0.70710678118 (-0.70710678118)
+      else (
+        if is_key_down Key.A || is_key_down Key.Left then
+          Boat.move boat (-1.) 0.;
+        if is_key_down Key.D || is_key_down Key.Right then Boat.move boat 1. 0.;
+        if is_key_down Key.W || is_key_down Key.Up then Boat.move boat 0. (-1.);
+        if is_key_down Key.S || is_key_down Key.Down then Boat.move boat 0. 1.);
 
       if
         is_key_pressed Key.F
@@ -147,8 +143,12 @@ module MainWin : WindowSig = struct
       Fish.draw_fish texture_fish !current_fish;
       Seamine.draw !current_seamine;
       Coin.draw !current_coin;
-      Boat.draw boat;
 
+      Boat.draw2 boat
+        ( is_key_down Key.W || is_key_down Key.Up,
+          is_key_down Key.A || is_key_down Key.Left,
+          is_key_down Key.S || is_key_down Key.Down,
+          is_key_down Key.D || is_key_down Key.Right );
       Box.draw !store_box Color.lightgray;
       Box.draw !score_box (Color.create 232 253 255 150);
 

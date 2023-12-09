@@ -14,6 +14,7 @@ module type BoatSig = sig
   val get_vect : t -> Vector2.t
   val move : t -> float -> float -> unit
   val draw : t -> unit
+  val draw2 : t -> bool * bool * bool * bool -> unit
   val border_crossed : t -> unit
 end
 
@@ -30,23 +31,31 @@ module Boat : BoatSig = struct
   let get_vect (boat : t) : Vector2.t = !boat
 
   let move (boat : t) (dx : float) (dy : float) : unit =
-    if dx = 0. then boat_face := boat_v else boat_face := boat_h;
+    (* Unused now: if dx = 0. then boat_face := boat_v else boat_face :=
+       boat_h; *)
     boat := Vector2.add !boat (Vector2.create dx dy)
-  (* (match (dx > 0., dy > 0.) with | true, true -> boat_face := Vector2.create
-     10. 12. | false, false -> boat_face := Vector2.create 10. (-10.) | true,
-     false -> boat_face := Vector2.create 15. (-12.) | false, true -> boat_face
-     := Vector2.create 15. 7.); boat := Vector2.add !boat (Vector2.create dx
-     dy) *)
 
   let draw (boat : t) : unit =
     (* The horiztonal and vertical radii respectively of the ellipse that
        represents the boat. *)
     let radh = Vector2.x !boat_face in
     let radv = Vector2.y !boat_face in
+
     draw_ellipse
       (int_of_float (get_x boat))
       (int_of_float (get_y boat))
       radh radv Color.brown
+
+  let draw2 (boat : t) (keys : bool * bool * bool * bool) : unit =
+    let angle =
+      match keys with
+      | true, true, false, false | false, false, true, true -> 45.
+      | false, true, true, false | true, false, false, true -> 135.
+      | true, false, false, false | false, false, true, false -> 90.
+      | _ -> 0.
+    in
+    let rec_boat = Rectangle.create (get_x boat) (get_y boat) 40. 25. in
+    draw_rectangle_pro rec_boat (Vector2.create 20. 12.5) angle Color.brown
 
   let border_crossed (boat : t) : unit =
     if Vector2.x !boat <= 0. then Vector2.set_x !boat Const.canvas_width_fl

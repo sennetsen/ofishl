@@ -41,6 +41,9 @@ module type BoatSig = sig
   (** Draws the boat at its current position and orientation and colors it
       brown. *)
 
+  val draw2 : t -> bool * bool * bool * bool -> unit
+  (** Testing currently *)
+
   val border_crossed : t -> unit
   (** Given a boat, return true if the boat touches the edges of the canvas
       window. *)
