@@ -76,22 +76,24 @@ let boat_test out in1 _ =
   assert_equal
     ~msg:(Printf.sprintf "function: Boat.move\ninput: ")
     out
-    (let boat = Boat.new_boat in
-     move_boat_from_lst Boat.new_boat in1;
+    (let boat = Boat.new_boat 310. 260. 30. 20. in
+     move_boat_from_lst boat in1;
      Boat.border_crossed boat;
-
-     print_endline (string_of_float (Boat.get_y boat));
      (Boat.get_x boat, Boat.get_y boat))
 
 let boat_tests =
   [
     "Boat: new_boat" >:: boat_test (310., 260.) [];
-    "Boat: new_boat minus 10 on each x and y"
-    >:: boat_test (300., 250.) [ (-10., -10.) ];
     "Boat: new_boat minus and plus 10 on each x and y"
     >:: boat_test (310., 260.) [ (-10., -10.); (10., 10.) ];
-    (* "Boat: border collision check" >:: boat_test (512., 260.) [ (-700., -10.)
-       ]; *)
+    "Boat: new_boat, x + 50 and y - 100"
+    >:: boat_test (360., 160.) [ (50., -100.) ];
+    "Boat: new_boat, x + 50 and y - 100"
+    >:: boat_test (340., 360.) [ (50., -100.); (-20., 200.) ];
+    "Boat: new_boat, border collision check for x"
+    >:: boat_test (512., 260.) [ (-700., 0.) ];
+    "Boat: new_boat, border collision check for y"
+    >:: boat_test (310., 512.) [ (0., -500.) ];
   ]
 
 let suite =

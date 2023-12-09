@@ -22,7 +22,7 @@ let current_state = ref StartMenu
 let current_fish = ref (Fish.spawn ())
 let current_coin = ref (Coin.generate ())
 let current_seamine = ref (Seamine.generate ())
-let boat = Boat.new_boat
+let boat = Boat.new_boat 310. 260. 30. 20.
 let score = Score.new_score ()
 
 (* Documentation of the library can be found here:
@@ -109,14 +109,22 @@ module MainWin : WindowSig = struct
       if Raylib.window_should_close () then current_state := Quit;
 
       (* Responding to key presses. *)
-      if is_key_down Key.W && is_key_down Key.A then
-        Boat.move boat (-0.70710678118) (-0.70710678118)
-      else if is_key_down Key.A && is_key_down Key.S then
-        Boat.move boat (-0.70710678118) 0.70710678118
-      else if is_key_down Key.S && is_key_down Key.D then
-        Boat.move boat 0.70710678118 0.70710678118
-      else if is_key_down Key.D && is_key_down Key.W then
-        Boat.move boat 0.70710678118 (-0.70710678118)
+      if
+        (is_key_down Key.W || is_key_down Key.Up)
+        && (is_key_down Key.A || is_key_down Key.Left)
+      then Boat.move boat (-0.70710678118) (-0.70710678118)
+      else if
+        (is_key_down Key.A || is_key_down Key.Left)
+        && (is_key_down Key.S || is_key_down Key.Down)
+      then Boat.move boat (-0.70710678118) 0.70710678118
+      else if
+        (is_key_down Key.S || is_key_down Key.Down)
+        && (is_key_down Key.D || is_key_down Key.Right)
+      then Boat.move boat 0.70710678118 0.70710678118
+      else if
+        (is_key_down Key.D || is_key_down Key.Right)
+        && (is_key_down Key.W || is_key_down Key.Up)
+      then Boat.move boat 0.70710678118 (-0.70710678118)
       else (
         if is_key_down Key.A || is_key_down Key.Left then
           Boat.move boat (-1.) 0.;
@@ -144,7 +152,7 @@ module MainWin : WindowSig = struct
       Seamine.draw !current_seamine;
       Coin.draw !current_coin;
 
-      Boat.draw2 boat
+      Boat.draw boat
         ( is_key_down Key.W || is_key_down Key.Up,
           is_key_down Key.A || is_key_down Key.Left,
           is_key_down Key.S || is_key_down Key.Down,
