@@ -137,6 +137,9 @@ module MainWin : WindowSig = struct
 
       Box.draw !store_box Color.lightgray;
       Box.draw !score_box (Color.create 232 253 255 150);
+
+      Boat.border_crossed boat;
+
       Score.print score;
       end_drawing ();
 

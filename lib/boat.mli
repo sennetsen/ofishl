@@ -6,6 +6,7 @@ module type BoatSig = sig
   type t
 
   val new_boat : t
+  (** Creates a new boat character at initial position. *)
 
   val boat_h : Vector2.t
   (** Represents the orientation of the boat with respect to an ellpise. boat_h
@@ -20,9 +21,17 @@ module type BoatSig = sig
   val boat_face : Vector2.t ref
   (** The reference to the boat's current orientation. Set to boat_h by default. *)
 
-  val get_x : t -> int
-  val get_y : t -> int
+  val get_x_int : t -> int
+  (** Given a boat, returns the x position of the boat, converted from a float
+      to an int. *)
+
+  val get_y_int : t -> int
+  (** Given a boat, returns the y position of the boat, converted from a float
+      to an int. *)
+
   val get_vect : t -> Vector2.t
+  (** Given a boat, returns a Vector2.t representation of the boat at that
+      instant. *)
 
   val move : t -> float -> float -> unit
   (** Given a movement vector and a bool which is true when the boat is facing
