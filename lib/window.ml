@@ -173,7 +173,7 @@ module MainWin : WindowSig = struct
 
     Boat.border_crossed boat;
 
-    Score.print score;
+    Score.print score (Loadables.uni_font loads);
     end_drawing ()
 end
 
@@ -231,7 +231,7 @@ module StoreWin : WindowSig = struct
   let loop (map : string) is_custom (loads : Loadables.t) =
     if Raylib.window_should_close () then current_state := Quit
     else (
-      Score.print score;
+      Score.print score (Loadables.uni_font loads);
       if Box.colliding (get_mouse_position ()) buy_rod_button then (
         if
           is_mouse_button_pressed MouseButton.Left && Score.get_score score >= 3

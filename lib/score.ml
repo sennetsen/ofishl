@@ -19,9 +19,8 @@ let new_score () : t =
 let get_score (sc : t) : int = sc.score
 let is_score (sc : t) : bool = failwith ""
 
-let print (sc : t) : unit =
+let print (sc : t) (font : Font.t) : unit =
   let text = "Score: " ^ string_of_int (get_score sc) in
-  let font = load_font "data/fonts/uni-sans/Uni Sans Heavy.otf" in
   draw_text_ex font text (Vector2.create 390. 24.) sc.font_size 1. sc.color
 
 let update_score (sc : t) (n : int) : unit = sc.score <- sc.score + n

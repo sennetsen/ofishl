@@ -14,7 +14,7 @@ val is_score : t -> bool
 val get_score : t -> int
 (** Returns the integer value of the current score. *)
 
-val print : t -> unit
+val print : t -> Font.t -> unit
 (** Prints a score value when called during a game run. *)
 
 val update_score : t -> int -> unit
