@@ -20,8 +20,8 @@ val print : t -> unit
 val update_score : t -> int -> unit
 (** Updates the score based on changes in user actions and gameplay.*)
 
-val set_font_size : t -> int -> unit
+val set_font_size : t -> float -> unit
 (** Sets the font size of a printed score value. *)
 
-val set_color : t -> string -> unit
+val set_color : t -> Color.t -> unit
 (** Sets the color of a printed score value. *)

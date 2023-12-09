@@ -15,8 +15,6 @@ module Fish : FishSig = struct
   let spawn (() : unit) : t =
     Vector2.create (Random.float 512.) (Random.float 512.)
 
-  (* let draw (fish : t) : unit = draw_circle_v fish 8. Color.blue *)
-
   let draw_fish (texture : Texture2D.t) (fish : t) =
     draw_texture texture
       (int_of_float (Vector2.x fish) - 50)
