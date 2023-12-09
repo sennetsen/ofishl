@@ -22,6 +22,7 @@ let current_state = ref StartMenu
 let current_fish = ref (Fish.spawn ())
 let current_coin = ref (Coin.generate ())
 let current_seamine = ref (Seamine.generate ())
+let boat = Boat.new_boat
 let score = Score.new_score ()
 
 (* Documentation of the library can be found here:
@@ -109,31 +110,30 @@ module MainWin : WindowSig = struct
       else if
         (* Responding to key presses. *)
         is_key_down Key.A || is_key_down Key.Left
-      then Boat.move (Vector2.create ~-.2. 0.);
-      if is_key_down Key.D || is_key_down Key.Right then
-        Boat.move (Vector2.create 2. 0.);
-      if is_key_down Key.W || is_key_down Key.Up then
-        Boat.move (Vector2.create 0. ~-.2.);
-      if is_key_down Key.S || is_key_down Key.Down then
-        Boat.move (Vector2.create 0. 2.);
-      if is_key_pressed Key.F && Fish.colliding !Boat.boat_pos !current_fish
+      then Boat.move boat (-2.) 0.;
+      if is_key_down Key.D || is_key_down Key.Right then Boat.move boat 2. 0.;
+      if is_key_down Key.W || is_key_down Key.Up then Boat.move boat 0. (-2.);
+      if is_key_down Key.S || is_key_down Key.Down then Boat.move boat 0. 2.;
+      if
+        is_key_pressed Key.F
+        && Fish.colliding (Boat.get_vect boat) !current_fish
       then (
         current_state := Minigame;
         Score.update_score score 3;
         current_fish := Fish.spawn ());
-      if Coin.colliding !Boat.boat_pos !current_coin then (
+      if Coin.colliding (Boat.get_vect boat) !current_coin then (
         current_coin := Coin.generate ();
         Score.update_score score 1);
-      if Seamine.colliding !Boat.boat_pos !current_seamine then (
+      if Seamine.colliding (Boat.get_vect boat) !current_seamine then (
         Score.update_score score (Seamine.get_damage !current_seamine);
         current_seamine := Seamine.generate ());
-      if is_key_pressed Key.F && Box.colliding !Boat.boat_pos !store_box then
-        current_state := Store;
+      if is_key_pressed Key.F && Box.colliding (Boat.get_vect boat) !store_box
+      then current_state := Store;
 
       Fish.draw_fish texture_fish !current_fish;
       Seamine.draw !current_seamine;
       Coin.draw !current_coin;
-      Boat.draw ();
+      Boat.draw boat;
 
       Box.draw !store_box Color.lightgray;
       Box.draw !score_box (Color.create 232 253 255 150);

@@ -5,10 +5,7 @@ open Constants
 module type BoatSig = sig
   type t
 
-  (* TODO: change these 4 variables to a type t. *)
-  val boat_pos : Vector2.t ref
-  (** The vector value for the current position of the center of the boat in the
-      window. *)
+  val new_boat : t
 
   val boat_h : Vector2.t
   (** Represents the orientation of the boat with respect to an ellpise. boat_h
@@ -23,15 +20,19 @@ module type BoatSig = sig
   val boat_face : Vector2.t ref
   (** The reference to the boat's current orientation. Set to boat_h by default. *)
 
-  val move : Vector2.t -> unit
+  val get_x : t -> int
+  val get_y : t -> int
+  val get_vect : t -> Vector2.t
+
+  val move : t -> float -> float -> unit
   (** Given a movement vector and a bool which is true when the boat is facing
       horizontally and false when facing vertically, move the boat accordingly. *)
 
-  val draw : unit -> unit
+  val draw : t -> unit
   (** Draws the boat at its current position and orientation and colors it
       brown. *)
 
-  val border_crossed : unit -> unit
+  val border_crossed : t -> unit
   (** Given a boat, return true if the boat touches the edges of the canvas
       window. *)
   (* TODO: Change this documentation. *)
