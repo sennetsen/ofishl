@@ -6,7 +6,8 @@ module type AudioSpriteSig = sig
   type t
 
   val start : unit -> unit
-  val play : string -> unit
+  val play : Sound.t -> unit
+  val is_playing : Sound.t -> bool
 end
 
 (** The module used for controlling audio. *)
@@ -14,8 +15,6 @@ module AudioSprite : AudioSpriteSig = struct
   type t = Sound.t
 
   let start () = init_audio_device ()
-
-  let play (audio_file : string) : unit =
-    let sound = load_sound audio_file in
-    play_sound sound
+  let play (sound : Sound.t) : unit = play_sound sound
+  let is_playing (sound : Sound.t) : bool = is_sound_playing sound
 end
