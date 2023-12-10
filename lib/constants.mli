@@ -7,9 +7,6 @@ val canvas_height_fl : float
 val canvas_width_fl : float
 (** Fixed float value for the width of the game window. *)
 
-val volume : int
-(** Fixed int value for the volume of the game sounds. *)
-
 val speed : float ref
 (** Represents the speed of the sprite. Speed can be mutated. *)
 

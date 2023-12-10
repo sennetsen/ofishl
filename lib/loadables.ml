@@ -12,6 +12,8 @@ module type LoadList = sig
   val background_sound : t -> Sound.t
   val coin_sound : t -> Sound.t
   val seamine_sound : t -> Sound.t
+  val water_sound : t -> Sound.t
+  val click_sound : t -> Sound.t
   val trapmine : t -> Texture2D.t
   val minemine : t -> Texture2D.t
   val bombamine : t -> Texture2D.t
@@ -42,6 +44,8 @@ module Loadables : LoadList = struct
     background_sound : Sound.t;
     coin_sound : Sound.t;
     seamine_sound : Sound.t;
+    water_sound : Sound.t;
+    click_sound : Sound.t;
   }
 
   type t = {
@@ -65,6 +69,8 @@ module Loadables : LoadList = struct
     let bg_sound = load_sound "data/audio-sprites/track1.wav" in
     let c_sound = load_sound "data/audio-sprites/underwater_coin.wav" in
     let mine_sound = load_sound "data/audio-sprites/seamine.wav" in
+    let wat_sound = load_sound "data/audio-sprites/water_click.wav" in
+    let clk_sound = load_sound "data/audio-sprites/click_sound.wav" in
     let trap = load_image "data/seamines/trap.png" in
     let texture_trap = load_texture_from_image trap in
     let mine = load_image "data/seamines/mine.png" in
@@ -106,6 +112,8 @@ module Loadables : LoadList = struct
           background_sound = bg_sound;
           coin_sound = c_sound;
           seamine_sound = mine_sound;
+          water_sound = wat_sound;
+          click_sound = clk_sound;
         };
     }
 
@@ -117,6 +125,8 @@ module Loadables : LoadList = struct
   let background_sound (loads : t) = loads.sounds.background_sound
   let coin_sound (loads : t) = loads.sounds.coin_sound
   let seamine_sound (loads : t) = loads.sounds.seamine_sound
+  let water_sound (loads : t) = loads.sounds.water_sound
+  let click_sound (loads : t) = loads.sounds.click_sound
   let trapmine (loads : t) = loads.textures.trapmine
   let minemine (loads : t) = loads.textures.minemine
   let bombamine (loads : t) = loads.textures.bombamine

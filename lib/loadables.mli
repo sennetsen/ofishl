@@ -33,6 +33,12 @@ module type LoadList = sig
   val seamine_sound : t -> Sound.t
   (** Given a LoadList [loads] return the loaded seamine sound. *)
 
+  val water_sound : t -> Sound.t
+  (** Given a LoadList [loads] return the loaded water sound. *)
+
+  val click_sound : t -> Sound.t
+  (** Given a LoadList [loads] return the loaded click sound. *)
+
   val trapmine : t -> Texture2D.t
   (** Given a LoadList [loads] return the loaded texture of the trapmine. *)
 

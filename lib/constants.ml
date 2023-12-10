@@ -5,7 +5,6 @@ open Vector2
 let canvas_height_fl : float = 512.
 
 let canvas_width_fl : float = 512.
-let volume : int = 75
 let speed : float ref = ref 1.
 let set_speed (sp : float) : unit = speed := sp
 let get_speed () : float = !speed

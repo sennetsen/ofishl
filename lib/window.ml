@@ -213,9 +213,10 @@ module MiniWin : WindowSig = struct
       && Target.colliding (get_mouse_position ()) !current_target
     then (
       mini_score := !mini_score + Target.get_score !current_target;
+      AudioSprite.play (Loadables.water_sound loads);
       current_target := Target.generate boat (Box.generate 0. 0. 0. 0.));
     begin_drawing ();
-    clear_background Color.raywhite;
+    clear_background (Color.create 168 235 255 100);
     Target.draw texture_target !current_target;
     end_drawing ()
 end
@@ -260,9 +261,11 @@ module StoreWin : WindowSig = struct
         then
           if is_key_down Key.Left_shift && Score.get_score score >= 30 then (
             Score.update_score score (-30);
+            AudioSprite.play (Loadables.click_sound loads);
             game_data.rods <- game_data.rods + 10)
           else (
             Score.update_score score (-3);
+            AudioSprite.play (Loadables.click_sound loads);
             game_data.rods <- game_data.rods + 1);
 
         if is_mouse_button_down MouseButton.Left then
@@ -281,9 +284,11 @@ module StoreWin : WindowSig = struct
         then
           if is_key_down Key.Left_shift && Score.get_score score >= 10 then (
             Score.update_score score (-10);
+            AudioSprite.play (Loadables.click_sound loads);
             game_data.bait <- game_data.bait + 10)
           else (
             Score.update_score score (-1);
+            AudioSprite.play (Loadables.click_sound loads);
             game_data.bait <- game_data.bait + 1);
         if is_mouse_button_down MouseButton.Left then
           if Score.get_score score >= 3 then (
@@ -301,6 +306,7 @@ module StoreWin : WindowSig = struct
           && Score.get_score score >= 3110
         then (
           Score.update_score score (-3110);
+          AudioSprite.play (Loadables.click_sound loads);
           game_data.trophy <- true;
           current_state := GameOver);
         if is_mouse_button_down MouseButton.Left then
@@ -373,8 +379,8 @@ let setup (map : string) (user : string) =
 
 let rec looper (map : string) (user : string) (st : state) (loads : Loadables.t)
     =
-  if AudioSprite.is_playing (Loadables.background_sound loads) then ()
-  else AudioSprite.play (Loadables.background_sound loads);
+  if not (AudioSprite.is_playing (Loadables.background_sound loads)) then
+    AudioSprite.play (Loadables.background_sound loads);
 
   match st with
   | StartMenu ->
@@ -406,5 +412,7 @@ let run (map : string) (user : string) =
   let loads = setup map user in
   AudioSprite.play (Loadables.background_sound loads);
   Raylib.set_sound_volume (Loadables.coin_sound loads) 0.1;
+  Raylib.set_sound_volume (Loadables.seamine_sound loads) 0.3;
+  Raylib.set_sound_volume (Loadables.water_sound loads) 0.8;
   (* Silence verbose log output. *)
   looper map user !current_state loads
