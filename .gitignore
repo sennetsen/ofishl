@@ -6,6 +6,10 @@
 _build
 .vscode
 
+# bisect
+_coverage
+bisect*.coverage
+
 # player instance data
 player_data/*
 !player_data/player_data.md
