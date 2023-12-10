@@ -6,3 +6,4 @@ https://tjammer.github.io/raylib-ocaml/raylib/Raylib/index.html
 
 Coin Sound: https://freesound.org/people/MATRIXXX_/sounds/523547/
 
+Coin Image: https://www.flaticon.com/free-icon/coin_7880066

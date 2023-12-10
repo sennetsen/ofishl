@@ -25,13 +25,14 @@ demo-video-url: ""
 desc: >
   Welcome to our fishing game! You, the user, can control the fisher that will
   move around a lake on a boat. You can swim around, catching fish, and drop off
-  the fish you catch at the store in the middle of the lake. 
+  the fish you catch at the store. 
   
-  The interface will be fully functioned by the mouse and the keys WASD.
+  The interface will be fully functioned by the mouse, the keys WASD
+  (or the arrow keys), and the keys F, Shift, and X.
 
-  To fish, press and hold a button to cast your line, and the longer you hold, 
-  the farther you casted line will be. Once a fish bites, play a short mini-game
-  of clicking quick circles on the screen to eventually catch your fish! 
+  To fish, travel with to the fish visible on the lake and press F. Once a fish
+  bites, play a short mini-game of clicking quick circles on the screen to
+  eventually catch your fish! 
 
   You want more money in this game, and you will be able to purchase better
   fishing equipment as you progress further into our game! Good luck!
