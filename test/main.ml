@@ -12,9 +12,18 @@ open Constants
 (* Test Plan: Because the nature of the game returns most values as units, the
    test suite functions to ensure text functions in the terminal, collision
    logistics, and values such as boat angle and position, score, and other
-   variables are working as intended. Testing is primarily glass-box with
-   asserts to check the functions are outputting what the implementors desired.
-   Used [make bisect] because testing was glass-box *)
+   variables are working as intended. More specifically, it tests the modules
+   [Boat], [Box], [Score], [Sprites], and [Terminalentry]. Modules like
+   [Gamestats] and [Window] are manually tested by running the game and
+   observing that everything runs as intended (this contributes to the majority
+   of our testing). Testing in OUnit is primarily glass-box with asserts to
+   check the functions are executing with the behavior that the implementors
+   intended. The actual coverage illustrated by [make bisect] is not indicative
+   of the correctness of our program, we merely used it as a tool to identify
+   potential areas for testing since many functions can only be tested manually
+   by running the game. Correctness is ensured by the fact that our game runs
+   free of bugs and exactly as intended, supplemented by the fact that our OUnit
+   suite passes. *)
 
 let terminal_tests =
   [
