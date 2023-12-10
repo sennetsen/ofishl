@@ -60,35 +60,33 @@ module Loadables : LoadList = struct
       necessary. *)
 
   let initialize (map : string) =
-    let uni_font = load_font "data/fonts/uni-sans/Uni Sans Heavy.otf" in
-    let bolden_font = load_font "data/fonts/boldenvan/boldenvan.ttf" in
-    let background = load_image ("data/sprites/bkg" ^ map ^ ".png") in
+    let uni_font = load_font "./data/fonts/uni-sans/Uni Sans Heavy.otf" in
+    let bolden_font = load_font "./data/fonts/boldenvan/boldenvan.ttf" in
+    let background = load_image ("./data/sprites/bkg" ^ map ^ ".png") in
     let texture_background = load_texture_from_image background in
-    let hsu = load_image "data/fish-sprites/smallerhsu.png" in
+    let hsu = load_image "./data/fish-sprites/smallerhsu.png" in
     let texture_hsu = load_texture_from_image hsu in
-    let kozen = load_image "data/fish-sprites/smallerkozen.png" in
+    let kozen = load_image "./data/fish-sprites/smallerkozen.png" in
     let texture_kozen = load_texture_from_image kozen in
-    let bg_sound = load_sound "data/audio-sprites/track1.wav" in
-    let c_sound = load_sound "data/audio-sprites/underwater_coin.wav" in
-    let mine_sound = load_sound "data/audio-sprites/seamine.wav" in
-    let wat_sound = load_sound "data/audio-sprites/water_click.wav" in
-    let clk_sound = load_sound "data/audio-sprites/click_sound.wav" in
-    let trap = load_image "data/seamines/trap.png" in
+    let bg_sound = load_sound "./data/audio-sprites/track1.wav" in
+    let c_sound = load_sound "./data/audio-sprites/underwater_coin.wav" in
+    let mine_sound = load_sound "./data/audio-sprites/seamine.wav" in
+    let wat_sound = load_sound "./data/audio-sprites/water_click.wav" in
+    let clk_sound = load_sound "./data/audio-sprites/click_sound.wav" in
+    let trap = load_image "./data/seamines/trap.png" in
     let texture_trap = load_texture_from_image trap in
-    let mine = load_image "data/seamines/mine.png" in
+    let mine = load_image "./data/seamines/mine.png" in
     let texture_mine = load_texture_from_image mine in
-    let bomba = load_image "data/seamines/bomba.png" in
+    let bomba = load_image "./data/seamines/bomba.png" in
     let texture_bomba = load_texture_from_image bomba in
-    let coin = load_image "data/coin-sprites/coin.png" in
+    let coin = load_image "./data/coin-sprites/coin.png" in
     let texture_coin = load_texture_from_image coin in
-    let target = load_image "data/bobber/bobber.png" in
+    let target = load_image "./data/bobber/bobber.png" in
     let texture_target = load_texture_from_image target in
-    let exit = load_image "data/buttons/exit.png" in
+    let exit = load_image "./data/buttons/exit.png" in
     let texture_exit = load_texture_from_image exit in
-
-    let bt_img = load_image "data/boat/boat.png" in
+    let bt_img = load_image "./data/boat/boat.png" in
     let texture_bt = load_texture_from_image bt_img in
-
     unload_image background;
     unload_image hsu;
     unload_image kozen;
