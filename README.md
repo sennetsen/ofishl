@@ -1,4 +1,4 @@
-# Welcome to OFishl!
+# Welcome to OFishl, the Official OCaml Fishing Tournament!
 ## Names and NetIDS: 
   - Parker Rho (pkr47)
   - Sennet Senadheera (sas639)
