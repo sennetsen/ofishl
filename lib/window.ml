@@ -93,8 +93,8 @@ module MainWin : WindowSig = struct
 
   let setup (map : string) (user : string) (loads : Loadables.t) =
     (* TODO: *)
-    if map = "2" then store_box := Box.generate 100. 450. 50. 50. else ();
-    if map = "3" then store_box := Box.generate 100. 450. 50. 50. else ();
+    if map = "2" then store_box := Box.generate 65. 410. 50. 50. else ();
+    if map = "3" then store_box := Box.generate 93. 139. 50. 50. else ();
     Raylib.set_window_title (user ^ "'s Game | Map " ^ map)
 
   let loop (map : string) (is_custom : bool) (loads : Loadables.t) =
@@ -174,7 +174,6 @@ module MainWin : WindowSig = struct
         is_key_down Key.D || is_key_down Key.Right );
 
     Box.draw !score_box (Color.create 232 253 255 150);
-    Box.draw !store_box Color.lightgray;
 
     Boat.border_crossed boat;
 
