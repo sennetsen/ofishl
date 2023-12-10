@@ -26,13 +26,15 @@ type game_data = {
   mutable final_score : int;
   mutable rods : int;
   mutable bait : int;
+  mutable trophy : bool;
 }
 
-let game_data = { final_score = Score.get_score score; rods = 0; bait = 0 }
+let game_data =
+  { final_score = Score.get_score score; rods = 0; bait = 0; trophy = false }
 
 module type WindowSig = sig
   val setup : string -> string -> Loadables.t -> unit
-  val loop : string -> bool -> Loadables.t -> unit
+  val loop : string -> Loadables.t -> unit
 end
 
 module StartMenuWin : WindowSig = struct
@@ -53,7 +55,7 @@ module StartMenuWin : WindowSig = struct
       (Color.create 255 102 204 400)
   (* Exit button *)
 
-  let loop (map : string) (is_custom : bool) (loads : Loadables.t) =
+  let loop (map : string) (loads : Loadables.t) =
     if Raylib.window_should_close () then current_state := Quit
     else if Box.colliding (get_mouse_position ()) play_button then (
       if is_mouse_button_down MouseButton.Left then
@@ -93,7 +95,7 @@ module MainWin : WindowSig = struct
     if map = "3" then store_box := Box.generate 93. 139. 50. 50. else ();
     Raylib.set_window_title (user ^ "'s Game | Map " ^ map)
 
-  let loop (map : string) (is_custom : bool) (loads : Loadables.t) =
+  let loop (map : string) (loads : Loadables.t) =
     draw_texture (Loadables.map loads) 0 0 Color.raywhite;
 
     let texture_fish =
@@ -198,7 +200,7 @@ module MiniWin : WindowSig = struct
     Raylib.set_window_title "Catch the fish!";
     win_con := if game_data.rods < 10 then 10 - game_data.rods else 1
 
-  let loop (map : string) is_custom (loads : Loadables.t) =
+  let loop (map : string) (loads : Loadables.t) =
     let texture_target = Loadables.bobber loads in
     if !mini_score = !win_con then (
       mini_score := 0;
@@ -246,7 +248,7 @@ module StoreWin : WindowSig = struct
     (* Box around score *)
     Box.draw score_box (Color.create 232 253 255 150)
 
-  let loop (map : string) is_custom (loads : Loadables.t) =
+  let loop (map : string) (loads : Loadables.t) =
     if Raylib.window_should_close () then current_state := Quit
     else (
       Score.print score (Loadables.uni_font loads);
@@ -295,7 +297,10 @@ module StoreWin : WindowSig = struct
         if
           is_mouse_button_pressed MouseButton.Left
           && Score.get_score score >= 3110
-        then Score.update_score score (-3110);
+        then (
+          Score.update_score score (-3110);
+          game_data.trophy <- true;
+          current_state := GameOver);
         if is_mouse_button_down MouseButton.Left then
           if Score.get_score score >= 3110 then (
             Box.draw buy_trophy_button (Color.create 194 155 0 100);
@@ -316,6 +321,41 @@ module StoreWin : WindowSig = struct
       end_drawing ())
 end
 
+module WinScreen : WindowSig = struct
+  let quit_button = Box.generate 200. 256. 100. 50.
+
+  let setup (map : string) (user : string) (loads : Loadables.t) =
+    Raylib.set_window_title "CONGRATULATIONS!";
+    Box.draw quit_button Color.beige;
+    Box.draw_text quit_button "Quit" 25. 220. (Color.create 66 20 0 150)
+      (Loadables.uni_font loads);
+    Raylib.draw_text_ex
+      (Loadables.bolden_font loads)
+      "You are officially THE OFishl Fisher!" (Vector2.create 55. 120.) 30. 1.
+      (Color.create 0 0 0 400);
+    Raylib.draw_text_ex
+      (Loadables.bolden_font loads)
+      "Press esc to quit and record your victory!" (Vector2.create 12. 145.) 30.
+      1. (Color.create 0 0 0 400)
+
+  let loop (map : string) (loads : Loadables.t) =
+    if Raylib.window_should_close () then current_state := Quit
+    else if Box.colliding (get_mouse_position ()) quit_button then (
+      if is_mouse_button_down MouseButton.Left then
+        Box.draw quit_button (Color.create 216 52 6 100);
+      if is_mouse_button_released MouseButton.Left then current_state := Quit;
+      Box.draw_text quit_button "Quit" 25. 220. (Color.create 46 14 0 150)
+        (Loadables.uni_font loads))
+    else (
+      Box.draw quit_button (Color.create 245 110 110 100);
+      Box.draw_text quit_button "Quit" 25. 220. (Color.create 46 14 0 150)
+        (Loadables.uni_font loads));
+
+    begin_drawing ();
+    clear_background Color.gold;
+    end_drawing ()
+end
+
 let setup (map : string) (user : string) =
   Raylib.init_window 512 512 (user ^ "'s Game | Map " ^ map);
   AudioSprite.start ();
@@ -334,25 +374,27 @@ let rec looper (map : string) (user : string) (st : state) (loads : Loadables.t)
   if AudioSprite.is_playing (Loadables.background_sound loads) then ()
   else AudioSprite.play (Loadables.background_sound loads);
 
-  let is_custom = if map <> "custom" then false else true in
   match st with
   | StartMenu ->
       StartMenuWin.setup map user loads;
-      StartMenuWin.loop map is_custom loads;
+      StartMenuWin.loop map loads;
       looper map user !current_state loads
   | Main ->
       MainWin.setup map user loads;
-      MainWin.loop map is_custom loads;
+      MainWin.loop map loads;
       looper map user !current_state loads
   | Minigame ->
       MiniWin.setup map user loads;
-      MiniWin.loop map is_custom loads;
+      MiniWin.loop map loads;
       looper map user !current_state loads
   | Store ->
       StoreWin.setup map user loads;
-      StoreWin.loop map is_custom loads;
+      StoreWin.loop map loads;
       looper map user !current_state loads
-  | GameOver -> ()
+  | GameOver ->
+      WinScreen.setup map user loads;
+      WinScreen.loop map loads;
+      looper map user !current_state loads
   | Quit ->
       game_data.final_score <- Score.get_score score;
       Raylib.close_window ()

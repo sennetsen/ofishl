@@ -27,6 +27,7 @@ type game_data = {
   mutable final_score : int;  (** Final score achieved in the game. *)
   mutable rods : int;  (** Number of rods purchased in the game. *)
   mutable bait : int;  (** Amount of bait purchased in the game. *)
+  mutable trophy : bool; (** True if the player bought the trophy, false otherwise. *)
 }
 (** Represents the game data containing mutable fields for final score, rods,
     and bait. *)
@@ -39,7 +40,7 @@ module type WindowSig = sig
   val setup : string -> string -> Loadables.t -> unit
   (** Sets up the window. *)
 
-  val loop : string -> bool -> Loadables.t -> unit
+  val loop : string -> Loadables.t -> unit
   (** Runs all the operating functions for the window. *)
 end
 
@@ -54,6 +55,9 @@ module MiniWin : WindowSig
 
 module StoreWin : WindowSig
 (** Represents the pop-up window for the store. *)
+
+module WinScreen : WindowSig
+(** Represents the pop-up window when you win. *)
 
 val setup : string -> string -> Loadables.t
 (** Sets up all the necessary characteristics of the main window. *)

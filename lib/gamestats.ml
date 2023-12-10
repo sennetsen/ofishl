@@ -39,9 +39,14 @@ let rec ask_to_save (user : string) (map : string) (content : string) =
     ask_to_save user map content
 
 let print_content (data : Window.game_data) (user : string) (map : string) =
-  let score_string =
-    "Your final score was: " ^ string_of_int data.final_score
+  let total_score =
+    data.final_score + (3 * data.rods) + (1 * data.bait)
+    + if data.trophy then 3110 else 0
   in
+  let winner =
+    "OFishl Fisher Badge: " ^ if data.trophy then "obtained" else "missing"
+  in
+  let score_string = "\nYour final score was: " ^ string_of_int total_score in
   let map_played = "\nGame map played: " ^ "Map " ^ map in
   let purchases =
     "\nNumber of fishing rods purchased: " ^ string_of_int data.rods ^ " rods ("
@@ -52,6 +57,6 @@ let print_content (data : Window.game_data) (user : string) (map : string) =
     ^ " score points spent in total)"
   in
   let closing = "\n\nThanks for playing OFishl, " ^ user ^ "! " in
-  print_string (score_string ^ map_played ^ purchases ^ closing);
+  print_string (winner ^ score_string ^ map_played ^ purchases ^ closing);
 
-  score_string ^ map_played ^ purchases
+  winner ^ score_string ^ map_played ^ purchases
