@@ -252,7 +252,7 @@ let rec move_boat_from_lst boat lst =
 
 let boat_move_test out in1 _ =
   assert_equal
-    ~msg:(Printf.sprintf "function: Boat.move\ninput: ")
+    ~msg:(Printf.sprintf "function: Boat.move")
     out
     (let boat = Boat.new_boat 310. 260. 30. 20. in
      move_boat_from_lst boat in1;
@@ -600,13 +600,6 @@ let constant_tests =
     ("canvas_width_f1 checker" >:: fun _ -> assert_equal 512. w);
     ("speed checker" >:: fun _ -> assert_equal 50. (get_speed ()));
   ]
-(* TODO *)
-(* let loads = let start_audio = AudioSprite.play (Loadables.background_sound
-   loads) *)
-
-let audio_tests =
-  [ (* ( "audio checker" >:: fun _ -> start_audio; assert_equal true
-       (AudioSprite.is_playing (Loadables.background_sound loads)) ); *) ]
 
 let suite =
   "final project test suite"
@@ -626,7 +619,6 @@ let suite =
            fish_colliding_tests;
            bait_tests;
            constant_tests;
-           audio_tests;
          ]
 
 let () = run_test_tt_main suite
