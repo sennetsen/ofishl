@@ -85,7 +85,7 @@ end
 
 module MainWin : WindowSig = struct
   let store_box = ref (Box.generate 230. 218. 50. 50.)
-  let score_box = ref (Box.generate 380. 15. 125. 35.)
+  let score_box = Box.generate 350. 15. 150. 35.
   let fish_type = ref (Random.int 2)
 
   let setup (map : string) (user : string) (loads : Loadables.t) =
@@ -182,7 +182,7 @@ module MainWin : WindowSig = struct
         is_key_down Key.S || is_key_down Key.Down,
         is_key_down Key.D || is_key_down Key.Right );
 
-    Box.draw !score_box (Color.create 232 253 255 150);
+    Box.draw score_box (Color.create 232 253 255 150);
 
     Boat.border_crossed boat;
 
@@ -231,7 +231,7 @@ module StoreWin : WindowSig = struct
   let buy_bait_button = Box.generate 300. 400. 100. 50.
   let buy_trophy_button = Box.generate 157. 300. 200. 50.
   let exit_button = Box.generate 15. 15. 15. 15.
-  let score_box = Box.generate 380. 15. 125. 35.
+  let score_box = Box.generate 350. 15. 150. 35.
 
   let setup (map : string) (user : string) (loads : Loadables.t) =
     Raylib.set_window_title "Welcome home!";
