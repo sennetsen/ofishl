@@ -300,19 +300,93 @@ let boat_tests =
         (Boat.is_border_crossed boat) );
   ]
 
+let boat = Boat.new_boat 310. 260. 30. 20.
+let coin_true1 = Coin.generate_fixed 310. 260.
+let coin_true2 = Coin.generate_fixed 308. 255.
+let coin_true3 = Coin.generate_fixed 315. 265.
+let coin_true4 = Coin.generate_fixed 322. 272.
+let coin_false1 = Coin.generate_fixed 260. 120.
+let coin_false2 = Coin.generate_fixed 440. 360.
+let coin_false3 = Coin.generate_fixed 325. 280.
+
+let coin_colliding_test out in1 in2 _ =
+  assert_equal ~printer:string_of_bool
+    ~msg:(Printf.sprintf "function: Coin.colliding")
+    out (Coin.colliding in1 in2)
+
+let coin_colliding_tests =
+  [
+    "Coin collision: true 1"
+    >:: coin_colliding_test true (Boat.get_vect boat) coin_true1;
+    "Coin collision: true 2"
+    >:: coin_colliding_test true (Boat.get_vect boat) coin_true2;
+    "Coin collision: true 3"
+    >:: coin_colliding_test true (Boat.get_vect boat) coin_true3;
+    "Coin collision: true 4"
+    >:: coin_colliding_test true (Boat.get_vect boat) coin_true4;
+    "Coin collision: false 1"
+    >:: coin_colliding_test false (Boat.get_vect boat) coin_false1;
+    "Coin collision: false 2"
+    >:: coin_colliding_test false (Boat.get_vect boat) coin_false2;
+    "Coin collision: false 3"
+    >:: coin_colliding_test false (Boat.get_vect boat) coin_false3;
+  ]
+
+let seamine_true1 = Seamine.generate_fixed 310. 260.
+let seamine_true2 = Seamine.generate_fixed 302. 252.
+let seamine_true3 = Seamine.generate_fixed 305. 265.
+let seamine_true4 = Seamine.generate_fixed 308. 268.
+let seamine_false1 = Seamine.generate_fixed 294. 240.
+let seamine_false2 = Seamine.generate_fixed 325. 282.
+let seamine_false3 = Seamine.generate_fixed 120. 120.
+let seamine_false4 = Seamine.generate_fixed 400. 310.
+
+let seamine_colliding_test out in1 in2 _ =
+  assert_equal ~printer:string_of_bool
+    ~msg:(Printf.sprintf "function: Seamine.colliding")
+    out
+    (Seamine.colliding in1 in2)
+
+let seamine_colliding_tests =
+  [
+    "Seamine collision: true 1"
+    >:: seamine_colliding_test true (Boat.get_vect boat) seamine_true1;
+    "Seamine collision: true 2"
+    >:: seamine_colliding_test true (Boat.get_vect boat) seamine_true2;
+    "Seamine collision: true 3"
+    >:: seamine_colliding_test true (Boat.get_vect boat) seamine_true3;
+    "Seamine collision: true 4"
+    >:: seamine_colliding_test true (Boat.get_vect boat) seamine_true4;
+    "Seamine collision: false 1"
+    >:: seamine_colliding_test false (Boat.get_vect boat) seamine_false1;
+    "Seamine collision: false 2"
+    >:: seamine_colliding_test false (Boat.get_vect boat) seamine_false2;
+    "Seamine collision: false 3"
+    >:: seamine_colliding_test false (Boat.get_vect boat) seamine_false3;
+    "Seamine collision: false 4"
+    >:: seamine_colliding_test false (Boat.get_vect boat) seamine_false4;
+  ]
+
+let mouse = Vector2.create 310. 260.
+let target_true1 = Target.generate_fixed 310. 260.
+
+let target_colliding_test out in1 in2 _ =
+  assert_equal ~printer:string_of_bool
+    ~msg:(Printf.sprintf "function: Target.colliding")
+    out (Target.colliding in1 in2)
+
+let target_colliding_tests =
+  [
+    "Target collision: true 1"
+    >:: seamine_colliding_test true mouse seamine_true1;
+  ]
+
 module SpriteTester =
 functor
   (S : SpriteSig)
   ->
   struct
     let boat = Boat.new_boat 310. 260. 30. 20.
-    let coin_true1 = S.generate_fixed 310. 260.
-    let coin_true2 = S.generate_fixed 308. 255.
-    let coin_true3 = S.generate_fixed 315. 265.
-    let coin_true4 = S.generate_fixed 322. 272.
-    let coin_false1 = S.generate_fixed 260. 120.
-    let coin_false2 = S.generate_fixed 440. 360.
-    let coin_false3 = S.generate_fixed 323. 273.
 
     let sprite_generate_test out in1 _ =
       assert_equal ~printer:string_of_bool ~msg:"function: Sprites.generate" out
@@ -328,29 +402,6 @@ functor
       [
         "1000 generated sprites are in bounds"
         >:: sprite_generate_test true (multi_gen_tests 1000);
-      ]
-
-    let sprite_colliding_test out in1 in2 _ =
-      assert_equal ~printer:string_of_bool
-        ~msg:(Printf.sprintf "function: Sprites.colliding")
-        out (S.colliding in1 in2)
-
-    let sprite_colliding_tests =
-      [
-        "Coin collision: true 1"
-        >:: sprite_colliding_test true (Boat.get_vect boat) coin_true1;
-        "Coin collision: true 2"
-        >:: sprite_colliding_test true (Boat.get_vect boat) coin_true2;
-        "Coin collision: true 3"
-        >:: sprite_colliding_test true (Boat.get_vect boat) coin_true3;
-        "Coin collision: true 4"
-        >:: sprite_colliding_test true (Boat.get_vect boat) coin_true4;
-        "Coin collision: false 1"
-        >:: sprite_colliding_test false (Boat.get_vect boat) coin_false1;
-        "Coin collision: false 2"
-        >:: sprite_colliding_test false (Boat.get_vect boat) coin_false2;
-        "Coin collision: false 3"
-        >:: sprite_colliding_test false (Boat.get_vect boat) coin_false3;
       ]
 
     let tests = List.flatten [ sprite_generate_tests ]
