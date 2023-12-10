@@ -27,7 +27,8 @@ type game_data = {
   mutable final_score : int;  (** Final score achieved in the game. *)
   mutable rods : int;  (** Number of rods purchased in the game. *)
   mutable bait : int;  (** Amount of bait purchased in the game. *)
-  mutable trophy : bool; (** True if the player bought the trophy, false otherwise. *)
+  mutable trophy : bool;
+      (** True if the player bought the trophy, false otherwise. *)
 }
 (** Represents the game data containing mutable fields for final score, rods,
     and bait. *)

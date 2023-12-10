@@ -11,7 +11,7 @@ module type BoxSig = sig
       and height h. *)
 
   val get_coord : string -> t -> float
-  (** [get_coord coord box] gets the value of [box] specified by [coord]. 
+  (** [get_coord coord box] gets the value of [box] specified by [coord].
       Requires: [coord] is "x", "y", "width", or "height".*)
 
   val draw : t -> Color.t -> unit
