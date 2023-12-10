@@ -35,10 +35,6 @@ test:
 run:
 	OCAMLRUNPARAM=b dune exec bin/main.exe
 
-zip:
-	rm -f search.zip
-	zip -r search.zip . -x@exclude.lst
-
 opam: 
 	opam update
 	opam upgrade
@@ -47,5 +43,5 @@ opam:
 
 zip:
 	dune clean
-	zip -r Final-Project.zip . 
+	zip -r ofishl.zip . 
 	dune build
