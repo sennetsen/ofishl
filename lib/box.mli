@@ -25,3 +25,4 @@ module type BoxSig = sig
 end
 
 module Box : BoxSig
+(** The module used for constructing box objects for the text boxes in menus. *)

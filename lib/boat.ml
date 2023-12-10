@@ -18,6 +18,16 @@ end
 (** The module used for controlling the boat. *)
 module Boat : BoatSig = struct
   type t = Rectangle.t ref
+  (** AF: The boat is represented by a mutable Raylib.Rectangle whose x and y
+      position correspond with the position of the boat in the game window and
+      whose width and height correspond with the dimensions of the boat. RI: the
+      x and y of the rectangle must always be within the dimensions of the game
+      window. So must the height and width. *)
+
+  type inv = {
+    rods : int;
+    bait : int;
+  }
 
   let new_boat (x : float) (y : float) (width : float) (height : float) : t =
     ref (Rectangle.create x y width height)

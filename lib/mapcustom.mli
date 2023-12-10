@@ -4,6 +4,7 @@ open Constants
 (** The signature of the custom map maker. *)
 module type MapCustomMaker = sig
   type t
+  (** The type of a MapCustomMaker. *)
 
   val get_height : t -> int
   (** [get_height map] retrieves the height of the custom map [map]. *)

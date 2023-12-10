@@ -19,6 +19,16 @@ module Loadables : LoadList = struct
     hsufish : Texture2D.t;
     kozenfish : Texture2D.t;
   }
+  (** AF: The record
+      [{
+        unisans_heavy = font1; 
+        boldenvan = font2; 
+        map = maptexture; 
+        hsufish = hsufishtexture; 
+        kozenfish = kozenfishtexture;
+      }]
+      represents a LoadList to be used in the game. RI: No representation
+      invariant necessary. *)
 
   let initialize (map : string) =
     let uni_font = load_font "data/fonts/uni-sans/Uni Sans Heavy.otf" in

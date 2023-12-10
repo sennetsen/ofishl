@@ -20,6 +20,12 @@ end
 
 module Seamine : MineSig = struct
   type t = Vector2.t * diff
+  (** AF: The tuple [(v, diff)] represents a seamine where [v] is a 2-D vector
+      from the Raylib.Vector2 module represents a mine at the coordinate
+      position of the vector with respect to the origin at the top-left corner
+      and the value of [diff] is the severity of the mine. RI: The coordinates
+      of the vector must always be contained within the dimensions of the game
+      window.*)
 
   let random_diff (() : unit) : diff =
     match Random.int 3 with

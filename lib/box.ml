@@ -12,6 +12,11 @@ end
 
 module Box : BoxSig = struct
   type t = Rectangle.t
+  (** AF: A box is represented by a Raylib.Rectangle whose x and y position
+      correspond with the position of the box in the game window and whose
+      height and width correspond with the dimensions of the box. RI: the x, y,
+      height, and width of the rectangle must always be within the dimensions of
+      the game window. *)
 
   let generate (x : float) (y : float) (width : float) (height : float) : t =
     Rectangle.create x y width height

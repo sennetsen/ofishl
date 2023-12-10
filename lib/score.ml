@@ -7,6 +7,15 @@ type t = {
   mutable font_size : float;
   mutable color : Color.t;
 }
+(** AF: The record
+    [{
+        score = i; 
+        level = l; 
+        font_size = f; 
+        color = c; 
+      }]
+    represents the score textbox containing a score of [i], using a font size of
+    [f], and with the text color [c]. RI: No representation invariant necessary. *)
 
 let new_score () : t =
   {

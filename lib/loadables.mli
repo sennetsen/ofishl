@@ -25,3 +25,4 @@ module type LoadList = sig
 end
 
 module Loadables : LoadList
+(** The module that contains all the loaded data necessary for the game. *)

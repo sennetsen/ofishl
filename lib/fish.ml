@@ -11,6 +11,10 @@ end
 
 module Fish : FishSig = struct
   type t = Vector2.t
+  (** AF: The 2-D vector from the Raylib.Vector2 module represents a fish at the
+      coordinate position of the vector with respect to the origin at the
+      top-left corner. RI: The coordinates of the vector must always be
+      contained within the dimensions of the game window.*)
 
   let rec spawn (boat : Boat.t) : t =
     let x, y = (Random.float 512., Random.float 512.) in
