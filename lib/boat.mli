@@ -6,6 +6,9 @@ module type BoatSig = sig
   type t
   (** The type representing a boat. *)
 
+  val boat_angle : float ref
+  (** The angle of the boat in the previous frame. *)
+
   val new_boat : float -> float -> float -> float -> t
   (** Creates a new boat character at position (x, y) with width w and height h. *)
 
@@ -37,7 +40,7 @@ module type BoatSig = sig
   (** Given a boat and the differences in x and y in float values, move the boat
       accordingly. *)
 
-  val draw : t -> bool * bool * bool * bool -> unit
+  val draw : t -> Texture2D.t -> bool * bool * bool * bool -> unit
   (** Given a boat and a quadruple of bools for each direction, draw the boat in
       the direction it should be facing based on the movement. *)
 

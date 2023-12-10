@@ -20,6 +20,7 @@ module type LoadList = sig
   val coinpic : t -> Texture2D.t
   val bobber : t -> Texture2D.t
   val exit : t -> Texture2D.t
+  val boat : t -> Texture2D.t
 end
 
 module Loadables : LoadList = struct
@@ -38,6 +39,7 @@ module Loadables : LoadList = struct
     coinpic : Texture2D.t;
     bobber : Texture2D.t;
     exit : Texture2D.t;
+    boat : Texture2D.t;
   }
 
   type sounds = {
@@ -84,6 +86,9 @@ module Loadables : LoadList = struct
     let exit = load_image "data/buttons/exit.png" in
     let texture_exit = load_texture_from_image exit in
 
+    let bt_img = load_image "data/boat/boat.png" in
+    let texture_bt = load_texture_from_image bt_img in
+
     unload_image background;
     unload_image hsu;
     unload_image kozen;
@@ -93,6 +98,7 @@ module Loadables : LoadList = struct
     unload_image coin;
     unload_image target;
     unload_image exit;
+    unload_image bt_img;
     {
       fonts = { unisans_heavy = uni_font; boldenvan = bolden_font };
       textures =
@@ -106,6 +112,7 @@ module Loadables : LoadList = struct
           coinpic = texture_coin;
           bobber = texture_target;
           exit = texture_exit;
+          boat = texture_bt;
         };
       sounds =
         {
@@ -133,4 +140,5 @@ module Loadables : LoadList = struct
   let coinpic (loads : t) = loads.textures.coinpic
   let bobber (loads : t) = loads.textures.bobber
   let exit (loads : t) = loads.textures.exit
+  let boat (loads : t) = loads.textures.boat
 end

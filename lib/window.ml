@@ -174,7 +174,7 @@ module MainWin : WindowSig = struct
 
     Coin.draw texture_coin !current_coin;
 
-    Boat.draw boat
+    Boat.draw boat (Loadables.boat loads)
       ( is_key_down Key.W || is_key_down Key.Up,
         is_key_down Key.A || is_key_down Key.Left,
         is_key_down Key.S || is_key_down Key.Down,
@@ -372,7 +372,7 @@ let setup (map : string) (user : string) =
   Raylib.unload_image img;
   Raylib.set_window_icon img;
   Raylib.set_window_min_size 512 512;
-  Constants.set_speed 3.;
+  Constants.set_speed 1.5;
   Score.set_font_size score 22.;
   Score.set_color score (Color.create 255 161 0 1000);
   Loadables.initialize map

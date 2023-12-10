@@ -56,6 +56,9 @@ module type LoadList = sig
 
   val exit : t -> Texture2D.t
   (** Given a LoadList [loads] return the loaded texture of the exit button. *)
+
+  val boat : t -> Texture2D.t
+  (** Given a LoadList [loads] return the loaded texture of the boat. *)
 end
 
 module Loadables : LoadList
