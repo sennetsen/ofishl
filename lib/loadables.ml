@@ -19,22 +19,35 @@ module type LoadList = sig
 end
 
 module Loadables : LoadList = struct
-  type t = {
+  type fonts = {
     unisans_heavy : Font.t;
     boldenvan : Font.t;
+  }
+
+  type textures = {
     map : Texture2D.t;
     hsufish : Texture2D.t;
     kozenfish : Texture2D.t;
-    background_sound : Sound.t;
-    coin_sound : Sound.t;
     trapmine : Texture2D.t;
     minemine : Texture2D.t;
     bombamine : Texture2D.t;
     coinpic : Texture2D.t;
     bobber : Texture2D.t;
   }
-  (** AF: The record [{ ... }] represents a LoadList to be used in the game. RI:
-      No representation invariant necessary. *)
+
+  type sounds = {
+    background_sound : Sound.t;
+    coin_sound : Sound.t;
+  }
+
+  type t = {
+    fonts : fonts;
+    textures : textures;
+    sounds : sounds;
+  }
+  (** AF: The record [{ fonts = ...; textures = ...; sounds = ... }] represents
+      a LoadList to be used in the game. RI: No representation invariant
+      necessary. *)
 
   let initialize (map : string) =
     let uni_font = load_font "data/fonts/uni-sans/Uni Sans Heavy.otf" in
@@ -67,30 +80,31 @@ module Loadables : LoadList = struct
     unload_image coin;
     unload_image target;
     {
-      unisans_heavy = uni_font;
-      boldenvan = bolden_font;
-      map = texture_background;
-      hsufish = texture_hsu;
-      kozenfish = texture_kozen;
-      background_sound = bg_sound;
-      coin_sound = c_sound;
-      trapmine = texture_trap;
-      minemine = texture_mine;
-      bombamine = texture_bomba;
-      coinpic = texture_coin;
-      bobber = texture_target;
+      fonts = { unisans_heavy = uni_font; boldenvan = bolden_font };
+      textures =
+        {
+          map = texture_background;
+          hsufish = texture_hsu;
+          kozenfish = texture_kozen;
+          trapmine = texture_trap;
+          minemine = texture_mine;
+          bombamine = texture_bomba;
+          coinpic = texture_coin;
+          bobber = texture_target;
+        };
+      sounds = { background_sound = bg_sound; coin_sound = c_sound };
     }
 
-  let uni_font (loads : t) = loads.unisans_heavy
-  let bolden_font (loads : t) = loads.boldenvan
-  let map (loads : t) = loads.map
-  let hsufish (loads : t) = loads.hsufish
-  let kozenfish (loads : t) = loads.kozenfish
-  let background_sound (loads : t) = loads.background_sound
-  let coin_sound (loads : t) = loads.coin_sound
-  let trapmine (loads : t) = loads.trapmine
-  let minemine (loads : t) = loads.minemine
-  let bombamine (loads : t) = loads.bombamine
-  let coinpic (loads : t) = loads.coinpic
-  let bobber (loads : t) = loads.bobber
+  let uni_font (loads : t) = loads.fonts.unisans_heavy
+  let bolden_font (loads : t) = loads.fonts.boldenvan
+  let map (loads : t) = loads.textures.map
+  let hsufish (loads : t) = loads.textures.hsufish
+  let kozenfish (loads : t) = loads.textures.kozenfish
+  let background_sound (loads : t) = loads.sounds.background_sound
+  let coin_sound (loads : t) = loads.sounds.coin_sound
+  let trapmine (loads : t) = loads.textures.trapmine
+  let minemine (loads : t) = loads.textures.minemine
+  let bombamine (loads : t) = loads.textures.bombamine
+  let coinpic (loads : t) = loads.textures.coinpic
+  let bobber (loads : t) = loads.textures.bobber
 end
