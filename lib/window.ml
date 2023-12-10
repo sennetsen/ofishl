@@ -92,6 +92,9 @@ module MainWin : WindowSig = struct
   let fish_type = ref (Random.int 2)
 
   let setup (map : string) (user : string) (loads : Loadables.t) =
+    (* TODO: *)
+    if map = "2" then store_box := Box.generate 100. 450. 50. 50. else ();
+    if map = "3" then store_box := Box.generate 100. 450. 50. 50. else ();
     Raylib.set_window_title (user ^ "'s Game | Map " ^ map)
 
   let loop (map : string) (is_custom : bool) (loads : Loadables.t) =
