@@ -9,6 +9,10 @@ module type SpriteSig = sig
   type t
   (** The type of a sprite. *)
 
+  val generate_fixed : float -> float -> t
+  (** Creates a sprite in a specific position (x, y). May collide with other
+      elements in the game. *)
+
   val generate : Boat.t -> Box.t -> t
   (** Determines the location of the sprite at a random place anywhere in the
       window such that it doesn't collide with any other current elements in the

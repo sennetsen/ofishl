@@ -331,6 +331,8 @@ let setup (map : string) (user : string) =
   Raylib.set_window_icon img;
   Raylib.set_window_min_size 512 512;
   Constants.set_speed 3.;
+  Score.set_font_size score 22.;
+  Score.set_color score (Color.create 255 161 0 1000);
   Loadables.initialize map
 
 let rec looper (map : string) (user : string) (st : state) (loads : Loadables.t)

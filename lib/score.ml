@@ -15,9 +15,7 @@ type t = {
     represents the score textbox containing a score of [i], using a font size of
     [f], and with the text color [c]. RI: No representation invariant necessary. *)
 
-let new_score () : t =
-  { score = 0; font_size = 22.; color = Color.create 255 161 0 1000 }
-
+let new_score () : t = { score = 0; font_size = 0.; color = Color.white }
 let get_score (sc : t) : int = sc.score
 
 let print (sc : t) (font : Font.t) : unit =

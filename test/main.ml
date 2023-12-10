@@ -257,6 +257,8 @@ let boat_tests =
         (Boat.is_border_crossed boat) );
   ]
 
+let coin_tests = []
+
 module SpriteTester =
 functor
   (S : SpriteSig)

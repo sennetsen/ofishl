@@ -7,6 +7,7 @@ open Box
 module type SpriteSig = sig
   type t
 
+  val generate_fixed : float -> float -> t
   val generate : Boat.t -> Box.t -> t
   val draw : Texture2D.t -> t -> unit
   val colliding : Vector2.t -> t -> bool
@@ -20,6 +21,8 @@ module Coin : SpriteSig = struct
       coordinate position of the vector with respect to the origin at the
       top-left corner. RI: The coordinates of the vector must always be
       contained within the dimensions of the game window.*)
+
+  let generate_fixed (x : float) (y : float) : t = Vector2.create x y
 
   let rec generate (boat : Boat.t) (store : Box.t) : t =
     let x, y = (Random.float 488., Random.float 488.) in
@@ -91,6 +94,9 @@ module Seamine : SpriteSig = struct
     | Mine -> -3
     | Bomba -> -5
 
+  let generate_fixed (x : float) (y : float) : t =
+    (Vector2.create x y, random_diff ())
+
   let rec generate (boat : Boat.t) (store : Box.t) : t =
     let x, y = (Random.float 496., Random.float 496.) in
     let store_x, store_y = (Box.get_coord "x" store, Box.get_coord "y" store) in
@@ -135,6 +141,8 @@ module Target : SpriteSig = struct
       top-left corner. RI: The coordinates of the vector must always be
       contained within the dimensions of the game window.*)
 
+  let generate_fixed (x : float) (y : float) : t = Vector2.create x y
+
   let generate (boat : Boat.t) (store : Box.t) : t =
     let x, y = (Random.float 476., Random.float 476.) in
     Vector2.create (x +. 18.) (y +. 18.)
@@ -163,6 +171,8 @@ module Fish : SpriteSig = struct
       coordinate position of the vector with respect to the origin at the
       top-left corner. RI: The coordinates of the vector must always be
       contained within the dimensions of the game window.*)
+
+  let generate_fixed (x : float) (y : float) : t = Vector2.create x y
 
   let rec generate (boat : Boat.t) (store : Box.t) : t =
     let x, y = (Random.float 412., Random.float 412.) in
