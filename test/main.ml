@@ -8,6 +8,7 @@ open Boat
 open Score
 open Sprites
 open Constants
+open Window
 
 (* Test Plan: Because the nature of the game returns most values as units, the
    test suite functions to ensure text functions in the terminal, collision
@@ -30,6 +31,10 @@ let terminal_tests =
     ( "make_fish_string" >:: fun _ ->
       let expected_fish = "🐟🐟🐟" in
       let fish = make_fish_string "🐟" 3 "" in
+      assert_equal expected_fish fish );
+    ( "make_fish_string_zero_count" >:: fun _ ->
+      let expected_fish = "" in
+      let fish = make_fish_string "🐟" 0 "" in
       assert_equal expected_fish fish );
     ( "make_fish_string_zero_count" >:: fun _ ->
       let expected_fish = "" in
@@ -131,13 +136,8 @@ let score_tests =
     >:: score_test 10000 [ 1000; 2000; 3000; 4000 ];
     "Score.update_score: large negative updates"
     >:: score_test (-10000) [ -1000; -2000; -3000; -4000 ];
-
     "Score.set: large negative updates"
     >:: score_test (-10000) [ -1000; -2000; -3000; -4000 ];
-
-
-
-
   ]
 
 let rec move_boat_from_lst boat lst =
@@ -173,6 +173,10 @@ let formatted_border_cross_string expect =
 let boat_tests =
   [
     "Boat: new_boat" >:: boat_move_test (310., 260.) [];
+    "Boat: new_boat with forward movement"
+    >:: boat_move_test (320., 270.) [ (10., 10.) ];
+    "Boat: new_boat with backward movement"
+    >:: boat_move_test (300., 250.) [ (-10., -10.) ];
     "Boat: new_boat minus and plus 10 on each x and y, canceling movements"
     >:: boat_move_test (310., 260.) [ (-10., -10.); (10., 10.) ];
     "Boat: new_boat, x + 50 and y - 100"
@@ -275,6 +279,18 @@ let boat_tests =
         Boat.new_boat
           (Constants.canvas_width_fl -. 244.)
           (Constants.canvas_height_fl -. 37.)
+          24. 45.
+      in
+      let expected = (Boat.get_x boat, Boat.get_y boat) in
+      assert_equal
+        ~msg:(formatted_border_cross_string expected)
+        (false, "border is not crossed")
+        (Boat.is_border_crossed boat) );
+    ( "Boat: check if border is crossed, center " >:: fun _ ->
+      let boat =
+        Boat.new_boat
+          (Constants.canvas_width_fl -. 256.)
+          (Constants.canvas_height_fl -. 256.)
           24. 45.
       in
       let expected = (Boat.get_x boat, Boat.get_y boat) in
