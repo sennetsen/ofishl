@@ -9,7 +9,6 @@ type t = {
 (** AF: The record
     [{
         score = i; 
-        level = l; 
         font_size = f; 
         color = c; 
       }]

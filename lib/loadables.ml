@@ -23,18 +23,8 @@ module Loadables : LoadList = struct
     background_sound : Sound.t;
     coin_sound : Sound.t;
   }
-  (** AF: The record
-      [{
-        unisans_heavy = font1; 
-        boldenvan = font2; 
-        map = maptexture; 
-        hsufish = hsufishtexture; 
-        kozenfish = kozenfishtexture;
-        background_sound = backgroundsound;
-        background_sound = coinsound;
-      }]
-      represents a LoadList to be used in the game. RI: No representation
-      invariant necessary. *)
+  (** AF: The record [{ ... }] represents a LoadList to be used in the game. RI:
+      No representation invariant necessary. *)
 
   let initialize (map : string) =
     let uni_font = load_font "data/fonts/uni-sans/Uni Sans Heavy.otf" in
