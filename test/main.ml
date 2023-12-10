@@ -163,11 +163,37 @@ let score_tests =
       assert_equal
         ~msg:(score_text_print (Score.get_score new_score))
         expected input );
-    ( "Score.text: Score of -5 (high negative int, after penalties)" >:: fun _ ->
+    ( "Score.text: Score of -5 (high negative int, after incurred penalties)"
+    >:: fun _ ->
       let new_score = Score.new_score () in
       Score.update_score new_score ~-5;
       let input = Score.text new_score in
       let expected = "Score: -5" in
+      assert_equal
+        ~msg:(score_text_print (Score.get_score new_score))
+        expected input );
+    ( "Score.text: Score of -100000 (low negative int, after incurred penalties)"
+    >:: fun _ ->
+      let new_score = Score.new_score () in
+      Score.update_score new_score ~-100000;
+      let input = Score.text new_score in
+      let expected = "Score: -100000" in
+      assert_equal
+        ~msg:(score_text_print (Score.get_score new_score))
+        expected input );
+    ( "Score.text: Score of max_int" >:: fun _ ->
+      let new_score = Score.new_score () in
+      Score.update_score new_score max_int;
+      let input = Score.text new_score in
+      let expected = "Score: " ^ string_of_int max_int in
+      assert_equal
+        ~msg:(score_text_print (Score.get_score new_score))
+        expected input );
+    ( "Score.text: Score of min_int" >:: fun _ ->
+      let new_score = Score.new_score () in
+      Score.update_score new_score min_int;
+      let input = Score.text new_score in
+      let expected = "Score: " ^ string_of_int min_int in
       assert_equal
         ~msg:(score_text_print (Score.get_score new_score))
         expected input );
