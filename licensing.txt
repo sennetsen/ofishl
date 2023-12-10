@@ -2,4 +2,7 @@ https://pixabay.com/service/license-summary/
 https://hotpot.ai/attribution
 
 Documentation of the library can be found here:
-https://tjammer.github.io/raylib-ocaml/raylib/Raylib/index.html *)
+https://tjammer.github.io/raylib-ocaml/raylib/Raylib/index.html
+
+Coin Sound: https://freesound.org/people/MATRIXXX_/sounds/523547/
+

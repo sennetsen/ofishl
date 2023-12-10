@@ -26,6 +26,9 @@ module type LoadList = sig
 
   val background_sound : t -> Sound.t
   (** Given a LoadList [loads] return the loaded background sound. *)
+
+  val coin_sound : t -> Sound.t
+  (** Given a LoadList [loads] return the loaded coin sound. *)
 end
 
 module Loadables : LoadList

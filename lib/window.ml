@@ -153,6 +153,7 @@ module MainWin : WindowSig = struct
       fish_type := Random.int 2;
       current_fish := Fish.generate boat);
     if Coin.colliding (Boat.get_vect boat) !current_coin then (
+      AudioSprite.play (Loadables.coin_sound loads);
       current_coin := Coin.generate boat;
       Score.update_score score (Coin.get_score !current_coin));
     if Seamine.colliding (Boat.get_vect boat) !current_seamine then (

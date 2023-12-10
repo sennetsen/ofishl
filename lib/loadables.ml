@@ -10,6 +10,7 @@ module type LoadList = sig
   val hsufish : t -> Texture2D.t
   val kozenfish : t -> Texture2D.t
   val background_sound : t -> Sound.t
+  val coin_sound : t -> Sound.t
 end
 
 module Loadables : LoadList = struct
@@ -20,6 +21,7 @@ module Loadables : LoadList = struct
     hsufish : Texture2D.t;
     kozenfish : Texture2D.t;
     background_sound : Sound.t;
+    coin_sound : Sound.t;
   }
   (** AF: The record
       [{
@@ -29,6 +31,7 @@ module Loadables : LoadList = struct
         hsufish = hsufishtexture; 
         kozenfish = kozenfishtexture;
         background_sound = backgroundsound;
+        background_sound = coinsound;
       }]
       represents a LoadList to be used in the game. RI: No representation
       invariant necessary. *)
@@ -43,6 +46,8 @@ module Loadables : LoadList = struct
     let kozen = load_image "data/fish-sprites/smallerkozen.png" in
     let texture_kozen = load_texture_from_image kozen in
     let bg_sound = load_sound "data/audio-sprites/track1.wav" in
+    let c_sound = load_sound "data/audio-sprites/underwater_coin.wav" in
+
     unload_image background;
     unload_image hsu;
     unload_image kozen;
@@ -53,6 +58,7 @@ module Loadables : LoadList = struct
       hsufish = texture_hsu;
       kozenfish = texture_kozen;
       background_sound = bg_sound;
+      coin_sound = c_sound;
     }
 
   let uni_font (loads : t) = loads.unisans_heavy
@@ -61,4 +67,5 @@ module Loadables : LoadList = struct
   let hsufish (loads : t) = loads.hsufish
   let kozenfish (loads : t) = loads.kozenfish
   let background_sound (loads : t) = loads.background_sound
+  let coin_sound (loads : t) = loads.coin_sound
 end
