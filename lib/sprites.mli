@@ -23,6 +23,10 @@ module type SpriteSig = sig
   val get_score : t -> int
   (** [get_score sprite] returns the score change when the boat collides with
       [sprite]. *)
+
+  val in_bounds : t -> bool
+  (** [in_bounds sprite] returns true if the sprite is within the bounds of
+      the game window. False otherwise.*)
 end
 
 module Coin : SpriteSig

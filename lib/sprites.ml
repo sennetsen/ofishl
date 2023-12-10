@@ -10,6 +10,7 @@ module type SpriteSig = sig
   val draw : Texture2D.t -> t -> unit
   val colliding : Vector2.t -> t -> bool
   val get_score : t -> int
+  val in_bounds : t -> bool
 end
 
 module Coin : SpriteSig = struct
@@ -42,6 +43,12 @@ module Coin : SpriteSig = struct
     check_collision_circles boat 15. sprite 8.
 
   let get_score (coin : t) = 1
+
+  let in_bounds (coin : t) =
+    Vector2.x coin >= 8.
+    && Vector2.x coin <= 504.
+    && Vector2.y coin >= 8.
+    && Vector2.y coin <= 504.
 end
 
 module Seamine : SpriteSig = struct
@@ -96,6 +103,12 @@ module Seamine : SpriteSig = struct
 
   let colliding (boat : Vector2.t) (sprite : t) : bool =
     check_collision_circles boat 15. (fst sprite) 8.
+
+  let in_bounds (mine : t) =
+    Vector2.x (fst mine) >= 8.
+    && Vector2.x (fst mine) <= 504.
+    && Vector2.y (fst mine) >= 8.
+    && Vector2.y (fst mine) <= 504.
 end
 
 module Target : SpriteSig = struct
@@ -118,6 +131,12 @@ module Target : SpriteSig = struct
     check_collision_point_circle mouse target 18.
 
   let get_score (target : t) = 1
+
+  let in_bounds (target : t) =
+    Vector2.x target >= 18.
+    && Vector2.x target <= 494.
+    && Vector2.y target >= 18.
+    && Vector2.y target <= 494.
 end
 
 module Fish : SpriteSig = struct
@@ -150,4 +169,10 @@ module Fish : SpriteSig = struct
     check_collision_circles boat 15. fish 50.
 
   let get_score (fish : t) = 3
+
+  let in_bounds (target : t) =
+    Vector2.x target >= 50.
+    && Vector2.x target <= 462.
+    && Vector2.y target >= 50.
+    && Vector2.y target <= 462.
 end

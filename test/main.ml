@@ -6,6 +6,7 @@ open Raylib
 open Vector2
 open Boat
 open Score
+open Sprites
 open Constants
 
 (* Test Plan: Because the nature of the game returns most values as units, the
@@ -256,8 +257,49 @@ let boat_tests =
         (Boat.is_border_crossed boat) );
   ]
 
+module SpriteTester =
+functor
+  (S : SpriteSig)
+  ->
+  struct
+    let boat = Boat.new_boat 310. 260. 30. 20.
+
+    let sprite_generate_test out in1 _ =
+      assert_equal ~printer:string_of_bool ~msg:"function: Sprites.generate" out
+        in1
+
+    let rec multi_gen_tests (n : int) : bool =
+      if n > 0 then
+        let current_sprite = S.generate boat in
+        S.in_bounds current_sprite && multi_gen_tests (n - 1)
+      else true
+
+    let sprite_generate_tests =
+      [
+        "1000 generated sprites are in bounds"
+        >:: sprite_generate_test true (multi_gen_tests 1000);
+      ]
+
+    let tests = List.flatten [ sprite_generate_tests ]
+  end
+
+module CoinTester = SpriteTester (Coin)
+module TargetTester = SpriteTester (Target)
+module SeamineTester = SpriteTester (Seamine)
+module FishTester = SpriteTester (Fish)
+
 let suite =
   "final project test suite"
-  >::: List.flatten [ terminal_tests; box_tests; score_tests; boat_tests ]
+  >::: List.flatten
+         [
+           terminal_tests;
+           box_tests;
+           score_tests;
+           boat_tests;
+           CoinTester.tests;
+           TargetTester.tests;
+           SeamineTester.tests;
+           FishTester.tests;
+         ]
 
 let () = run_test_tt_main suite
