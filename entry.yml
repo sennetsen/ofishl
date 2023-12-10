@@ -14,9 +14,9 @@ pm:
   name: Ryan Mistretta
   netid: rhm255
 # Set to false if you don't want your gallery entry to be public.
-publish: true
+publish: false
 # Pithy title
-title: "OFishl"
+title: "OFishl, the Official OCaml Fishing Tournament"
 # OK if this is a Cornell Github link, but public gallery viewers won't be able to see it.
 git-repo: "https://github.coecis.cornell.edu/pkr47/Final-Project"
 # If you have no demo screencast, replace the url string with an empty string ""
@@ -37,4 +37,6 @@ desc: >
   Collect coins to increase your score and avoid dangerous mines!
 
   You with more money in this game, you will be able to purchase better
-  fishing equipment as you progress further into our game! Good luck!
+  fishing equipment as you progress further into our game! The goal is to buy 
+  bait and manage resources to make the fish more valuable, and eventually 
+  buy the 3110 Trophy to win the game!
