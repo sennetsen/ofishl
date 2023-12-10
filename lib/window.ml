@@ -242,9 +242,13 @@ module StoreWin : WindowSig = struct
       if Box.colliding (get_mouse_position ()) buy_rod_button then (
         if
           is_mouse_button_pressed MouseButton.Left && Score.get_score score >= 3
-        then (
-          Score.update_score score (-3);
-          game_data.rods <- game_data.rods + 1);
+        then
+          if is_key_down Key.Left_shift && Score.get_score score >= 30 then (
+            Score.update_score score (-30);
+            game_data.rods <- game_data.rods + 10)
+          else (
+            Score.update_score score (-3);
+            game_data.rods <- game_data.rods + 1);
 
         if is_mouse_button_down MouseButton.Left then
           if Score.get_score score >= 3 then (
@@ -259,10 +263,13 @@ module StoreWin : WindowSig = struct
       if Box.colliding (get_mouse_position ()) buy_bait_button then (
         if
           is_mouse_button_pressed MouseButton.Left && Score.get_score score >= 1
-        then (
-          Score.update_score score (-1);
-          game_data.bait <- game_data.bait + 1);
-
+        then
+          if is_key_down Key.Left_shift && Score.get_score score >= 10 then (
+            Score.update_score score (-10);
+            game_data.bait <- game_data.bait + 10)
+          else (
+            Score.update_score score (-1);
+            game_data.bait <- game_data.bait + 1);
         if is_mouse_button_down MouseButton.Left then
           if Score.get_score score >= 3 then (
             Box.draw buy_bait_button (Color.create 161 138 101 150);
