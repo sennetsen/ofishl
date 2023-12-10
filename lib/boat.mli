@@ -18,6 +18,10 @@ module type BoatSig = sig
   (** Given a boat, returns a Vector2.t representation of the boat at that
       instant. *)
 
+  val get_boat_angle : t -> bool * bool * bool * bool -> float
+  (** Given a boat and a quadruple of key presses, returns a float
+      representation of the boat's angle heading. *)
+
   val move : t -> float -> float -> unit
   (** Given a boat and the differences in x and y in float values, move the boat
       accordingly. *)

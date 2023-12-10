@@ -14,7 +14,7 @@ clean:
 
 doc: 
 	dune build @doc
-	open _build/default/_doc/_html/index.html  
+	@echo Documentation is located at: _build/default/_doc/_html/index.html  
 
 utop:
 	OCAMLRUNPARAM=b dune utop lib

@@ -282,6 +282,10 @@ let setup (map : string) (user : string) =
   AudioSprite.start ();
   AudioSprite.play "data/audio-sprites/track1.wav";
   Raylib.set_target_fps 60;
+  let img = Raylib.load_image "data/fish-sprites/smallerkozen.png" in
+  Raylib.unload_image img;
+  Raylib.set_window_icon img;
+  Raylib.set_window_min_size 512 512;
   Loadables.initialize map
 
 let rec looper (map : string) (user : string) (st : state) (loads : Loadables.t)

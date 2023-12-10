@@ -119,13 +119,6 @@ let boat_test out in1 _ =
      Boat.border_crossed boat;
      (Boat.get_x boat, Boat.get_y boat))
 
-let boat_test_draw_angle boat keys =
-  match keys with
-  | true, true, false, false | false, false, true, true -> 45.
-  | false, true, true, false | true, false, false, true -> 135.
-  | true, false, false, false | false, false, true, false -> 90.
-  | _ -> 0.
-
 let boat_tests =
   [
     "Boat: new_boat" >:: boat_test (310., 260.) [];
@@ -142,10 +135,70 @@ let boat_tests =
     >:: boat_test (512., 260.) [ (-700., 0.) ];
     "Boat: new_boat, border collision check for y"
     >:: boat_test (310., 512.) [ (0., -500.) ];
-    (* ( "Boat: draw boat positioned at 45 degrees test 1" >:: fun _ -> let
-       boat_45 = Boat.new_boat 35. 35. 10. 50. in assert_equal 135.
-       (boat_test_draw_angle (Boat.draw boat_45 (true, true, false, false))
-       (true, true, false, false)) ); TODO: TEST BROKEN *)
+    ( "Boat: draw boat positioned at 45 degrees math case 1" >:: fun _ ->
+      let boat_45 = Boat.new_boat 35. 35. 10. 50. in
+      let expect = 45. in
+      assert_equal
+        ~msg:
+          (Printf.sprintf "function: Boat.get_boat_angle\ninput: %f\n" expect)
+        ~printer:string_of_float expect
+        (Boat.get_boat_angle boat_45 (true, true, false, false)) );
+    ( "Boat: draw boat positioned at 45 degrees match case 2" >:: fun _ ->
+      let boat_45 = Boat.new_boat 2453. 35225. 1320.24 5254.24 in
+      let expect = 45. in
+      assert_equal
+        ~msg:
+          (Printf.sprintf "function: Boat.get_boat_angle\ninput: %f\n" expect)
+        ~printer:string_of_float expect
+        (Boat.get_boat_angle boat_45 (false, false, true, true)) );
+    ( "Boat: draw boat positioned at 135 degrees match case 1" >:: fun _ ->
+      let boat_45 = Boat.new_boat 2453. 35225. 1320.24 5254.24 in
+      let expect = 135. in
+      assert_equal
+        ~msg:
+          (Printf.sprintf "function: Boat.get_boat_angle\ninput: %.2f\n" expect)
+        ~printer:string_of_float expect
+        (Boat.get_boat_angle boat_45 (false, true, true, false)) );
+    ( "Boat: draw boat positioned at 135 degrees match case 2" >:: fun _ ->
+      let boat_45 = Boat.new_boat 2234. 64. 5435. 643. in
+      let expect = 135. in
+      assert_equal
+        ~msg:
+          (Printf.sprintf "function: Boat.get_boat_angle\ninput: %.2f\n" expect)
+        ~printer:string_of_float expect
+        (Boat.get_boat_angle boat_45 (true, false, false, true)) );
+    ( "Boat: draw boat positioned at 90 degrees match case 1" >:: fun _ ->
+      let boat_45 = Boat.new_boat 0. 35. 9.24 0.24 in
+      let expect = 90. in
+      assert_equal
+        ~msg:
+          (Printf.sprintf "function: Boat.get_boat_angle\ninput: %.2f\n" expect)
+        ~printer:string_of_float expect
+        (Boat.get_boat_angle boat_45 (true, false, false, false)) );
+    ( "Boat: draw boat positioned at 90 degrees match case 2" >:: fun _ ->
+      let boat_45 = Boat.new_boat 4. 3. 2. 4. in
+      let expect = 90. in
+      assert_equal
+        ~msg:
+          (Printf.sprintf "function: Boat.get_boat_angle\ninput: %.2f\n" expect)
+        ~printer:string_of_float expect
+        (Boat.get_boat_angle boat_45 (false, false, true, false)) );
+    ( "Boat: draw boat positioned at 0 degrees wildcard case 1" >:: fun _ ->
+      let boat_45 = Boat.new_boat 999. 0. 1. 0. in
+      let expect = 0. in
+      assert_equal
+        ~msg:
+          (Printf.sprintf "function: Boat.get_boat_angle\ninput: %.2f\n" expect)
+        ~printer:string_of_float expect
+        (Boat.get_boat_angle boat_45 (false, false, false, false)) );
+    ( "Boat: draw boat positioned at 0 degrees wildcard case 2" >:: fun _ ->
+      let boat_45 = Boat.new_boat 999. 0. 1. 0. in
+      let expect = 0. in
+      assert_equal
+        ~msg:
+          (Printf.sprintf "function: Boat.get_boat_angle\ninput: %.2f\n" expect)
+        ~printer:string_of_float expect
+        (Boat.get_boat_angle boat_45 (true, true, true, true)) );
   ]
 
 let suite =
