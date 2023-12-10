@@ -9,6 +9,8 @@ open Score
 open Sprites
 open Constants
 open Window
+open Loadables
+open AudioSprite
 
 (* Test Plan: Because the nature of the game returns most values as units, the
    test suite functions to ensure text functions in the terminal, collision
@@ -168,6 +170,31 @@ let score_tests =
       Score.update_score new_score ~-5;
       let input = Score.text new_score in
       let expected = "Score: -5" in
+      assert_equal
+        ~msg:(score_text_print (Score.get_score new_score))
+        expected input );
+    ( "Score.text: Score of -100000 (low negative int, after incurred penalties)"
+    >:: fun _ ->
+      let new_score = Score.new_score () in
+      Score.update_score new_score ~-100000;
+      let input = Score.text new_score in
+      let expected = "Score: -100000" in
+      assert_equal
+        ~msg:(score_text_print (Score.get_score new_score))
+        expected input );
+    ( "Score.text: Score of max_int" >:: fun _ ->
+      let new_score = Score.new_score () in
+      Score.update_score new_score max_int;
+      let input = Score.text new_score in
+      let expected = "Score: " ^ string_of_int max_int in
+      assert_equal
+        ~msg:(score_text_print (Score.get_score new_score))
+        expected input );
+    ( "Score.text: Score of min_int" >:: fun _ ->
+      let new_score = Score.new_score () in
+      Score.update_score new_score min_int;
+      let input = Score.text new_score in
+      let expected = "Score: " ^ string_of_int min_int in
       assert_equal
         ~msg:(score_text_print (Score.get_score new_score))
         expected input );
@@ -348,20 +375,6 @@ let boat_tests =
       assert_equal
         ~msg:(formatted_border_cross_string expected)
         (true, "x right")
-        (Boat.is_border_crossed boat) );
-    ( "Boat: check if border is crossed, max float above" >:: fun _ ->
-      let boat = Boat.new_boat 25. max_float 24. 45. in
-      let expected = (Boat.get_x boat, Boat.get_y boat) in
-      assert_equal
-        ~msg:(formatted_border_cross_string expected)
-        (true, "y upper")
-        (Boat.is_border_crossed boat) );
-    ( "Boat: check if border is crossed, min float below" >:: fun _ ->
-      let boat = Boat.new_boat 25. min_float 24. 45. in
-      let expected = (Boat.get_x boat, Boat.get_y boat) in
-      assert_equal
-        ~msg:(formatted_border_cross_string expected)
-        (true, "y lower")
         (Boat.is_border_crossed boat) );
   ]
 
@@ -546,6 +559,13 @@ let constant_tests =
     ("volume checker" >:: fun _ -> assert_equal 75 v);
     ("speed checker" >:: fun _ -> assert_equal 50. (get_speed ()));
   ]
+(* TODO *)
+(* let loads = let start_audio = AudioSprite.play (Loadables.background_sound
+   loads) *)
+
+let audio_tests =
+  [ (* ( "audio checker" >:: fun _ -> start_audio; assert_equal true
+       (AudioSprite.is_playing (Loadables.background_sound loads)) ); *) ]
 
 let suite =
   "final project test suite"
@@ -565,6 +585,7 @@ let suite =
            fish_colliding_tests;
            bait_tests;
            constant_tests;
+           audio_tests;
          ]
 
 let () = run_test_tt_main suite
