@@ -3,7 +3,6 @@ open Constants
 
 type t = {
   mutable score : int;
-  mutable level : Const.level;
   mutable font_size : float;
   mutable color : Color.t;
 }
@@ -18,12 +17,7 @@ type t = {
     [f], and with the text color [c]. RI: No representation invariant necessary. *)
 
 let new_score () : t =
-  {
-    score = 0;
-    level = Easy;
-    font_size = 22.;
-    color = Color.create 255 161 0 1000;
-  }
+  { score = 0; font_size = 22.; color = Color.create 255 161 0 1000 }
 
 let get_score (sc : t) : int = sc.score
 let is_score (sc : t) : bool = failwith ""

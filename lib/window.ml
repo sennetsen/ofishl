@@ -21,7 +21,7 @@ type state =
 
 let current_state = ref StartMenu
 let boat = Boat.new_boat 310. 260. 30. 20.
-let () = Const.set_speed 3.
+let () = Constants.set_speed 3.
 let current_fish = ref (Fish.spawn boat)
 let current_coin = ref (Coin.generate boat)
 let current_seamine = ref (Seamine.generate boat)
@@ -118,34 +118,34 @@ module MainWin : WindowSig = struct
       && (is_key_down Key.A || is_key_down Key.Left)
       && (not (is_key_down Key.S || is_key_down Key.Down))
       && not (is_key_down Key.D || is_key_down Key.Right)
-    then Boat.move boat (-.Const.diag_speed ()) (-.Const.diag_speed ())
+    then Boat.move boat (-.Constants.diag_speed ()) (-.Constants.diag_speed ())
     else if
       (is_key_down Key.A || is_key_down Key.Left)
       && (is_key_down Key.S || is_key_down Key.Down)
       && (not (is_key_down Key.D || is_key_down Key.Right))
       && not (is_key_down Key.W || is_key_down Key.Up)
-    then Boat.move boat (-.Const.diag_speed ()) (Const.diag_speed ())
+    then Boat.move boat (-.Constants.diag_speed ()) (Constants.diag_speed ())
     else if
       (is_key_down Key.S || is_key_down Key.Down)
       && (is_key_down Key.D || is_key_down Key.Right)
       && (not (is_key_down Key.W || is_key_down Key.Up))
       && not (is_key_down Key.A || is_key_down Key.Left)
-    then Boat.move boat (Const.diag_speed ()) (Const.diag_speed ())
+    then Boat.move boat (Constants.diag_speed ()) (Constants.diag_speed ())
     else if
       (is_key_down Key.D || is_key_down Key.Right)
       && (is_key_down Key.W || is_key_down Key.Up)
       && (not (is_key_down Key.A || is_key_down Key.Left))
       && not (is_key_down Key.S || is_key_down Key.Down)
-    then Boat.move boat (Const.diag_speed ()) (-.Const.diag_speed ())
+    then Boat.move boat (Constants.diag_speed ()) (-.Constants.diag_speed ())
     else (
       if is_key_down Key.A || is_key_down Key.Left then
-        Boat.move boat (-.Const.get_speed ()) 0.;
+        Boat.move boat (-.Constants.get_speed ()) 0.;
       if is_key_down Key.D || is_key_down Key.Right then
-        Boat.move boat (Const.get_speed ()) 0.;
+        Boat.move boat (Constants.get_speed ()) 0.;
       if is_key_down Key.W || is_key_down Key.Up then
-        Boat.move boat 0. (-.Const.get_speed ());
+        Boat.move boat 0. (-.Constants.get_speed ());
       if is_key_down Key.S || is_key_down Key.Down then
-        Boat.move boat 0. (Const.get_speed ()));
+        Boat.move boat 0. (Constants.get_speed ()));
 
     if is_key_pressed Key.F && Fish.colliding (Boat.get_vect boat) !current_fish
     then (

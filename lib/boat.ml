@@ -44,9 +44,10 @@ module Boat : BoatSig = struct
 
   let is_border_crossed (boat : t) : bool * string =
     if Rectangle.x !boat <= 0. then (true, "x left")
-    else if Rectangle.x !boat >= Const.canvas_width_fl then (true, "x right")
+    else if Rectangle.x !boat >= Constants.canvas_width_fl then (true, "x right")
     else if Rectangle.y !boat <= 0. then (true, "y upper")
-    else if Rectangle.y !boat >= Const.canvas_height_fl then (true, "y lower")
+    else if Rectangle.y !boat >= Constants.canvas_height_fl then
+      (true, "y lower")
     else (false, "border is not crossed")
 
   let move (boat : t) (dx : float) (dy : float) : unit =
@@ -64,8 +65,8 @@ module Boat : BoatSig = struct
   let border_crossed (boat : t) : unit =
     match is_border_crossed boat with
     | true, "x left" -> Rectangle.set_x !boat 0.
-    | true, "x right" -> Rectangle.set_x !boat Const.canvas_width_fl
-    | true, "y upper" -> Rectangle.set_y !boat Const.canvas_height_fl
+    | true, "x right" -> Rectangle.set_x !boat Constants.canvas_width_fl
+    | true, "y upper" -> Rectangle.set_y !boat Constants.canvas_height_fl
     | true, "y lower" -> Rectangle.set_y !boat 0.
     | _, _ -> ()
 end
