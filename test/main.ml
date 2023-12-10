@@ -7,6 +7,7 @@ open Vector2
 open Boat
 open Coin
 open Score
+open Constants
 
 let terminal_tests =
   [
@@ -151,7 +152,7 @@ let boat_tests =
     >:: boat_move_test (512., 260.) [ (-700., 0.) ];
     "Boat: new_boat, border collision check for y"
     >:: boat_move_test (310., 512.) [ (0., -500.) ];
-    "Boat: draw boat positioned at 45 degrees match case 1"
+    "Boat: draw boat positioned at 45 degrees math case 1"
     >:: boat_angle_test 45. (true, true, false, false);
     "Boat: draw boat positioned at 45 degrees match case 2"
     >:: boat_angle_test 45. (false, false, true, true);
@@ -175,6 +176,66 @@ let boat_tests =
     >:: boat_angle_test 0. (true, false, true, true);
     "Boat: draw boat positioned at 0 degrees wildcard case 4"
     >:: boat_angle_test 0. (true, true, true, true);
+    ( "Boat: check if border is crossed, above upper border" >:: fun _ ->
+      let boat = Boat.new_boat 234. (-143.) 24. 45. in
+      let expected = (Boat.get_x boat, Boat.get_y boat) in
+      assert_equal
+        ~msg:(formatted_border_cross_string expected)
+        (true, "y upper")
+        (Boat.is_border_crossed boat) );
+    ( "Boat: check if border is crossed, below lower border" >:: fun _ ->
+      let boat =
+        Boat.new_boat 234. (Constants.canvas_height_fl +. 124.) 24. 45.
+      in
+      let expected = (Boat.get_x boat, Boat.get_y boat) in
+      assert_equal
+        ~msg:(formatted_border_cross_string expected)
+        (true, "y lower")
+        (Boat.is_border_crossed boat) );
+    ( "Boat: check if border is crossed, left of left border" >:: fun _ ->
+      let boat = Boat.new_boat (-157.) 35. 24. 45. in
+      let expected = (Boat.get_x boat, Boat.get_y boat) in
+      assert_equal
+        ~msg:(formatted_border_cross_string expected)
+        (true, "x left")
+        (Boat.is_border_crossed boat) );
+    ( "Boat: check if border is crossed, right of right border" >:: fun _ ->
+      let boat =
+        Boat.new_boat (Constants.canvas_width_fl +. 234.) 217. 24. 45.
+      in
+      let expected = (Boat.get_x boat, Boat.get_y boat) in
+      assert_equal
+        ~msg:(formatted_border_cross_string expected)
+        (true, "x right")
+        (Boat.is_border_crossed boat) );
+    ( "Boat: check if border is crossed, exactly on right border" >:: fun _ ->
+      let boat = Boat.new_boat Constants.canvas_width_fl 217. 24. 45. in
+      let expected = (Boat.get_x boat, Boat.get_y boat) in
+      assert_equal
+        ~msg:(formatted_border_cross_string expected)
+        (true, "x right")
+        (Boat.is_border_crossed boat) );
+    ( "Boat: check if border is crossed, exactly on left border" >:: fun _ ->
+      let boat = Boat.new_boat 0. 217. 24. 45. in
+      let expected = (Boat.get_x boat, Boat.get_y boat) in
+      assert_equal
+        ~msg:(formatted_border_cross_string expected)
+        (true, "x left")
+        (Boat.is_border_crossed boat) );
+    ( "Boat: check if border is crossed, exactly on upper border" >:: fun _ ->
+      let boat = Boat.new_boat 34. 0. 24. 45. in
+      let expected = (Boat.get_x boat, Boat.get_y boat) in
+      assert_equal
+        ~msg:(formatted_border_cross_string expected)
+        (true, "y upper")
+        (Boat.is_border_crossed boat) );
+    ( "Boat: check if border is crossed, exactly on lower border" >:: fun _ ->
+      let boat = Boat.new_boat 34. Constants.canvas_height_fl 24. 45. in
+      let expected = (Boat.get_x boat, Boat.get_y boat) in
+      assert_equal
+        ~msg:(formatted_border_cross_string expected)
+        (true, "y lower")
+        (Boat.is_border_crossed boat) );
   ]
 
 let suite =
