@@ -158,6 +158,8 @@ module MainWin : WindowSig = struct
       Score.update_score score (Coin.get_score !current_coin));
     if Seamine.colliding (Boat.get_vect boat) !current_seamine then (
       Score.update_score score (Seamine.get_score !current_seamine);
+      AudioSprite.play (Loadables.seamine_sound loads);
+
       current_seamine := Seamine.generate boat !store_box);
     if is_key_pressed Key.F && Box.colliding (Boat.get_vect boat) !store_box
     then current_state := Store;
