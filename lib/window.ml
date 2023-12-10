@@ -21,7 +21,6 @@ type state =
 
 let current_state = ref StartMenu
 let boat = Boat.new_boat 310. 260. 30. 20.
-let () = Constants.set_speed 3.
 let current_fish = ref (Fish.spawn boat)
 let current_coin = ref (Coin.generate boat)
 let current_seamine = ref (Seamine.generate boat)
@@ -299,6 +298,7 @@ let setup (map : string) (user : string) =
   Raylib.unload_image img;
   Raylib.set_window_icon img;
   Raylib.set_window_min_size 512 512;
+  Constants.set_speed 3.;
   Loadables.initialize map
 
 let rec looper (map : string) (user : string) (st : state) (loads : Loadables.t)
