@@ -7,10 +7,6 @@ type t
 val new_score : unit -> t
 (** Creates a new score value for use in the game. *)
 
-val is_score : t -> bool
-(** Determines if the current score meets a certain threshold for further
-    actions to be executed depending on the game level. *)
-
 val get_score : t -> int
 (** Returns the integer value of the current score. *)
 

@@ -20,7 +20,6 @@ let new_score () : t =
   { score = 0; font_size = 22.; color = Color.create 255 161 0 1000 }
 
 let get_score (sc : t) : int = sc.score
-let is_score (sc : t) : bool = failwith ""
 
 let print (sc : t) (font : Font.t) : unit =
   let text = "Score: " ^ string_of_int (get_score sc) in

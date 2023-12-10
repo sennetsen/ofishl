@@ -174,6 +174,7 @@ module MainWin : WindowSig = struct
         is_key_down Key.D || is_key_down Key.Right );
 
     Box.draw !score_box (Color.create 232 253 255 150);
+    Box.draw !store_box Color.lightgray;
 
     Boat.border_crossed boat;
 
