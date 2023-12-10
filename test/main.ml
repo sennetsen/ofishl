@@ -101,6 +101,8 @@ let score_tests =
     >:: score_test (-3) [ -1; -2 ];
     "Score.update_score: negative 126, multitude of updates"
     >:: score_test (-126) [ -1; -2; -3; -6; 6; -120 ];
+    "Score.update_score: positive 122, multitude of updates"
+    >:: score_test 122 [ 1; 2; -3; 6; -6; 120; 0; 0; 0; 2 ];
   ]
 
 let rec move_boat_from_lst boat lst =
@@ -110,7 +112,7 @@ let rec move_boat_from_lst boat lst =
       Boat.move boat dx dy;
       move_boat_from_lst boat t
 
-let boat_test out in1 _ =
+let boat_move_test out in1 _ =
   assert_equal
     ~msg:(Printf.sprintf "function: Boat.move\ninput: ")
     out
@@ -119,86 +121,55 @@ let boat_test out in1 _ =
      Boat.border_crossed boat;
      (Boat.get_x boat, Boat.get_y boat))
 
+let boat_angle_test out in1 _ =
+  let boat_45 = Boat.new_boat 240. 240. 30. 20. in
+  assert_equal ~printer:string_of_float
+    ~msg:
+      (Printf.sprintf "function: Boat.get_boat_angle\ninput: %s"
+         (string_of_float (Boat.get_boat_angle boat_45 in1)))
+    out
+    (Boat.get_boat_angle boat_45 in1)
+
 let boat_tests =
   [
-    "Boat: new_boat" >:: boat_test (310., 260.) [];
+    "Boat: new_boat" >:: boat_move_test (310., 260.) [];
     "Boat: new_boat minus and plus 10 on each x and y, canceling movements"
-    >:: boat_test (310., 260.) [ (-10., -10.); (10., 10.) ];
+    >:: boat_move_test (310., 260.) [ (-10., -10.); (10., 10.) ];
     "Boat: new_boat, x + 50 and y - 100"
-    >:: boat_test (360., 160.) [ (50., -100.) ];
+    >:: boat_move_test (360., 160.) [ (50., -100.) ];
     "Boat: new_boat, x + 30 and y + 100, multiple movements"
-    >:: boat_test (340., 360.) [ (50., -100.); (-20., 200.) ];
+    >:: boat_move_test (340., 360.) [ (50., -100.); (-20., 200.) ];
     "Boat: new_boat, multiple movements, ends (305, 397)"
-    >:: boat_test (305., 397.)
+    >:: boat_move_test (305., 397.)
           [ (50., -100.); (-49., 2.); (-20., 200.); (14., 35.) ];
     "Boat: new_boat, border collision check for x"
-    >:: boat_test (512., 260.) [ (-700., 0.) ];
+    >:: boat_move_test (512., 260.) [ (-700., 0.) ];
     "Boat: new_boat, border collision check for y"
-    >:: boat_test (310., 512.) [ (0., -500.) ];
-    ( "Boat: draw boat positioned at 45 degrees math case 1" >:: fun _ ->
-      let boat_45 = Boat.new_boat 35. 35. 10. 50. in
-      let expect = 45. in
-      assert_equal
-        ~msg:
-          (Printf.sprintf "function: Boat.get_boat_angle\ninput: %f\n" expect)
-        ~printer:string_of_float expect
-        (Boat.get_boat_angle boat_45 (true, true, false, false)) );
-    ( "Boat: draw boat positioned at 45 degrees match case 2" >:: fun _ ->
-      let boat_45 = Boat.new_boat 2453. 35225. 1320.24 5254.24 in
-      let expect = 45. in
-      assert_equal
-        ~msg:
-          (Printf.sprintf "function: Boat.get_boat_angle\ninput: %f\n" expect)
-        ~printer:string_of_float expect
-        (Boat.get_boat_angle boat_45 (false, false, true, true)) );
-    ( "Boat: draw boat positioned at 135 degrees match case 1" >:: fun _ ->
-      let boat_45 = Boat.new_boat 2453. 35225. 1320.24 5254.24 in
-      let expect = 135. in
-      assert_equal
-        ~msg:
-          (Printf.sprintf "function: Boat.get_boat_angle\ninput: %.2f\n" expect)
-        ~printer:string_of_float expect
-        (Boat.get_boat_angle boat_45 (false, true, true, false)) );
-    ( "Boat: draw boat positioned at 135 degrees match case 2" >:: fun _ ->
-      let boat_45 = Boat.new_boat 2234. 64. 5435. 643. in
-      let expect = 135. in
-      assert_equal
-        ~msg:
-          (Printf.sprintf "function: Boat.get_boat_angle\ninput: %.2f\n" expect)
-        ~printer:string_of_float expect
-        (Boat.get_boat_angle boat_45 (true, false, false, true)) );
-    ( "Boat: draw boat positioned at 90 degrees match case 1" >:: fun _ ->
-      let boat_45 = Boat.new_boat 0. 35. 9.24 0.24 in
-      let expect = 90. in
-      assert_equal
-        ~msg:
-          (Printf.sprintf "function: Boat.get_boat_angle\ninput: %.2f\n" expect)
-        ~printer:string_of_float expect
-        (Boat.get_boat_angle boat_45 (true, false, false, false)) );
-    ( "Boat: draw boat positioned at 90 degrees match case 2" >:: fun _ ->
-      let boat_45 = Boat.new_boat 4. 3. 2. 4. in
-      let expect = 90. in
-      assert_equal
-        ~msg:
-          (Printf.sprintf "function: Boat.get_boat_angle\ninput: %.2f\n" expect)
-        ~printer:string_of_float expect
-        (Boat.get_boat_angle boat_45 (false, false, true, false)) );
-    ( "Boat: draw boat positioned at 0 degrees wildcard case 1" >:: fun _ ->
-      let boat_45 = Boat.new_boat 999. 0. 1. 0. in
-      let expect = 0. in
-      assert_equal
-        ~msg:
-          (Printf.sprintf "function: Boat.get_boat_angle\ninput: %.2f\n" expect)
-        ~printer:string_of_float expect
-        (Boat.get_boat_angle boat_45 (false, false, false, false)) );
-    ( "Boat: draw boat positioned at 0 degrees wildcard case 2" >:: fun _ ->
-      let boat_45 = Boat.new_boat 999. 0. 1. 0. in
-      let expect = 0. in
-      assert_equal
-        ~msg:
-          (Printf.sprintf "function: Boat.get_boat_angle\ninput: %.2f\n" expect)
-        ~printer:string_of_float expect
-        (Boat.get_boat_angle boat_45 (true, true, true, true)) );
+    >:: boat_move_test (310., 512.) [ (0., -500.) ];
+    "Boat: draw boat positioned at 45 degrees math case 1"
+    >:: boat_angle_test 45. (true, true, false, false);
+    "Boat: draw boat positioned at 45 degrees match case 2"
+    >:: boat_angle_test 45. (false, false, true, true);
+    "Boat: draw boat positioned at 135 degrees match case 1"
+    >:: boat_angle_test 135. (false, true, true, false);
+    "Boat: draw boat positioned at 135 degrees match case 2"
+    >:: boat_angle_test 135. (true, false, false, true);
+    "Boat: draw boat positioned at 90 degrees match case 1"
+    >:: boat_angle_test 90. (true, false, false, false);
+    "Boat: draw boat positioned at 90 degrees match case 2"
+    >:: boat_angle_test 90. (false, false, true, false);
+    "Boat: draw boat positioned at 90 degrees match case 3"
+    >:: boat_angle_test 90. (false, true, true, true);
+    "Boat: draw boat positioned at 90 degrees match case 4"
+    >:: boat_angle_test 90. (true, true, false, true);
+    "Boat: draw boat positioned at 0 degrees wildcard case 1"
+    >:: boat_angle_test 0. (false, false, false, false);
+    "Boat: draw boat positioned at 0 degrees wildcard case 2"
+    >:: boat_angle_test 0. (true, true, true, false);
+    "Boat: draw boat positioned at 0 degrees wildcard case 3"
+    >:: boat_angle_test 0. (true, false, true, true);
+    "Boat: draw boat positioned at 0 degrees wildcard case 4"
+    >:: boat_angle_test 0. (true, true, true, true);
   ]
 
 let suite =

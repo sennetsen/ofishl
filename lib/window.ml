@@ -123,18 +123,26 @@ module MainWin : WindowSig = struct
     if
       (is_key_down Key.W || is_key_down Key.Up)
       && (is_key_down Key.A || is_key_down Key.Left)
+      && (not (is_key_down Key.S || is_key_down Key.Down))
+      && not (is_key_down Key.D || is_key_down Key.Right)
     then Boat.move boat (-.Const.diag_speed ()) (-.Const.diag_speed ())
     else if
       (is_key_down Key.A || is_key_down Key.Left)
       && (is_key_down Key.S || is_key_down Key.Down)
+      && (not (is_key_down Key.D || is_key_down Key.Right))
+      && not (is_key_down Key.W || is_key_down Key.Up)
     then Boat.move boat (-.Const.diag_speed ()) (Const.diag_speed ())
     else if
       (is_key_down Key.S || is_key_down Key.Down)
       && (is_key_down Key.D || is_key_down Key.Right)
+      && (not (is_key_down Key.W || is_key_down Key.Up))
+      && not (is_key_down Key.A || is_key_down Key.Left)
     then Boat.move boat (Const.diag_speed ()) (Const.diag_speed ())
     else if
       (is_key_down Key.D || is_key_down Key.Right)
       && (is_key_down Key.W || is_key_down Key.Up)
+      && (not (is_key_down Key.A || is_key_down Key.Left))
+      && not (is_key_down Key.S || is_key_down Key.Down)
     then Boat.move boat (Const.diag_speed ()) (-.Const.diag_speed ())
     else (
       if is_key_down Key.A || is_key_down Key.Left then

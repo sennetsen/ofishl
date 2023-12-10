@@ -40,7 +40,10 @@ module Boat : BoatSig = struct
     match keys with
     | true, true, false, false | false, false, true, true -> 45.
     | false, true, true, false | true, false, false, true -> 135.
-    | true, false, false, false | false, false, true, false -> 90.
+    | true, false, false, false
+    | false, false, true, false
+    | false, true, true, true
+    | true, true, false, true -> 90.
     | _ -> 0.
 
   let move (boat : t) (dx : float) (dy : float) : unit =
