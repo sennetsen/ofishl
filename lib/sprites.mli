@@ -1,7 +1,9 @@
 open Raylib
 open Boat
+open Vector2
+open Score
 
-(** The signature of the coin sprite. *)
+(** The signature of a sprite. *)
 module type SpriteSig = sig
   type t
   (** The type of a sprite. *)
@@ -17,7 +19,16 @@ module type SpriteSig = sig
   val colliding : Vector2.t -> t -> bool
   (** [colliding boat sprite] returns true if [boat] and [sprite] are colliding
       and false if not. *)
+
+  val get_score : t -> int
+  (** [get_score sprite] returns the score change when the boat collides with [sprite]. *)
 end
 
 module Coin : SpriteSig
 (** The module to represent the coin sprite. *)
+
+module Seamine : SpriteSig
+(** The module to represent the seamine sprite. *)
+
+module Target : SpriteSig
+(** The module to represent the target sprite. *)

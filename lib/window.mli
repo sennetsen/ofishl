@@ -1,11 +1,8 @@
 open Raylib
 open Boat
 open Fish
-open Coin
-open Seamine
 open AudioSprite
 open Constants
-open Target
 open Score
 open Loadables
 
@@ -18,10 +15,10 @@ val current_state : state ref
 val current_fish : Fish.t ref
 (** The currently spawned fish. *)
 
-val current_coin : Coin.t ref
+val current_coin : Sprites.Coin.t ref
 (** The currently spawned coin. *)
 
-val current_seamine : Seamine.t ref
+val current_seamine : Sprites.Seamine.t ref
 (** The currently spawned seamine. *)
 
 val score : Score.t

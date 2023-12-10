@@ -6,7 +6,7 @@ module type FishSig = sig
   type t
   (** The type of a fish. *)
 
-  val spawn : Boat.t -> t
+  val generate : Boat.t -> t
   (** Determines the location of the fish at a random place anywhere in the
       window such that it doesn't collide with any other current elements in the
       game. *)

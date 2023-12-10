@@ -5,7 +5,6 @@ open Box
 open Raylib
 open Vector2
 open Boat
-open Coin
 open Score
 open Constants
 

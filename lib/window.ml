@@ -1,12 +1,10 @@
 open Raylib
 open Boat
 open Fish
-open Coin
-open Seamine
 open AudioSprite
 open Constants
-open Target
 open Score
+open Sprites
 open Mapcustom
 open Box
 open Loadables
@@ -21,7 +19,7 @@ type state =
 
 let current_state = ref StartMenu
 let boat = Boat.new_boat 310. 260. 30. 20.
-let current_fish = ref (Fish.spawn boat)
+let current_fish = ref (Fish.generate boat)
 let current_coin = ref (Coin.generate boat)
 let current_seamine = ref (Seamine.generate boat)
 let score = Score.new_score ()
@@ -153,12 +151,12 @@ module MainWin : WindowSig = struct
     then (
       current_state := Minigame;
       fish_type := Random.int 2;
-      current_fish := Fish.spawn boat);
+      current_fish := Fish.generate boat);
     if Coin.colliding (Boat.get_vect boat) !current_coin then (
       current_coin := Coin.generate boat;
-      Score.update_score score 1);
+      Score.update_score score (Coin.get_score !current_coin));
     if Seamine.colliding (Boat.get_vect boat) !current_seamine then (
-      Score.update_score score (Seamine.get_damage !current_seamine);
+      Score.update_score score (Seamine.get_score !current_seamine);
       current_seamine := Seamine.generate boat);
     if is_key_pressed Key.F && Box.colliding (Boat.get_vect boat) !store_box
     then current_state := Store;
@@ -189,7 +187,7 @@ module MiniWin : WindowSig = struct
   let win_con = ref 10
 
   (** Represents the current target to be displayed in the window. *)
-  let current_target = ref (Target.generate ())
+  let current_target = ref (Target.generate boat)
 
   let setup (map : string) (user : string) (loads : Loadables.t) =
     Raylib.set_window_title "Catch the fish!";
@@ -204,8 +202,8 @@ module MiniWin : WindowSig = struct
       is_mouse_button_pressed MouseButton.Left
       && Target.colliding (get_mouse_position ()) !current_target
     then (
-      mini_score := succ !mini_score;
-      current_target := Target.generate ());
+      mini_score := !mini_score + Target.get_score !current_target;
+      current_target := Target.generate boat);
     begin_drawing ();
     clear_background Color.raywhite;
     Target.draw !current_target;
