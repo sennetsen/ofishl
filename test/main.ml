@@ -9,13 +9,6 @@ open Coin
 open Score
 open Constants
 
-(* Test Plan: Because the nature of the game returns most values as units, the
-   test suite functions to ensure text functions in the terminal, collision
-   logistics, and values such as boat angle and position, score, and other
-   variables are working as intended. Testing is primarily glass-box with
-   asserts to check the functions are outputting what the implementors desired.
-   Used make bisect because testing was glass-box *)
-
 let terminal_tests =
   [
     ( "make_fish_string" >:: fun _ ->
@@ -242,6 +235,18 @@ let boat_tests =
       assert_equal
         ~msg:(formatted_border_cross_string expected)
         (true, "y lower")
+        (Boat.is_border_crossed boat) );
+    ( "Boat: check if border is crossed, not crossing any border " >:: fun _ ->
+      let boat =
+        Boat.new_boat
+          (Constants.canvas_width_fl -. 244.)
+          (Constants.canvas_height_fl -. 37.)
+          24. 45.
+      in
+      let expected = (Boat.get_x boat, Boat.get_y boat) in
+      assert_equal
+        ~msg:(formatted_border_cross_string expected)
+        (false, "border is not crossed")
         (Boat.is_border_crossed boat) );
   ]
 
