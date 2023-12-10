@@ -1,4 +1,6 @@
 (library
  (name game)
  (public_name Game)
- (libraries raylib unix))
+ (libraries raylib unix)
+ (instrumentation
+  (backend bisect_ppx)))

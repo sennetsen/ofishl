@@ -14,7 +14,7 @@ open Constants
    logistics, and values such as boat angle and position, score, and other
    variables are working as intended. Testing is primarily glass-box with
    asserts to check the functions are outputting what the implementors desired.
-   Used make bisect because testing was glass-box *)
+   Used [make bisect] because testing was glass-box *)
 
 let terminal_tests =
   [
