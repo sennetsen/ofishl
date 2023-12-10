@@ -234,6 +234,10 @@ module StoreWin : WindowSig = struct
 
   let setup (map : string) (user : string) (loads : Loadables.t) =
     Raylib.set_window_title "Welcome home!";
+    (* Text for Store *)
+    Raylib.draw_text_ex (Loadables.uni_font loads)
+      "Conquer virtual waters\n       with rods and bait!"
+      (Vector2.create 95. 105.) 25. 0.5 (Color.create 26 12 1 400);
     (* Buy Rod for $3 button *)
     Box.draw buy_rod_button Color.lightgray;
     Box.draw_text buy_rod_button "$3 Rod" 25. 107. (Color.create 66 20 0 150)
@@ -325,7 +329,7 @@ module StoreWin : WindowSig = struct
         || is_key_pressed Key.X
       then current_state := Main;
       begin_drawing ();
-      clear_background Color.raywhite;
+      clear_background (Color.create 255 245 237 100);
       end_drawing ())
 end
 
