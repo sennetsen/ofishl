@@ -6,7 +6,8 @@ module type LoadList = sig
   (** The type to represent a LoadList. *)
 
   val initialize : string -> t
-  (** [initialize map] initializes the LoadList according to the specified map given by [map]. *)
+  (** [initialize map] initializes the LoadList according to the specified map
+      given by [map]. *)
 
   val uni_font : t -> Font.t
   (** Given a LoadList [loads] return the loaded unisans_heavy font. *)
@@ -22,6 +23,9 @@ module type LoadList = sig
 
   val kozenfish : t -> Texture2D.t
   (** Given a LoadList [loads] return the loaded texture of the kozenfish. *)
+
+  val background_sound : t -> Sound.t
+  (** Given a LoadList [loads] return the loaded background sound. *)
 end
 
 module Loadables : LoadList

@@ -92,6 +92,9 @@ module MainWin : WindowSig = struct
   let fish_type = ref (Random.int 2)
 
   let setup (map : string) (user : string) (loads : Loadables.t) =
+    (* TODO: *)
+    if map = "2" then store_box := Box.generate 100. 450. 50. 50. else ();
+    if map = "3" then store_box := Box.generate 100. 450. 50. 50. else ();
     Raylib.set_window_title (user ^ "'s Game | Map " ^ map)
 
   let loop (map : string) (is_custom : bool) (loads : Loadables.t) =
@@ -292,7 +295,6 @@ end
 let setup (map : string) (user : string) =
   Raylib.init_window 512 512 (user ^ "'s Game | Map " ^ map);
   AudioSprite.start ();
-  AudioSprite.play "data/audio-sprites/track1.wav";
   Raylib.set_target_fps 60;
   let img = Raylib.load_image "data/fish-sprites/smallerkozen.png" in
   Raylib.unload_image img;
@@ -303,6 +305,9 @@ let setup (map : string) (user : string) =
 
 let rec looper (map : string) (user : string) (st : state) (loads : Loadables.t)
     =
+  if AudioSprite.is_playing (Loadables.background_sound loads) then ()
+  else AudioSprite.play (Loadables.background_sound loads);
+
   let is_custom = if map <> "custom" then false else true in
   match st with
   | StartMenu ->
@@ -329,5 +334,6 @@ let rec looper (map : string) (user : string) (st : state) (loads : Loadables.t)
 let run (map : string) (user : string) =
   (*Raylib.set_trace_log_level Error; *)
   let loads = setup map user in
+  AudioSprite.play (Loadables.background_sound loads);
   (* Silence verbose log output. *)
   looper map user !current_state loads
