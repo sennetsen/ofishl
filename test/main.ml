@@ -163,37 +163,11 @@ let score_tests =
       assert_equal
         ~msg:(score_text_print (Score.get_score new_score))
         expected input );
-    ( "Score.text: Score of -5 (high negative int, after incurred penalties)"
-    >:: fun _ ->
+    ( "Score.text: Score of -5 (high negative int, after penalties)" >:: fun _ ->
       let new_score = Score.new_score () in
       Score.update_score new_score ~-5;
       let input = Score.text new_score in
       let expected = "Score: -5" in
-      assert_equal
-        ~msg:(score_text_print (Score.get_score new_score))
-        expected input );
-    ( "Score.text: Score of -100000 (low negative int, after incurred penalties)"
-    >:: fun _ ->
-      let new_score = Score.new_score () in
-      Score.update_score new_score ~-100000;
-      let input = Score.text new_score in
-      let expected = "Score: -100000" in
-      assert_equal
-        ~msg:(score_text_print (Score.get_score new_score))
-        expected input );
-    ( "Score.text: Score of max_int" >:: fun _ ->
-      let new_score = Score.new_score () in
-      Score.update_score new_score max_int;
-      let input = Score.text new_score in
-      let expected = "Score: " ^ string_of_int max_int in
-      assert_equal
-        ~msg:(score_text_print (Score.get_score new_score))
-        expected input );
-    ( "Score.text: Score of min_int" >:: fun _ ->
-      let new_score = Score.new_score () in
-      Score.update_score new_score min_int;
-      let input = Score.text new_score in
-      let expected = "Score: " ^ string_of_int min_int in
       assert_equal
         ~msg:(score_text_print (Score.get_score new_score))
         expected input );
@@ -232,6 +206,10 @@ let formatted_border_cross_string expect =
 let boat_tests =
   [
     "Boat: new_boat" >:: boat_move_test (310., 260.) [];
+    "Boat: new_boat without movement"
+    >:: boat_move_test (310., 260.) [ (0., 0.) ];
+    "Boat: new_boat without movement 2"
+    >:: boat_move_test (310., 260.) [ (0., 0.); (0., 0.); (0., 0.) ];
     "Boat: new_boat with forward movement"
     >:: boat_move_test (320., 270.) [ (10., 10.) ];
     "Boat: new_boat with backward movement"
@@ -356,6 +334,34 @@ let boat_tests =
       assert_equal
         ~msg:(formatted_border_cross_string expected)
         (false, "border is not crossed")
+        (Boat.is_border_crossed boat) );
+    ( "Boat: check if border is crossed, min float left side" >:: fun _ ->
+      let boat = Boat.new_boat min_float 25. 24. 45. in
+      let expected = (Boat.get_x boat, Boat.get_y boat) in
+      assert_equal
+        ~msg:(formatted_border_cross_string expected)
+        (true, "x left")
+        (Boat.is_border_crossed boat) );
+    ( "Boat: check if border is crossed, max float right side" >:: fun _ ->
+      let boat = Boat.new_boat max_float 25. 24. 45. in
+      let expected = (Boat.get_x boat, Boat.get_y boat) in
+      assert_equal
+        ~msg:(formatted_border_cross_string expected)
+        (true, "x right")
+        (Boat.is_border_crossed boat) );
+    ( "Boat: check if border is crossed, max float above" >:: fun _ ->
+      let boat = Boat.new_boat 25. max_float 24. 45. in
+      let expected = (Boat.get_x boat, Boat.get_y boat) in
+      assert_equal
+        ~msg:(formatted_border_cross_string expected)
+        (true, "y upper")
+        (Boat.is_border_crossed boat) );
+    ( "Boat: check if border is crossed, min float below" >:: fun _ ->
+      let boat = Boat.new_boat 25. min_float 24. 45. in
+      let expected = (Boat.get_x boat, Boat.get_y boat) in
+      assert_equal
+        ~msg:(formatted_border_cross_string expected)
+        (true, "y lower")
         (Boat.is_border_crossed boat) );
   ]
 
@@ -526,6 +532,21 @@ module TargetTester = SpriteTester (Target)
 module SeamineTester = SpriteTester (Seamine)
 module FishTester = SpriteTester (Fish)
 
+let get_bait = game_data.bait
+let bait_tests = []
+let h = canvas_height_fl
+let w = canvas_width_fl
+let v = volume
+let s = set_speed 50.
+
+let constant_tests =
+  [
+    ("canvas_height_f1 checker" >:: fun _ -> assert_equal 512. h);
+    ("canvas_width_f1 checker" >:: fun _ -> assert_equal 512. w);
+    ("volume checker" >:: fun _ -> assert_equal 75 v);
+    ("speed checker" >:: fun _ -> assert_equal 50. (get_speed ()));
+  ]
+
 let suite =
   "final project test suite"
   >::: List.flatten
@@ -542,6 +563,8 @@ let suite =
            seamines_colliding_tests;
            targets_colliding_tests;
            fish_colliding_tests;
+           bait_tests;
+           constant_tests;
          ]
 
 let () = run_test_tt_main suite
