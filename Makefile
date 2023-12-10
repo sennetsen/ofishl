@@ -1,7 +1,8 @@
 .PHONY: test check
 .PHONY: ray check
 
-bisect: bisect-clean
+bisect: 
+	bisect-clean
 	-dune exec --instrument-with bisect_ppx --force test/main.exe
 	bisect-ppx-report html
 
@@ -16,8 +17,12 @@ cloc:
 	cloc --by-file --include-lang=OCaml .
 	dune build
 
-clean: bisect-clean
+clean: 
+	bisect-clean
 	dune clean
+
+clear-stats:
+	rm player_data/*_stats.txt
 
 doc: 
 	dune build @doc
