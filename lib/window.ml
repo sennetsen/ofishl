@@ -412,11 +412,12 @@ let rec looper (map : string) (user : string) (st : state) (loads : Loadables.t)
       Raylib.close_window ()
 
 let run (map : string) (user : string) =
-  (*Raylib.set_trace_log_level Error; *)
+  (* Silence verbose log output. *)
+  Raylib.set_trace_log_level Error;
+
   let loads = setup map user in
   AudioSprite.play (Loadables.background_sound loads);
   Raylib.set_sound_volume (Loadables.coin_sound loads) 0.1;
   Raylib.set_sound_volume (Loadables.seamine_sound loads) 0.3;
   Raylib.set_sound_volume (Loadables.water_sound loads) 0.8;
-  (* Silence verbose log output. *)
   looper map user !current_state loads
