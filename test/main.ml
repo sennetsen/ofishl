@@ -8,6 +8,13 @@ open Boat
 open Coin
 open Score
 
+(* Test Plan: Because the nature of the game returns most values as units, the
+   test suite functions to ensure text functions in the terminal, collision
+   logistics, and values such as boat angle and position, score, and other
+   variables are working as intended. Testing is primarily glass-box with
+   asserts to check the functions are outputting what the implementors desired.
+   Used make bisect because testing was glass-box *)
+
 let terminal_tests =
   [
     ( "make_fish_string" >:: fun _ ->
