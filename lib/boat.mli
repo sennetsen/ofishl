@@ -30,6 +30,8 @@ module type BoatSig = sig
       representation of the boat's angle heading. *)
 
   val is_border_crossed : t -> bool * string
+  (** [is_border_crossed boat] returns whether the border of the window
+      was crossed and in what way in the form of a tuple. *)
 
   val move : t -> float -> float -> unit
   (** Given a boat and the differences in x and y in float values, move the boat
