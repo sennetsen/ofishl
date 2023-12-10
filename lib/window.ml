@@ -26,8 +26,6 @@ let current_fish = ref (Fish.spawn boat)
 let current_coin = ref (Coin.generate boat)
 let current_seamine = ref (Seamine.generate boat)
 let score = Score.new_score ()
-let rod_purchases = 0
-let bait_purchases = 0
 
 type game_data = {
   mutable final_score : int;
@@ -35,12 +33,7 @@ type game_data = {
   mutable bait : int;
 }
 
-let game_data =
-  {
-    final_score = Score.get_score score;
-    rods = rod_purchases;
-    bait = bait_purchases;
-  }
+let game_data = { final_score = Score.get_score score; rods = 0; bait = 0 }
 
 module type WindowSig = sig
   val setup : string -> string -> Loadables.t -> unit
@@ -157,7 +150,6 @@ module MainWin : WindowSig = struct
     if is_key_pressed Key.F && Fish.colliding (Boat.get_vect boat) !current_fish
     then (
       current_state := Minigame;
-      Score.update_score score 3;
       fish_type := Random.int 2;
       current_fish := Fish.spawn boat);
     if Coin.colliding (Boat.get_vect boat) !current_coin then (
@@ -189,23 +181,28 @@ end
 
 module MiniWin : WindowSig = struct
   (** The current score in the minigame. *)
-  let score = ref 0
+  let mini_score = ref 0
+
+  (** The score required to win the minigame. *)
+  let win_con = ref 10
 
   (** Represents the current target to be displayed in the window. *)
   let current_target = ref (Target.generate ())
 
   let setup (map : string) (user : string) (loads : Loadables.t) =
-    Raylib.set_window_title "Catch the fish!"
+    Raylib.set_window_title "Catch the fish!";
+    win_con := if game_data.rods < 10 then 10 - game_data.rods else 1
 
   let loop (map : string) is_custom (loads : Loadables.t) =
-    if !score = 5 then (
-      score := 0;
-      current_state := Main)
+    if !mini_score = !win_con then (
+      mini_score := 0;
+      current_state := Main;
+      Score.update_score score (3 + game_data.bait))
     else if
       is_mouse_button_pressed MouseButton.Left
       && Target.colliding (get_mouse_position ()) !current_target
     then (
-      score := succ !score;
+      mini_score := succ !mini_score;
       current_target := Target.generate ());
     begin_drawing ();
     clear_background Color.raywhite;
@@ -279,6 +276,7 @@ module StoreWin : WindowSig = struct
       if
         is_mouse_button_pressed MouseButton.Left
         && Box.colliding (get_mouse_position ()) exit_button
+        || is_key_pressed Key.X
       then current_state := Main;
       begin_drawing ();
       clear_background Color.raywhite;

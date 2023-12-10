@@ -24,11 +24,6 @@ module Boat : BoatSig = struct
       x and y of the rectangle must always be within the dimensions of the game
       window. So must the height and width. *)
 
-  type inv = {
-    rods : int;
-    bait : int;
-  }
-
   let new_boat (x : float) (y : float) (width : float) (height : float) : t =
     ref (Rectangle.create x y width height)
 
