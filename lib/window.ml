@@ -243,7 +243,7 @@ module StoreWin : WindowSig = struct
     Box.draw_text buy_bait_button "$1 Bait" 25. 307. (Color.create 66 20 0 150)
       (Loadables.uni_font loads);
     (* Exit button *)
-    Box.draw exit_button Color.red;
+    draw_texture (Loadables.exit loads) 15 15 Color.raywhite;
     (* Box around score *)
     Box.draw score_box (Color.create 232 253 255 150)
 

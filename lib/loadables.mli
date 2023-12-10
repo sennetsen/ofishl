@@ -44,6 +44,9 @@ module type LoadList = sig
 
   val bobber : t -> Texture2D.t
   (** Given a LoadList [loads] return the loaded texture of the bobber. *)
+
+  val exit : t -> Texture2D.t
+  (** Given a LoadList [loads] return the loaded texture of the exit button. *)
 end
 
 module Loadables : LoadList
