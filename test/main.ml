@@ -300,14 +300,19 @@ let boat_tests =
         (Boat.is_border_crossed boat) );
   ]
 
-let coin_tests = []
-
 module SpriteTester =
 functor
   (S : SpriteSig)
   ->
   struct
     let boat = Boat.new_boat 310. 260. 30. 20.
+    let coin_true1 = S.generate_fixed 310. 260.
+    let coin_true2 = S.generate_fixed 308. 255.
+    let coin_true3 = S.generate_fixed 315. 265.
+    let coin_true4 = S.generate_fixed 322. 272.
+    let coin_false1 = S.generate_fixed 260. 120.
+    let coin_false2 = S.generate_fixed 440. 360.
+    let coin_false3 = S.generate_fixed 323. 273.
 
     let sprite_generate_test out in1 _ =
       assert_equal ~printer:string_of_bool ~msg:"function: Sprites.generate" out
@@ -323,6 +328,29 @@ functor
       [
         "1000 generated sprites are in bounds"
         >:: sprite_generate_test true (multi_gen_tests 1000);
+      ]
+
+    let sprite_colliding_test out in1 in2 _ =
+      assert_equal ~printer:string_of_bool
+        ~msg:(Printf.sprintf "function: Sprites.colliding")
+        out (S.colliding in1 in2)
+
+    let sprite_colliding_tests =
+      [
+        "Coin collision: true 1"
+        >:: sprite_colliding_test true (Boat.get_vect boat) coin_true1;
+        "Coin collision: true 2"
+        >:: sprite_colliding_test true (Boat.get_vect boat) coin_true2;
+        "Coin collision: true 3"
+        >:: sprite_colliding_test true (Boat.get_vect boat) coin_true3;
+        "Coin collision: true 4"
+        >:: sprite_colliding_test true (Boat.get_vect boat) coin_true4;
+        "Coin collision: false 1"
+        >:: sprite_colliding_test false (Boat.get_vect boat) coin_false1;
+        "Coin collision: false 2"
+        >:: sprite_colliding_test false (Boat.get_vect boat) coin_false2;
+        "Coin collision: false 3"
+        >:: sprite_colliding_test false (Boat.get_vect boat) coin_false3;
       ]
 
     let tests = List.flatten [ sprite_generate_tests ]
