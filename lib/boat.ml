@@ -64,8 +64,8 @@ module Boat : BoatSig = struct
 
   let border_crossed (boat : t) : unit =
     match is_border_crossed boat with
-    | true, "x left" -> Rectangle.set_x !boat 0.
-    | true, "x right" -> Rectangle.set_x !boat Constants.canvas_width_fl
+    | true, "x left" -> Rectangle.set_x !boat Constants.canvas_width_fl
+    | true, "x right" -> Rectangle.set_x !boat 0.
     | true, "y upper" -> Rectangle.set_y !boat Constants.canvas_height_fl
     | true, "y lower" -> Rectangle.set_y !boat 0.
     | _, _ -> ()
