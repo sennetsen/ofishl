@@ -22,6 +22,8 @@ module type BoatSig = sig
   (** Given a boat and a quadruple of key presses, returns a float
       representation of the boat's angle heading. *)
 
+  val is_border_crossed : t -> bool * string
+
   val move : t -> float -> float -> unit
   (** Given a boat and the differences in x and y in float values, move the boat
       accordingly. *)

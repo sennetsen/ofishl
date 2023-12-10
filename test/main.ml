@@ -130,6 +130,11 @@ let boat_angle_test out in1 _ =
     out
     (Boat.get_boat_angle boat_45 in1)
 
+let formatted_border_cross_string expect =
+  Printf.sprintf
+    "function: Boat.is_border_crossed\ninput: Boat position %.2f, %.2f\n"
+    (fst expect) (snd expect)
+
 let boat_tests =
   [
     "Boat: new_boat" >:: boat_move_test (310., 260.) [];
@@ -170,6 +175,11 @@ let boat_tests =
     >:: boat_angle_test 0. (true, false, true, true);
     "Boat: draw boat positioned at 0 degrees wildcard case 4"
     >:: boat_angle_test 0. (true, true, true, true);
+   (* ( "Boat: check if border is crossed, upper border"
+    >:: fun _ ->
+      let boat = Boat.new_boat 234. -143. 24. 45. in
+      let expected = (Boat.get_x, Boat.get_y) in
+      assert_equal ~msg:formatted_border_cross_string expected)*)
   ]
 
 let suite =

@@ -10,6 +10,7 @@ module type BoatSig = sig
   val get_y : t -> float
   val get_vect : t -> Vector2.t
   val get_boat_angle : t -> bool * bool * bool * bool -> float
+  val is_border_crossed : t -> bool * string
   val move : t -> float -> float -> unit
   val draw : t -> bool * bool * bool * bool -> unit
   val border_crossed : t -> unit
@@ -41,6 +42,13 @@ module Boat : BoatSig = struct
     | true, true, false, true -> 90.
     | _ -> 0.
 
+  let is_border_crossed (boat : t) : bool * string =
+    if Rectangle.x !boat <= 0. then (true, "x left")
+    else if Rectangle.x !boat >= Const.canvas_width_fl then (true, "x right")
+    else if Rectangle.y !boat <= 0. then (true, "y upper")
+    else if Rectangle.y !boat >= Const.canvas_height_fl then (true, "y lower")
+    else (false, "border is not crossed")
+
   let move (boat : t) (dx : float) (dy : float) : unit =
     Rectangle.set_x !boat (get_x boat +. dx);
     Rectangle.set_y !boat (get_y boat +. dy)
@@ -54,11 +62,10 @@ module Boat : BoatSig = struct
       angle Color.brown
 
   let border_crossed (boat : t) : unit =
-    if Rectangle.x !boat <= 0. then Rectangle.set_x !boat Const.canvas_width_fl
-    else if Rectangle.x !boat >= Const.canvas_width_fl then
-      Rectangle.set_x !boat 0.
-    else if Rectangle.y !boat <= 0. then
-      Rectangle.set_y !boat Const.canvas_height_fl
-    else if Rectangle.y !boat >= Const.canvas_height_fl then
-      Rectangle.set_y !boat 0.
+    match is_border_crossed boat with
+    | true, "x left" -> Rectangle.set_x !boat 0.
+    | true, "x right" -> Rectangle.set_x !boat Const.canvas_width_fl
+    | true, "y upper" -> Rectangle.set_y !boat Const.canvas_height_fl
+    | true, "y lower" -> Rectangle.set_y !boat 0.
+    | _, _ -> ()
 end
