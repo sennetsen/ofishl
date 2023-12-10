@@ -13,7 +13,7 @@ module type SpriteSig = sig
       window such that it doesn't collide with any other current elements in the
       game. *)
 
-  val draw : t -> unit
+  val draw : Texture2D.t -> t -> unit
   (** Given a sprite, draw it at its current position. *)
 
   val colliding : Vector2.t -> t -> bool
@@ -21,7 +21,8 @@ module type SpriteSig = sig
       and false if not. *)
 
   val get_score : t -> int
-  (** [get_score sprite] returns the score change when the boat collides with [sprite]. *)
+  (** [get_score sprite] returns the score change when the boat collides with
+      [sprite]. *)
 end
 
 module Coin : SpriteSig

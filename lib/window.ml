@@ -108,6 +108,11 @@ module MainWin : WindowSig = struct
       else Loadables.kozenfish loads
     in
 
+    let texture_trap = Loadables.trapmine loads in
+    let texture_mine = Loadables.minemine loads in
+    let texture_bomba = Loadables.bombamine loads in
+    let texture_coin = Loadables.coinpic loads in
+
     begin_drawing ();
 
     if Raylib.window_should_close () then current_state := Quit;
@@ -163,8 +168,14 @@ module MainWin : WindowSig = struct
     then current_state := Store;
 
     Fish.draw_fish texture_fish !current_fish;
-    Seamine.draw !current_seamine;
-    Coin.draw !current_coin;
+
+    (match Seamine.get_score !current_seamine with
+    | -1 -> Seamine.draw texture_trap !current_seamine
+    | -3 -> Seamine.draw texture_mine !current_seamine
+    | -5 -> Seamine.draw texture_bomba !current_seamine
+    | _ -> failwith "");
+
+    Coin.draw texture_coin !current_coin;
 
     Boat.draw boat
       ( is_key_down Key.W || is_key_down Key.Up,
@@ -195,6 +206,7 @@ module MiniWin : WindowSig = struct
     win_con := if game_data.rods < 10 then 10 - game_data.rods else 1
 
   let loop (map : string) is_custom (loads : Loadables.t) =
+    let texture_target = Loadables.bobber loads in
     if !mini_score = !win_con then (
       mini_score := 0;
       current_state := Main;
@@ -207,7 +219,7 @@ module MiniWin : WindowSig = struct
       current_target := Target.generate boat);
     begin_drawing ();
     clear_background Color.raywhite;
-    Target.draw !current_target;
+    Target.draw texture_target !current_target;
     end_drawing ()
 end
 

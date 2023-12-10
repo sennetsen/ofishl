@@ -7,7 +7,7 @@ module type SpriteSig = sig
   type t
 
   val generate : Boat.t -> t
-  val draw : t -> unit
+  val draw : Texture2D.t -> t -> unit
   val colliding : Vector2.t -> t -> bool
   val get_score : t -> int
 end
@@ -32,7 +32,11 @@ module Coin : SpriteSig = struct
       then generate boat
       else Vector2.create x y
 
-  let draw (sprite : t) : unit = draw_circle_v sprite 10. Color.gold
+  let draw (texture : Texture2D.t) (sprite : t) : unit =
+    draw_texture texture
+      (int_of_float (Vector2.x sprite) - 10)
+      (int_of_float (Vector2.y sprite) - 10)
+      Color.raywhite
 
   let colliding (boat : Vector2.t) (sprite : t) : bool =
     check_collision_circles boat 15. sprite 8.
@@ -84,11 +88,11 @@ module Seamine : SpriteSig = struct
       then generate boat
       else (Vector2.create x y, random_diff ())
 
-  let draw (sprite : t) : unit =
-    match snd sprite with
-    | Trap -> draw_circle_v (fst sprite) 15. (Color.create 255 248 110 500)
-    | Mine -> draw_circle_v (fst sprite) 15. (Color.create 255 159 140 500)
-    | Bomba -> draw_circle_v (fst sprite) 15. (Color.create 166 166 166 500)
+  let draw (texture : Texture2D.t) (sprite : t) : unit =
+    draw_texture texture
+      (int_of_float (Vector2.x (fst sprite)) - 15)
+      (int_of_float (Vector2.y (fst sprite)) - 15)
+      Color.raywhite
 
   let colliding (boat : Vector2.t) (sprite : t) : bool =
     check_collision_circles boat 15. (fst sprite) 8.
@@ -104,7 +108,11 @@ module Target : SpriteSig = struct
   let generate (boat : Boat.t) : t =
     Vector2.create (Random.float 512.) (Random.float 512.)
 
-  let draw (target : t) : unit = draw_circle_v target 18. Color.gray
+  let draw (texture : Texture2D.t) (target : t) : unit =
+    draw_texture texture
+      (int_of_float (Vector2.x target) - 18)
+      (int_of_float (Vector2.y target) - 18)
+      Color.raywhite
 
   let colliding (mouse : Vector2.t) (target : t) : bool =
     check_collision_point_circle mouse target 18.
