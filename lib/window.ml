@@ -229,6 +229,7 @@ module StoreWin : WindowSig = struct
   let buy_rod_button = Box.generate 100. 400. 100. 50.
 
   let buy_bait_button = Box.generate 300. 400. 100. 50.
+  let buy_trophy_button = Box.generate 157. 300. 200. 50.
   let exit_button = Box.generate 15. 15. 15. 15.
   let score_box = Box.generate 380. 15. 125. 35.
 
@@ -241,6 +242,10 @@ module StoreWin : WindowSig = struct
     (* Buy Bait for $1 button *)
     Box.draw buy_bait_button Color.beige;
     Box.draw_text buy_bait_button "$1 Bait" 25. 307. (Color.create 66 20 0 150)
+      (Loadables.uni_font loads);
+    (* Buy Trophy for $3110 button *)
+    Box.draw buy_trophy_button Color.gold;
+    Box.draw_text buy_trophy_button "$3110 Trophy" 25. 175. Color.darkbrown
       (Loadables.uni_font loads);
     (* Exit button *)
     draw_texture (Loadables.exit loads) 15 15 Color.raywhite;
@@ -290,6 +295,21 @@ module StoreWin : WindowSig = struct
           else (
             Box.draw buy_bait_button (Color.create 245 110 110 100);
             Box.draw_text buy_bait_button "$1 Bait" 25. 307.
+              (Color.create 46 14 0 150) (Loadables.uni_font loads)));
+
+      if Box.colliding (get_mouse_position ()) buy_trophy_button then (
+        if
+          is_mouse_button_pressed MouseButton.Left
+          && Score.get_score score >= 3110
+        then Score.update_score score (-3110);
+        if is_mouse_button_down MouseButton.Left then
+          if Score.get_score score >= 3110 then (
+            Box.draw buy_trophy_button (Color.create 194 155 0 100);
+            Box.draw_text buy_trophy_button "$3110 Trophy" 25. 175.
+              (Color.create 46 14 0 150) (Loadables.uni_font loads))
+          else (
+            Box.draw buy_trophy_button (Color.create 245 110 110 100);
+            Box.draw_text buy_trophy_button "$3110 Trophy" 25. 175.
               (Color.create 46 14 0 150) (Loadables.uni_font loads)));
 
       if
