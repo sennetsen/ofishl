@@ -43,5 +43,7 @@ opam:
 
 zip:
 	dune clean
+	rm -rf _coverage bisect*.coverage
+	rm player_data/*_stats.txt
 	zip -r ofishl.zip . 
 	dune build
