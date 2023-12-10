@@ -270,7 +270,7 @@ functor
 
     let rec multi_gen_tests (n : int) : bool =
       if n > 0 then
-        let current_sprite = S.generate boat in
+        let current_sprite = S.generate boat (Box.generate 0. 0. 0. 0.) in
         S.in_bounds current_sprite && multi_gen_tests (n - 1)
       else true
 

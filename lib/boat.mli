@@ -15,6 +15,12 @@ module type BoatSig = sig
   val get_y : t -> float
   (** Given a boat, returns the y position of the boat in float value. *)
 
+  val get_w : t -> float
+  (** Given a boat, returns the width of the boat in float value. *)
+
+  val get_h : t -> float
+  (** Given a boat, returns the width of the boat in float value. *)
+
   val get_vect : t -> Vector2.t
   (** Given a boat, returns a Vector2.t representation of the boat at that
       instant. *)

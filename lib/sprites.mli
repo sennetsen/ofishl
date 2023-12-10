@@ -2,13 +2,14 @@ open Raylib
 open Boat
 open Vector2
 open Score
+open Box
 
 (** The signature of a sprite. *)
 module type SpriteSig = sig
   type t
   (** The type of a sprite. *)
 
-  val generate : Boat.t -> t
+  val generate : Boat.t -> Box.t -> t
   (** Determines the location of the sprite at a random place anywhere in the
       window such that it doesn't collide with any other current elements in the
       game. *)
@@ -25,8 +26,8 @@ module type SpriteSig = sig
       [sprite]. *)
 
   val in_bounds : t -> bool
-  (** [in_bounds sprite] returns true if the sprite is within the bounds of
-      the game window. False otherwise.*)
+  (** [in_bounds sprite] returns true if the sprite is within the bounds of the
+      game window. False otherwise.*)
 end
 
 module Coin : SpriteSig

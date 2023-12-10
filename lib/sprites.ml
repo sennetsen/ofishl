@@ -2,11 +2,12 @@ open Raylib
 open Boat
 open Vector2
 open Score
+open Box
 
 module type SpriteSig = sig
   type t
 
-  val generate : Boat.t -> t
+  val generate : Boat.t -> Box.t -> t
   val draw : Texture2D.t -> t -> unit
   val colliding : Vector2.t -> t -> bool
   val get_score : t -> int
@@ -20,18 +21,26 @@ module Coin : SpriteSig = struct
       top-left corner. RI: The coordinates of the vector must always be
       contained within the dimensions of the game window.*)
 
-  let rec generate (boat : Boat.t) : t =
-    let x, y = (Random.float 512., Random.float 512.) in
-    if x <= 310. && x >= 220. && y <= 310. && y >= 220. then generate boat
+  let rec generate (boat : Boat.t) (store : Box.t) : t =
+    let x, y = (Random.float 488., Random.float 488.) in
+    let store_x, store_y = (Box.get_coord "x" store, Box.get_coord "y" store) in
+    if
+      x <= store_x +. 60.
+      && x >= store_x -. 10.
+      && y <= store_y +. 60.
+      && y >= store_y -. 10.
+    then generate boat store
     else
-      let boat_x, boat_y = (Boat.get_x boat, Boat.get_y boat) in
+      let boat_x, boat_y, boat_w, boat_h =
+        (Boat.get_x boat, Boat.get_y boat, Boat.get_w boat, Boat.get_h boat)
+      in
       if
-        x <= boat_x +. 20.
-        && x >= boat_x -. 20.
-        && y <= boat_y +. 20.
-        && y >= boat_x -. 20.
-      then generate boat
-      else Vector2.create x y
+        x <= boat_x +. boat_w
+        && x >= boat_x -. boat_w
+        && y <= boat_y +. boat_w
+        && y >= boat_x -. boat_h
+      then generate boat store
+      else Vector2.create (x +. 12.) (y +. 12.)
 
   let draw (texture : Texture2D.t) (sprite : t) : unit =
     draw_texture texture
@@ -82,18 +91,26 @@ module Seamine : SpriteSig = struct
     | Mine -> -3
     | Bomba -> -5
 
-  let rec generate (boat : Boat.t) : t =
-    let x, y = (Random.float 512., Random.float 512.) in
-    if x <= 310. && x >= 220. && y <= 310. && y >= 220. then generate boat
+  let rec generate (boat : Boat.t) (store : Box.t) : t =
+    let x, y = (Random.float 496., Random.float 496.) in
+    let store_x, store_y = (Box.get_coord "x" store, Box.get_coord "y" store) in
+    if
+      x <= store_x +. 60.
+      && x >= store_x -. 10.
+      && y <= store_y +. 60.
+      && y >= store_y -. 10.
+    then generate boat store
     else
-      let boat_x, boat_y = (Boat.get_x boat, Boat.get_y boat) in
+      let boat_x, boat_y, boat_w, boat_h =
+        (Boat.get_x boat, Boat.get_y boat, Boat.get_w boat, Boat.get_h boat)
+      in
       if
-        x <= boat_x +. 20.
-        && x >= boat_x -. 20.
-        && y <= boat_y +. 20.
-        && y >= boat_x -. 20.
-      then generate boat
-      else (Vector2.create x y, random_diff ())
+        x <= boat_x +. boat_w
+        && x >= boat_x -. boat_w
+        && y <= boat_y +. boat_w
+        && y >= boat_x -. boat_h
+      then generate boat store
+      else (Vector2.create (x +. 8.) (y +. 8.), random_diff ())
 
   let draw (texture : Texture2D.t) (sprite : t) : unit =
     draw_texture texture
@@ -118,8 +135,9 @@ module Target : SpriteSig = struct
       top-left corner. RI: The coordinates of the vector must always be
       contained within the dimensions of the game window.*)
 
-  let generate (boat : Boat.t) : t =
-    Vector2.create (Random.float 512.) (Random.float 512.)
+  let generate (boat : Boat.t) (store : Box.t) : t =
+    let x, y = (Random.float 476., Random.float 476.) in
+    Vector2.create (x +. 18.) (y +. 18.)
 
   let draw (texture : Texture2D.t) (target : t) : unit =
     draw_texture texture
@@ -146,18 +164,26 @@ module Fish : SpriteSig = struct
       top-left corner. RI: The coordinates of the vector must always be
       contained within the dimensions of the game window.*)
 
-  let rec generate (boat : Boat.t) : t =
-    let x, y = (Random.float 512., Random.float 512.) in
-    if x <= 310. && x >= 220. && y <= 310. && y >= 220. then generate boat
+  let rec generate (boat : Boat.t) (store : Box.t) : t =
+    let x, y = (Random.float 412., Random.float 412.) in
+    let store_x, store_y = (Box.get_coord "x" store, Box.get_coord "y" store) in
+    if
+      x <= store_x +. 60.
+      && x >= store_x -. 10.
+      && y <= store_y +. 60.
+      && y >= store_y -. 10.
+    then generate boat store
     else
-      let boat_x, boat_y = (Boat.get_x boat, Boat.get_y boat) in
+      let boat_x, boat_y, boat_w, boat_h =
+        (Boat.get_x boat, Boat.get_y boat, Boat.get_w boat, Boat.get_h boat)
+      in
       if
-        x <= boat_x +. 20.
-        && x >= boat_x -. 20.
-        && y <= boat_y +. 20.
-        && y >= boat_x -. 20.
-      then generate boat
-      else Vector2.create x y
+        x <= boat_x +. boat_w
+        && x >= boat_x -. boat_w
+        && y <= boat_y +. boat_w
+        && y >= boat_x -. boat_h
+      then generate boat store
+      else Vector2.create (x +. 50.) (y +. 50.)
 
   let draw (texture : Texture2D.t) (fish : t) =
     draw_texture texture

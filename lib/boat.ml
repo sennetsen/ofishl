@@ -8,6 +8,8 @@ module type BoatSig = sig
   val new_boat : float -> float -> float -> float -> t
   val get_x : t -> float
   val get_y : t -> float
+  val get_w : t -> float
+  val get_h : t -> float
   val get_vect : t -> Vector2.t
   val get_boat_angle : t -> bool * bool * bool * bool -> float
   val is_border_crossed : t -> bool * string
@@ -30,6 +32,8 @@ module Boat : BoatSig = struct
 
   let get_x (boat : t) : float = Rectangle.x !boat
   let get_y (boat : t) : float = Rectangle.y !boat
+  let get_w (boat : t) : float = Rectangle.width !boat
+  let get_h (boat : t) : float = Rectangle.height !boat
   let get_vect (boat : t) : Vector2.t = Vector2.create (get_x boat) (get_y boat)
 
   let get_boat_angle (boat : t) (keys : bool * bool * bool * bool) : float =
