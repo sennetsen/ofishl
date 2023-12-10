@@ -111,6 +111,24 @@ let score_tests =
     >:: score_test (-126) [ -1; -2; -3; -6; 6; -120 ];
     "Score.update_score: positive 122, multitude of updates"
     >:: score_test 122 [ 1; 2; -3; 6; -6; 120; 0; 0; 0; 2 ];
+    "Score.update_score: max value" >:: score_test max_int [ max_int ];
+    "Score.update_score: min value" >:: score_test min_int [ min_int ];
+    "Score.update_score: zero updates" >:: score_test 0 [];
+    "Score.update_score: single large positive update"
+    >:: score_test 1000000 [ 1000000 ];
+    "Score.update_score: single large negative update"
+    >:: score_test (-1000000) [ -1000000 ];
+    "Score.update_score: large positive updates"
+    >:: score_test 10000 [ 1000; 2000; 3000; 4000 ];
+    "Score.update_score: large negative updates"
+    >:: score_test (-10000) [ -1000; -2000; -3000; -4000 ];
+
+    "Score.set: large negative updates"
+    >:: score_test (-10000) [ -1000; -2000; -3000; -4000 ];
+
+
+
+
   ]
 
 let rec move_boat_from_lst boat lst =

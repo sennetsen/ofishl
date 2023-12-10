@@ -14,7 +14,6 @@ let rec enter_map () =
     | "1" -> "1"
     | "2" -> "2"
     | "3" -> "3"
-    | "c" -> "custom"
     | _ ->
         print_endline "Invalid choice. Enter a number (1, 2, or 3): ";
         enter_map ()

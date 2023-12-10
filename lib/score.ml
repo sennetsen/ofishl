@@ -17,10 +17,12 @@ type t = {
 
 let new_score () : t = { score = 0; font_size = 0.; color = Color.white }
 let get_score (sc : t) : int = sc.score
+let text (sc : t) : string = "Score: " ^ string_of_int (get_score sc)
 
 let print (sc : t) (font : Font.t) : unit =
-  let text = "Score: " ^ string_of_int (get_score sc) in
-  draw_text_ex font text (Vector2.create 360. 24.) sc.font_size 1. sc.color
+  let text_to_print = text sc in
+  draw_text_ex font text_to_print (Vector2.create 360. 24.) sc.font_size 1.
+    sc.color
 
 let update_score (sc : t) (n : int) : unit = sc.score <- sc.score + n
 let set_font_size (sc : t) (size : float) : unit = sc.font_size <- size

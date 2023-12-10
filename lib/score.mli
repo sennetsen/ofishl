@@ -10,6 +10,8 @@ val new_score : unit -> t
 val get_score : t -> int
 (** Returns the integer value of the current score. *)
 
+val text : t -> string
+
 val print : t -> Font.t -> unit
 (** Prints a score value when called during a game run. *)
 

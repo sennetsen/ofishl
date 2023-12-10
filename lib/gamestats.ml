@@ -42,10 +42,7 @@ let print_content (data : Window.game_data) (user : string) (map : string) =
   let score_string =
     "Your final score was: " ^ string_of_int data.final_score
   in
-  let map_played =
-    "\nGame map played: "
-    ^ if map <> "custom" then "Map " ^ map else "Custom-generated map"
-  in
+  let map_played = "\nGame map played: " ^ "Map " ^ map in
   let purchases =
     "\nNumber of fishing rods purchased: " ^ string_of_int data.rods ^ " rods ("
     ^ string_of_int (3 * data.rods)

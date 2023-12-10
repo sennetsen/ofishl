@@ -4,7 +4,6 @@ open AudioSprite
 open Constants
 open Score
 open Sprites
-open Mapcustom
 open Box
 open Loadables
 
@@ -95,12 +94,7 @@ module MainWin : WindowSig = struct
     Raylib.set_window_title (user ^ "'s Game | Map " ^ map)
 
   let loop (map : string) (is_custom : bool) (loads : Loadables.t) =
-    (* Custom map implemention incomplete (TODO)*)
-    if is_custom then begin
-      let arr = [| [| 1; 0; 1 |]; [| 1; 0; 1 |] |] in
-      Custom.generate_map arr
-    end
-    else draw_texture (Loadables.map loads) 0 0 Color.raywhite;
+    draw_texture (Loadables.map loads) 0 0 Color.raywhite;
 
     let texture_fish =
       if !fish_type = 0 then Loadables.hsufish loads
