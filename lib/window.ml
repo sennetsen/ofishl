@@ -1,6 +1,5 @@
 open Raylib
 open Boat
-open Fish
 open AudioSprite
 open Constants
 open Score
@@ -167,7 +166,7 @@ module MainWin : WindowSig = struct
     if is_key_pressed Key.F && Box.colliding (Boat.get_vect boat) !store_box
     then current_state := Store;
 
-    Fish.draw_fish texture_fish !current_fish;
+    Fish.draw texture_fish !current_fish;
 
     (match Seamine.get_score !current_seamine with
     | -1 -> Seamine.draw texture_trap !current_seamine
@@ -210,7 +209,7 @@ module MiniWin : WindowSig = struct
     if !mini_score = !win_con then (
       mini_score := 0;
       current_state := Main;
-      Score.update_score score (3 + game_data.bait))
+      Score.update_score score (Fish.get_score !current_fish + game_data.bait))
     else if
       is_mouse_button_pressed MouseButton.Left
       && Target.colliding (get_mouse_position ()) !current_target

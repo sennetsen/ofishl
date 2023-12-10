@@ -1,6 +1,5 @@
 open Raylib
 open Boat
-open Fish
 open AudioSprite
 open Constants
 open Score
@@ -12,7 +11,7 @@ type state
 val current_state : state ref
 (** The current state of the window. *)
 
-val current_fish : Fish.t ref
+val current_fish : Sprites.Fish.t ref
 (** The currently spawned fish. *)
 
 val current_coin : Sprites.Coin.t ref

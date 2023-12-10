@@ -33,3 +33,6 @@ module Seamine : SpriteSig
 
 module Target : SpriteSig
 (** The module to represent the target sprite. *)
+
+module Fish : SpriteSig
+(** The module to represent the fish sprite. *)
