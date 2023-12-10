@@ -25,7 +25,10 @@ let print_welcome_screen () =
   let instructions =
     [
       "\027[36m Instructions: \027[0m";
-      "\027[36m Use the arrow keys or WASD to move. \027[0m";
+      "\027[36m Use the arrow keys or WASD to move. Press F to interact with \
+       fish and the store. \027[0m";
+      "\027[36m When in the store, click the red box or press X to exit. Hold \
+       down Left-Shift to mass buy 10 of the chosen item. \027[0m";
       "\027[36m Press the 'esc' key to quit. \027[0m";
       "\027[36m Go fish! \027[0m";
     ]
