@@ -114,6 +114,8 @@ let score_test out in1 _ =
     out
     (Score.get_score (update_score_from_lst (Score.new_score ()) in1))
 
+let score_text_print in1 = Printf.sprintf "function: Score.text\ninput: %d" in1
+
 let score_tests =
   [
     "Score.update_score: zero" >:: score_test 0 [];
@@ -138,6 +140,37 @@ let score_tests =
     >:: score_test (-10000) [ -1000; -2000; -3000; -4000 ];
     "Score.set: large negative updates"
     >:: score_test (-10000) [ -1000; -2000; -3000; -4000 ];
+    ( "Score.text: Score of 0 (starting score)" >:: fun _ ->
+      let new_score = Score.new_score () in
+      let input = Score.text new_score in
+      let expected = "Score: 0" in
+      assert_equal
+        ~msg:(score_text_print (Score.get_score new_score))
+        expected input );
+    ( "Score.text: Score of 5 (low int)" >:: fun _ ->
+      let new_score = Score.new_score () in
+      Score.update_score new_score 5;
+      let input = Score.text new_score in
+      let expected = "Score: 5" in
+      assert_equal
+        ~msg:(score_text_print (Score.get_score new_score))
+        expected input );
+    ( "Score.text: Score of 100000 (high int)" >:: fun _ ->
+      let new_score = Score.new_score () in
+      Score.update_score new_score 100000;
+      let input = Score.text new_score in
+      let expected = "Score: 100000" in
+      assert_equal
+        ~msg:(score_text_print (Score.get_score new_score))
+        expected input );
+    ( "Score.text: Score of -5 (high negative int, after penalties)" >:: fun _ ->
+      let new_score = Score.new_score () in
+      Score.update_score new_score ~-5;
+      let input = Score.text new_score in
+      let expected = "Score: -5" in
+      assert_equal
+        ~msg:(score_text_print (Score.get_score new_score))
+        expected input );
   ]
 
 let rec move_boat_from_lst boat lst =
