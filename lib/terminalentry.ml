@@ -20,7 +20,7 @@ let rec make_fish_string emoji count acc =
 
 let print_welcome_screen () =
   let title =
-    "\027[33m Welcome to OFishl, the official OCaml Fishing Tournament! \027[0m"
+    "\027[33m Welcome to OFishl, the Official OCaml Fishing Tournament! \027[0m"
   in
   let instructions =
     [
