@@ -45,7 +45,7 @@ let () =
         ^ Printf.sprintf "%.2f" elapsed_time
         ^ " seconds\n"
       in
-      Gamestats.save_to_file user chosen_map (time_string ^ stats);
+      Gamestats.save_to_file user (time_string ^ stats);
       Gamestats.print_save_notif true user;
       print_endline ""
   | false ->

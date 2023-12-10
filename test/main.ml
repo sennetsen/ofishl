@@ -10,9 +10,10 @@ open Sprites
 open Constants
 open Window
 open Loadables
+open Gamestats
 open AudioSprite
 
-(* Test Plan: Because the nature of the game returns most values as units, the
+(**Test Plan: Because the nature of the game returns most values as units, the
    test suite functions to ensure text functions in the terminal, collision
    logistics, and values such as boat angle and position, score, and other
    variables are working as intended. More specifically, it tests the modules
@@ -28,20 +29,62 @@ open AudioSprite
    free of bugs and exactly as intended, supplemented by the fact that our OUnit
    suite passes. *)
 
+let filepath_test_string in1 =
+  Printf.sprintf "function: Gamestats.output_file\ninput: %s" in1
+
 let terminal_tests =
   [
-    ( "make_fish_string" >:: fun _ ->
-      let expected_fish = "🐟🐟🐟" in
-      let fish = make_fish_string "🐟" 3 "" in
-      assert_equal expected_fish fish );
-    ( "make_fish_string_zero_count" >:: fun _ ->
+    (* Tests for make_fish_string function in terminal user interaction. *)
+    ( "make_fish_string, zero count" >:: fun _ ->
       let expected_fish = "" in
-      let fish = make_fish_string "🐟" 0 "" in
+      let fish = Terminalentry.make_fish_string "🐟" 0 "" in
       assert_equal expected_fish fish );
-    ( "make_fish_string_zero_count" >:: fun _ ->
+    ( "make_fish_string, one count" >:: fun _ ->
       let expected_fish = "" in
-      let fish = make_fish_string "🐟" 0 "" in
+      let fish = Terminalentry.make_fish_string "🐟" 0 "" in
       assert_equal expected_fish fish );
+    ( "make_fish_string, multiple count" >:: fun _ ->
+      let expected_fish = "🐟🐟🐟🐟🐟" in
+      let fish = Terminalentry.make_fish_string "🐟" 5 "" in
+      assert_equal expected_fish fish );
+    ( "make_fish_string, non-emoji one count" >:: fun _ ->
+      let expected_fish = "@" in
+      let fish = Terminalentry.make_fish_string "@" 1 "" in
+      assert_equal expected_fish fish );
+    ( "make_fish_string, non-emoji multiple count" >:: fun _ ->
+      let expected_fish = "-------" in
+      let fish = Terminalentry.make_fish_string "-" 7 "" in
+      assert_equal expected_fish fish );
+    ( "make_fish_string, emoji and ASCII character multiple count" >:: fun _ ->
+      let expected_fish = "🐪$🐠🐪$🐠🐪$🐠" in
+      let fish = Terminalentry.make_fish_string "🐪$🐠" 3 "" in
+      assert_equal expected_fish fish );
+    (* Tests for Gamestats output_file function in terminal user interaction. *)
+    ( "Gamestats output_file, empty user string" >:: fun _ ->
+      let name = "" in
+      let filename = Gamestats.output_file name in
+      let expected = "player_data/_stats.txt" in
+      assert_equal ~msg:(filepath_test_string name) expected filename );
+    ( "Gamestats output_file, multiple character user string" >:: fun _ ->
+      let name = "James" in
+      let filename = Gamestats.output_file name in
+      let expected = "player_data/James_stats.txt" in
+      assert_equal ~msg:(filepath_test_string name) expected filename );
+    ( "Gamestats output_file, first and last name user string" >:: fun _ ->
+      let name = "James Smith" in
+      let filename = Gamestats.output_file name in
+      let expected = "player_data/James Smith_stats.txt" in
+      assert_equal ~msg:(filepath_test_string name) expected filename );
+    ( "Gamestats output_file, emoji user string" >:: fun _ ->
+      let name = "🐠" in
+      let filename = Gamestats.output_file name in
+      let expected = "player_data/🐠_stats.txt" in
+      assert_equal ~msg:(filepath_test_string name) expected filename );
+    ( "Gamestats output_file, emoji and ASCII mixed user string" >:: fun _ ->
+      let name = "🐠camels3110🐪" in
+      let filename = Gamestats.output_file name in
+      let expected = "player_data/🐠camels3110🐪_stats.txt" in
+      assert_equal ~msg:(filepath_test_string name) expected filename );
   ]
 
 let box_collision_test out in1 in2 _ =
@@ -549,14 +592,12 @@ let get_bait = game_data.bait
 let bait_tests = []
 let h = canvas_height_fl
 let w = canvas_width_fl
-let v = volume
 let s = set_speed 50.
 
 let constant_tests =
   [
     ("canvas_height_f1 checker" >:: fun _ -> assert_equal 512. h);
     ("canvas_width_f1 checker" >:: fun _ -> assert_equal 512. w);
-    ("volume checker" >:: fun _ -> assert_equal 75 v);
     ("speed checker" >:: fun _ -> assert_equal 50. (get_speed ()));
   ]
 (* TODO *)

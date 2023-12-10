@@ -2,7 +2,12 @@ open Raylib
 open Unix
 open Window
 
-val save_to_file : string -> string -> string -> unit
+val output_file : string -> string
+(** [output_file] generates a filename for the player's statistics file. It
+    takes the player's name [user] as input and constructs its corresponding
+    file path. *)
+
+val save_to_file : string -> string -> unit
 (** [save_to_file] saves the provided [content] to a file with the specified
     user's name. *)
 
@@ -17,4 +22,4 @@ val print_content : Window.game_data -> string -> string -> string
 val print_save_notif : bool -> string -> unit
 (** [print_save_notif] alerts the player in the terminal that their game data
     has been saved to a given [filename] for [user], based on whether the data
-    saving was confirmed [is_confirmed]. *)
+    saving was confirmed from [is_confirmed]. *)

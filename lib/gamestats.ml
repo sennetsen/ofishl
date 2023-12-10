@@ -2,13 +2,15 @@ open Unix
 open Raylib
 open Window
 
-let save_to_file (user : string) (map : string) (content : string) =
-  let output_file = "player_data/" ^ user ^ "_stats.txt" in
-  let out_channel = open_out output_file in
+let output_file (user : string) : string = "player_data/" ^ user ^ "_stats.txt"
+
+let save_to_file (user : string) (content : string) =
+  let filename = output_file user in
+  let out_channel = open_out filename in
   let file_contents =
     "\n\
     \  🐪---------------------🐠\n\
-    \  |  OFishl Game Results |\n\
+    \  |  OFishl Game Results  |\n\
     \  🐠---------------------🐪\n\n" ^ content
   in
   output_string out_channel file_contents;
