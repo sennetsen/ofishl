@@ -38,6 +38,7 @@ type game_data = {
 val game_data : game_data
 (** Initial game data with default values. *)
 
+(** The signature of a window module. *)
 module type WindowSig = sig
   val setup : string -> string -> Loadables.t -> unit
   (** Sets up the window. *)

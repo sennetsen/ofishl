@@ -4,6 +4,7 @@ open Constants
 (** The signature of the boat character. *)
 module type BoatSig = sig
   type t
+  (** The type representing a boat. *)
 
   val new_boat : float -> float -> float -> float -> t
   (** Creates a new boat character at position (x, y) with width w and height h. *)
