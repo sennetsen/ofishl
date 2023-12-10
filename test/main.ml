@@ -175,10 +175,6 @@ let boat_tests =
     >:: boat_angle_test 0. (true, false, true, true);
     "Boat: draw boat positioned at 0 degrees wildcard case 4"
     >:: boat_angle_test 0. (true, true, true, true);
-    (* ( "Boat: check if border is crossed, upper border" >:: fun _ -> let boat
-       = Boat.new_boat 234. -143. 24. 45. in let expected = (Boat.get_x,
-       Boat.get_y) in assert_equal ~msg:formatted_border_cross_string
-       expected)*)
   ]
 
 let suite =
