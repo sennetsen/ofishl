@@ -309,27 +309,27 @@ let coin_false1 = Coin.generate_fixed 260. 120.
 let coin_false2 = Coin.generate_fixed 440. 360.
 let coin_false3 = Coin.generate_fixed 325. 280.
 
-let coin_colliding_test out in1 in2 _ =
+let coins_colliding_test out in1 in2 _ =
   assert_equal ~printer:string_of_bool
     ~msg:(Printf.sprintf "function: Coin.colliding")
     out (Coin.colliding in1 in2)
 
-let coin_colliding_tests =
+let coins_colliding_tests =
   [
     "Coin collision: true 1"
-    >:: coin_colliding_test true (Boat.get_vect boat) coin_true1;
+    >:: coins_colliding_test true (Boat.get_vect boat) coin_true1;
     "Coin collision: true 2"
-    >:: coin_colliding_test true (Boat.get_vect boat) coin_true2;
+    >:: coins_colliding_test true (Boat.get_vect boat) coin_true2;
     "Coin collision: true 3"
-    >:: coin_colliding_test true (Boat.get_vect boat) coin_true3;
+    >:: coins_colliding_test true (Boat.get_vect boat) coin_true3;
     "Coin collision: true 4"
-    >:: coin_colliding_test true (Boat.get_vect boat) coin_true4;
+    >:: coins_colliding_test true (Boat.get_vect boat) coin_true4;
     "Coin collision: false 1"
-    >:: coin_colliding_test false (Boat.get_vect boat) coin_false1;
+    >:: coins_colliding_test false (Boat.get_vect boat) coin_false1;
     "Coin collision: false 2"
-    >:: coin_colliding_test false (Boat.get_vect boat) coin_false2;
+    >:: coins_colliding_test false (Boat.get_vect boat) coin_false2;
     "Coin collision: false 3"
-    >:: coin_colliding_test false (Boat.get_vect boat) coin_false3;
+    >:: coins_colliding_test false (Boat.get_vect boat) coin_false3;
   ]
 
 let seamine_true1 = Seamine.generate_fixed 310. 260.
@@ -341,44 +341,99 @@ let seamine_false2 = Seamine.generate_fixed 325. 282.
 let seamine_false3 = Seamine.generate_fixed 120. 120.
 let seamine_false4 = Seamine.generate_fixed 400. 310.
 
-let seamine_colliding_test out in1 in2 _ =
+let seamines_colliding_test out in1 in2 _ =
   assert_equal ~printer:string_of_bool
     ~msg:(Printf.sprintf "function: Seamine.colliding")
     out
     (Seamine.colliding in1 in2)
 
-let seamine_colliding_tests =
+let seamines_colliding_tests =
   [
     "Seamine collision: true 1"
-    >:: seamine_colliding_test true (Boat.get_vect boat) seamine_true1;
+    >:: seamines_colliding_test true (Boat.get_vect boat) seamine_true1;
     "Seamine collision: true 2"
-    >:: seamine_colliding_test true (Boat.get_vect boat) seamine_true2;
+    >:: seamines_colliding_test true (Boat.get_vect boat) seamine_true2;
     "Seamine collision: true 3"
-    >:: seamine_colliding_test true (Boat.get_vect boat) seamine_true3;
+    >:: seamines_colliding_test true (Boat.get_vect boat) seamine_true3;
     "Seamine collision: true 4"
-    >:: seamine_colliding_test true (Boat.get_vect boat) seamine_true4;
+    >:: seamines_colliding_test true (Boat.get_vect boat) seamine_true4;
     "Seamine collision: false 1"
-    >:: seamine_colliding_test false (Boat.get_vect boat) seamine_false1;
+    >:: seamines_colliding_test false (Boat.get_vect boat) seamine_false1;
     "Seamine collision: false 2"
-    >:: seamine_colliding_test false (Boat.get_vect boat) seamine_false2;
+    >:: seamines_colliding_test false (Boat.get_vect boat) seamine_false2;
     "Seamine collision: false 3"
-    >:: seamine_colliding_test false (Boat.get_vect boat) seamine_false3;
+    >:: seamines_colliding_test false (Boat.get_vect boat) seamine_false3;
     "Seamine collision: false 4"
-    >:: seamine_colliding_test false (Boat.get_vect boat) seamine_false4;
+    >:: seamines_colliding_test false (Boat.get_vect boat) seamine_false4;
   ]
 
 let mouse = Vector2.create 310. 260.
 let target_true1 = Target.generate_fixed 310. 260.
+let target_true2 = Target.generate_fixed 300. 250.
+let target_true3 = Target.generate_fixed 322. 270.
+let target_true4 = Target.generate_fixed 315. 266.
+let target_false1 = Target.generate_fixed 291. 241.
+let target_false2 = Target.generate_fixed 329. 279.
+let target_false3 = Target.generate_fixed 120. 122.
+let target_false4 = Target.generate_fixed 400. 300.
 
-let target_colliding_test out in1 in2 _ =
+let targets_colliding_test out in1 in2 _ =
   assert_equal ~printer:string_of_bool
     ~msg:(Printf.sprintf "function: Target.colliding")
     out (Target.colliding in1 in2)
 
-let target_colliding_tests =
+let targets_colliding_tests =
   [
     "Target collision: true 1"
-    >:: seamine_colliding_test true mouse seamine_true1;
+    >:: targets_colliding_test true mouse target_true1;
+    "Target collision: true 2"
+    >:: targets_colliding_test true mouse target_true2;
+    "Target collision: true 3"
+    >:: targets_colliding_test true mouse target_true3;
+    "Target collision: true 4"
+    >:: targets_colliding_test true mouse target_true4;
+    "Target collision: false 1"
+    >:: targets_colliding_test false mouse target_false1;
+    "Target collision: false 2"
+    >:: targets_colliding_test false mouse target_false2;
+    "Target collision: false 3"
+    >:: targets_colliding_test false mouse target_false3;
+    "Target collision: false 4"
+    >:: targets_colliding_test false mouse target_false4;
+  ]
+
+let fish_true1 = Fish.generate_fixed 310. 260.
+let fish_true2 = Fish.generate_fixed 290. 240.
+let fish_true3 = Fish.generate_fixed 330. 280.
+let fish_true4 = Fish.generate_fixed 300. 270.
+let fish_false1 = Fish.generate_fixed 250. 200.
+let fish_false2 = Fish.generate_fixed 370. 320.
+let fish_false3 = Fish.generate_fixed 200. 400.
+let fish_false4 = Fish.generate_fixed 400. 200.
+
+let fish_colliding_test out in1 in2 _ =
+  assert_equal ~printer:string_of_bool
+    ~msg:(Printf.sprintf "function: Fish.colliding")
+    out (Fish.colliding in1 in2)
+
+let fish_colliding_tests =
+  [
+    "Fish collision: true 1"
+    >:: fish_colliding_test true (Boat.get_vect boat) fish_true1;
+    "Fish collision: true 2"
+    >:: fish_colliding_test true (Boat.get_vect boat) fish_true2;
+    "Fish collision: true 3"
+    >:: fish_colliding_test true (Boat.get_vect boat) fish_true3;
+    "Fish collision: true 4"
+    >:: fish_colliding_test true (Boat.get_vect boat) fish_true4;
+    "Fish collision: false 1"
+    >:: fish_colliding_test false (Boat.get_vect boat) fish_false1;
+    "Fish collision: false 2"
+    >:: fish_colliding_test false (Boat.get_vect boat) fish_false2;
+    "Fish collision: false 3"
+    >:: fish_colliding_test false (Boat.get_vect boat) fish_false3;
+    "Fish collision: false 4"
+    >:: fish_colliding_test false (Boat.get_vect boat) fish_false4;
   ]
 
 module SpriteTester =
@@ -424,6 +479,10 @@ let suite =
            TargetTester.tests;
            SeamineTester.tests;
            FishTester.tests;
+           coins_colliding_tests;
+           seamines_colliding_tests;
+           targets_colliding_tests;
+           fish_colliding_tests;
          ]
 
 let () = run_test_tt_main suite
