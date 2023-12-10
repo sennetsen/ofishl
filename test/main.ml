@@ -297,30 +297,30 @@ let boat_tests =
     >:: boat_move_test (512., 260.) [ (-700., 0.) ];
     "Boat: new_boat, border collision check for y"
     >:: boat_move_test (310., 512.) [ (0., -500.) ];
-    "Boat: draw boat positioned at 45 degrees math case 1"
+    "Boat: draw boat positioned at 45 degrees"
     >:: boat_angle_test 45. (true, true, false, false);
-    "Boat: draw boat positioned at 45 degrees match case 2"
-    >:: boat_angle_test 45. (false, false, true, true);
-    "Boat: draw boat positioned at 135 degrees match case 1"
-    >:: boat_angle_test 135. (false, true, true, false);
-    "Boat: draw boat positioned at 135 degrees match case 2"
+    "Boat: draw boat positioned at 225 degrees"
+    >:: boat_angle_test 225. (false, false, true, true);
+    "Boat: draw boat positioned at 315 degrees"
+    >:: boat_angle_test 315. (false, true, true, false);
+    "Boat: draw boat positioned at 135 degrees"
     >:: boat_angle_test 135. (true, false, false, true);
-    "Boat: draw boat positioned at 90 degrees match case 1"
-    >:: boat_angle_test 90. (true, false, false, false);
-    "Boat: draw boat positioned at 90 degrees match case 2"
-    >:: boat_angle_test 90. (false, false, true, false);
-    "Boat: draw boat positioned at 90 degrees match case 3"
-    >:: boat_angle_test 90. (false, true, true, true);
-    "Boat: draw boat positioned at 90 degrees match case 4"
-    >:: boat_angle_test 90. (true, true, false, true);
-    "Boat: draw boat positioned at 0 degrees wildcard case 1"
-    >:: boat_angle_test 0. (false, false, false, false);
-    "Boat: draw boat positioned at 0 degrees wildcard case 2"
+    "Boat: draw boat positioned at 0 degrees 1"
+    >:: boat_angle_test 0. (false, true, false, false);
+    "Boat: draw boat positioned at 0 degrees 2"
     >:: boat_angle_test 0. (true, true, true, false);
-    "Boat: draw boat positioned at 0 degrees wildcard case 3"
-    >:: boat_angle_test 0. (true, false, true, true);
-    "Boat: draw boat positioned at 0 degrees wildcard case 4"
-    >:: boat_angle_test 0. (true, true, true, true);
+    "Boat: draw boat positioned at 90 degrees 1"
+    >:: boat_angle_test 90. (true, true, false, true);
+    "Boat: draw boat positioned at 90 degrees 2"
+    >:: boat_angle_test 90. (true, false, false, false);
+    "Boat: draw boat positioned at 180 degrees 1"
+    >:: boat_angle_test 180. (true, false, true, true);
+    "Boat: draw boat positioned at 180 degrees 2"
+    >:: boat_angle_test 180. (false, false, false, true);
+    "Boat: draw boat positioned at 270 degrees"
+    >:: boat_angle_test 270. (false, true, true, true);
+    "Boat: draw boat positioned at 270 degrees"
+    >:: boat_angle_test 270. (false, false, true, false);
     ( "Boat: check if border is crossed, above upper border" >:: fun _ ->
       let boat = Boat.new_boat 234. (-143.) 24. 45. in
       let expected = (Boat.get_x boat, Boat.get_y boat) in
