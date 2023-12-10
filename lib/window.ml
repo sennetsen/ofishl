@@ -345,5 +345,6 @@ let run (map : string) (user : string) =
   (*Raylib.set_trace_log_level Error; *)
   let loads = setup map user in
   AudioSprite.play (Loadables.background_sound loads);
+  Raylib.set_sound_volume (Loadables.coin_sound loads) 0.1;
   (* Silence verbose log output. *)
   looper map user !current_state loads
